@@ -8,27 +8,10 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
 
-  <!-- ============================================================
-       PORTFOLIO: Ankur Ratwaya
-       Built: May 2026
-       
-       HOW TO EDIT THIS FILE
-       ─────────────────────
-       Each section is clearly marked with:
-         <!-- ██ SECTION NAME ██ -->
-       
-       Use Ctrl+F (or Cmd+F) to jump to any section:
-         "██ CONFIG"       → Your name, tagline, social links
-         "██ NAV"          → Navigation bar
-         "██ HERO"         → Hero section (name, photo, stats)
-         "██ IDENTITY"     → Product vs Technology split
-         "██ TECH PROJ"    → Technology projects (3 cards)
-         "██ PROD PROJ"    → Product projects (add yours here)
-         "██ EXPERIENCE"   → Work timeline
-         "██ CERTS"        → Certifications shelf
-         "██ FOOTER"       → Contact & footer
-         "██ CSS VARS"     → Colors, fonts, spacing
-  ============================================================ -->
+  <!--
+    EDIT GUIDE: Use Ctrl+F to find any section by its label e.g. "HERO SECTION" "EXPERIENCE SECTION"
+    All editable values are marked with: TO EDIT
+  -->
 
   <style>
 
@@ -180,7 +163,8 @@
       display: grid;
       grid-template-columns: 1fr 280px;
       gap: 48px;
-      align-items: center;
+      align-items: start;
+      overflow: hidden;
     }
     .hero-avail {
       display: inline-flex; align-items: center; gap: 7px;
@@ -257,6 +241,9 @@
     /* Photo */
     .hero-photo-wrap {
       position: relative;
+      width: 280px;
+      flex-shrink: 0;
+      align-self: flex-start;
     }
     .hero-photo-wrap::before {
       content: '';
@@ -267,11 +254,14 @@
       z-index: 0;
     }
     .hero-photo {
-      width: 100%; aspect-ratio: 4/5;
-      object-fit: cover; object-position: center top;
+      width: 100%;
+      height: 340px;
+      object-fit: cover;
+      object-position: center top;
       border-radius: var(--radius-lg);
       position: relative; z-index: 1;
       border: 1px solid var(--border);
+      display: block;
     }
     .hero-photo-badge {
       position: absolute; bottom: 14px; left: 50%; transform: translateX(-50%);
@@ -749,6 +739,24 @@
             <a class="btn-outline" href="mailto:ankur.ratwaya@gmail.com">Let's Talk →</a>
           </div>
 
+          <div class="Domain">
+            <div class="tj-label">Domains</div>
+
+            <div class="hero-avail">
+              <span class="hero-avail-dot"></span>
+              Health Care
+            </div>
+            <div class="hero-avail">
+              <span class="hero-avail-dot"></span>
+              EdTech
+            </div>
+            <div class="hero-avail">
+              <span class="hero-avail-dot"></span>
+              Fintech
+            </div>
+
+          </div>
+
           <!-- ░░ TO EDIT: update stat numbers ░░ -->
           <div class="hero-stats">
             <div class="hero-stat">
@@ -756,12 +764,12 @@
               <div class="hero-stat-l">Yrs Exp</div>
             </div>
             <div class="hero-stat">
-              <div class="hero-stat-n">AI/ML</div>
-              <div class="hero-stat-l">Certified</div>
+              <div class="hero-stat-n">15+</div>
+              <div class="hero-stat-l">Product Lead</div>
             </div>
             <div class="hero-stat">
-              <div class="hero-stat-n">3+</div>
-              <div class="hero-stat-l">Products Built</div>
+              <div class="hero-stat-n">10+</div>
+              <div class="hero-stat-l">AI/ML Products Built</div>
             </div>
             <div class="hero-stat">
               <div class="hero-stat-n">6</div>
@@ -769,6 +777,8 @@
             </div>
           </div>
         </div>
+
+
 
         <!-- Right: Photo -->
         <!-- ░░ TO EDIT: replace src with your photo path or base64 ░░ -->
