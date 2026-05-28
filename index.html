@@ -1,0 +1,1334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ankur Ratwaya — Product Leader & AI/ML Practitioner</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+
+  <!-- ============================================================
+       PORTFOLIO: Ankur Ratwaya
+       Built: May 2026
+       
+       HOW TO EDIT THIS FILE
+       ─────────────────────
+       Each section is clearly marked with:
+         <!-- ██ SECTION NAME ██ -->
+       
+       Use Ctrl+F (or Cmd+F) to jump to any section:
+         "██ CONFIG"       → Your name, tagline, social links
+         "██ NAV"          → Navigation bar
+         "██ HERO"         → Hero section (name, photo, stats)
+         "██ IDENTITY"     → Product vs Technology split
+         "██ TECH PROJ"    → Technology projects (3 cards)
+         "██ PROD PROJ"    → Product projects (add yours here)
+         "██ EXPERIENCE"   → Work timeline
+         "██ CERTS"        → Certifications shelf
+         "██ FOOTER"       → Contact & footer
+         "██ CSS VARS"     → Colors, fonts, spacing
+  ============================================================ -->
+
+  <style>
+
+    /* ██ CSS VARS ██ ─────────────────────────────────────────
+       Change colors, fonts, and spacing here.
+       These cascade everywhere automatically.
+    ──────────────────────────────────────────────────────── */
+    :root {
+      --white:       #ffffff;
+      --off-white:   #f9f8f5;
+      --surface:     #f3f2ee;
+      --border:      #e4e2db;
+      --border-mid:  #ccc9be;
+      --text-1:      #18170f;
+      --text-2:      #5a5849;
+      --text-3:      #9a9486;
+      --product:     #18170f;      /* product column accent */
+      --tech:        #0b3320;      /* tech column accent    */
+      --tech-light:  #e6f4ea;
+      --tech-mid:    #1a7a4a;
+      --prod-light:  #eef0f8;
+      --prod-mid:    #3a4db7;
+      --green-badge: #1a7a4a;
+      --radius-sm:   6px;
+      --radius-md:   10px;
+      --radius-lg:   16px;
+      --font-display: 'Fraunces', Georgia, serif;
+      --font-body:    'DM Sans', sans-serif;
+      --font-mono:    'Space Mono', monospace;
+    }
+
+    /* ── RESET & BASE ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-body);
+      background: var(--off-white);
+      color: var(--text-1);
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+
+    /* ── UTILITY ── */
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+    .section-label {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--text-3);
+      margin-bottom: 10px;
+    }
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(26px, 3.5vw, 38px);
+      font-weight: 400;
+      color: var(--text-1);
+      line-height: 1.15;
+    }
+    .section-sub {
+      font-size: 15px;
+      color: var(--text-2);
+      margin-top: 8px;
+      max-width: 520px;
+    }
+    .reveal {
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .reveal.visible { opacity: 1; transform: none; }
+    .divider { border: none; border-top: 1px solid var(--border); }
+
+    /* ══════════════════════════════════════════════════════
+       ██ NAV ██
+    ══════════════════════════════════════════════════════ */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(249,248,245,0.88);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+      transition: box-shadow 0.3s;
+    }
+    .nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.06); }
+    .nav-inner {
+      max-width: 1100px; margin: 0 auto;
+      padding: 0 24px;
+      height: 58px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-logo {
+      font-family: var(--font-display);
+      font-size: 17px; font-weight: 500;
+      letter-spacing: -0.3px;
+    }
+    .nav-logo span { font-style: italic; font-weight: 300; color: var(--text-2); }
+    .nav-links {
+      display: flex; gap: 28px; align-items: center;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 13px; color: var(--text-2);
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--text-1); }
+    .nav-cta {
+      font-size: 12px; font-weight: 500;
+      padding: 7px 18px;
+      border: 1px solid var(--border-mid);
+      border-radius: 40px;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .nav-cta:hover { background: var(--surface); border-color: var(--text-3); }
+    .nav-mobile-btn {
+      display: none; background: none; border: none;
+      cursor: pointer; padding: 6px;
+      flex-direction: column; gap: 5px;
+    }
+    .nav-mobile-btn span {
+      display: block; width: 22px; height: 1.5px;
+      background: var(--text-1); border-radius: 2px;
+      transition: transform 0.3s, opacity 0.3s;
+    }
+    .nav-mobile-btn.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .nav-mobile-btn.open span:nth-child(2) { opacity: 0; }
+    .nav-mobile-btn.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+    .nav-mobile-menu {
+      display: none; flex-direction: column; gap: 0;
+      padding: 0 24px 16px; border-top: 1px solid var(--border);
+    }
+    .nav-mobile-menu.open { display: flex; }
+    .nav-mobile-menu a {
+      padding: 12px 0; font-size: 15px; color: var(--text-2);
+      border-bottom: 1px solid var(--border);
+    }
+
+    /* ══════════════════════════════════════════════════════
+       ██ HERO ██
+    ══════════════════════════════════════════════════════ */
+    .hero-section {
+      padding: 110px 0 70px;
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+    }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 48px;
+      align-items: center;
+    }
+    .hero-avail {
+      display: inline-flex; align-items: center; gap: 7px;
+      background: #e8f5e9; border: 1px solid #a5d6a7;
+      border-radius: 40px; padding: 5px 14px;
+      font-size: 11px; color: #2e7d32; font-weight: 500;
+      margin-bottom: 18px;
+    }
+    .hero-avail-dot {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: #4caf50;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.6; transform: scale(0.85); }
+    }
+    .hero-name {
+      font-family: var(--font-display);
+      font-size: clamp(38px, 5.5vw, 62px);
+      font-weight: 400; line-height: 1.05;
+      letter-spacing: -1px;
+    }
+    .hero-name em { font-style: italic; font-weight: 300; color: var(--text-2); }
+    .hero-role {
+      font-size: 16px; color: var(--text-2);
+      margin: 10px 0 5px; font-weight: 400;
+    }
+    .hero-degree {
+      font-family: var(--font-mono);
+      font-size: 11px; color: var(--text-3);
+      letter-spacing: 0.5px;
+    }
+    .hero-degree b { color: var(--text-2); }
+    .hero-tagline {
+      font-size: 15px; color: var(--text-2);
+      line-height: 1.7; max-width: 460px;
+      margin: 18px 0 24px;
+    }
+    .hero-btns { display: flex; gap: 10px; margin-bottom: 28px; flex-wrap: wrap; }
+    .btn-primary {
+      background: var(--text-1); color: var(--white);
+      padding: 10px 22px; border-radius: 40px;
+      font-size: 13px; font-weight: 500;
+      border: 1px solid var(--text-1);
+      transition: opacity 0.2s;
+      cursor: pointer;
+    }
+    .btn-primary:hover { opacity: 0.85; }
+    .btn-outline {
+      background: transparent; color: var(--text-1);
+      padding: 10px 22px; border-radius: 40px;
+      font-size: 13px; border: 1px solid var(--border-mid);
+      transition: border-color 0.2s, background 0.2s;
+      cursor: pointer;
+    }
+    .btn-outline:hover { border-color: var(--text-3); background: var(--surface); }
+    .hero-stats { display: flex; gap: 10px; flex-wrap: wrap; }
+    .hero-stat {
+      background: var(--off-white); border: 1px solid var(--border);
+      border-radius: var(--radius-md); padding: 10px 16px;
+      text-align: center; min-width: 72px;
+    }
+    .hero-stat-n {
+      font-family: var(--font-display);
+      font-size: 22px; font-weight: 500; color: var(--text-1);
+      line-height: 1;
+    }
+    .hero-stat-l {
+      font-size: 10px; color: var(--text-3);
+      margin-top: 3px; font-weight: 400;
+    }
+
+    /* Photo */
+    .hero-photo-wrap {
+      position: relative;
+    }
+    .hero-photo-wrap::before {
+      content: '';
+      position: absolute;
+      inset: -8px -8px -8px 8px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      z-index: 0;
+    }
+    .hero-photo {
+      width: 100%; aspect-ratio: 4/5;
+      object-fit: cover; object-position: center top;
+      border-radius: var(--radius-lg);
+      position: relative; z-index: 1;
+      border: 1px solid var(--border);
+    }
+    .hero-photo-badge {
+      position: absolute; bottom: 14px; left: 50%; transform: translateX(-50%);
+      z-index: 2;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(8px);
+      border: 1px solid var(--border);
+      border-radius: 40px;
+      padding: 5px 14px;
+      font-size: 11px; color: var(--text-2);
+      white-space: nowrap;
+    }
+
+    /* ══════════════════════════════════════════════════════
+       ██ IDENTITY ██  (Product | Technology split)
+    ══════════════════════════════════════════════════════ */
+    .identity-section {
+      padding: 72px 0;
+      background: var(--off-white);
+    }
+    .identity-header {
+      text-align: center; margin-bottom: 40px;
+    }
+    .identity-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
+    }
+    .identity-col {
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      border: 1px solid var(--border);
+      background: var(--white);
+    }
+    .identity-head {
+      padding: 18px 22px;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .identity-head.product { background: var(--product); }
+    .identity-head.tech    { background: var(--tech); }
+    .identity-head-title {
+      font-family: var(--font-display);
+      font-size: 20px; font-weight: 400; color: #fff;
+    }
+    .identity-head-sub { font-size: 11px; color: rgba(255,255,255,0.45); }
+
+    .identity-skills { padding: 16px; display: flex; flex-direction: column; gap: 10px; }
+    .skill-row {
+      background: var(--off-white);
+      border-radius: var(--radius-md); padding: 12px 14px;
+    }
+    .skill-name { font-size: 12px; font-weight: 500; margin-bottom: 6px; }
+    .skill-bar { height: 4px; border-radius: 2px; background: var(--border); overflow: hidden; }
+    .skill-fill-p { height: 100%; border-radius: 2px; background: var(--product); }
+    .skill-fill-t { height: 100%; border-radius: 2px; background: var(--tech-mid); }
+
+    /* Tech mini timeline */
+    .tech-journey {
+      padding: 14px 16px;
+      border-top: 1px solid var(--border);
+      background: var(--white);
+    }
+    .tj-label {
+      font-family: var(--font-mono); font-size: 9px;
+      letter-spacing: 2px; text-transform: uppercase;
+      color: var(--text-3); margin-bottom: 12px;
+    }
+    .tj-row { display: flex; align-items: stretch; gap: 0; }
+    .tj-node { flex: 1; }
+    .tj-card {
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md); padding: 10px 12px;
+      height: 100%;
+    }
+    .tj-card.current {
+      border-color: var(--tech-mid);
+      background: var(--tech-light);
+    }
+    .tj-card-title { font-size: 12px; font-weight: 500; }
+    .tj-card.current .tj-card-title { color: var(--tech); }
+    .tj-card-years { font-size: 10px; color: var(--text-3); margin-top: 2px; }
+    .tj-card-skills { font-size: 10px; color: var(--text-2); margin-top: 5px; line-height: 1.5; }
+    .tj-badge {
+      display: inline-block;
+      background: var(--tech-mid); color: #fff;
+      font-size: 9px; border-radius: 20px;
+      padding: 2px 8px; margin-top: 5px;
+    }
+    .tj-arrow {
+      display: flex; align-items: center;
+      padding: 0 8px; color: var(--text-3);
+      font-size: 14px; flex-shrink: 0;
+    }
+
+    /* Tags */
+    .identity-tags { padding: 12px 16px; display: flex; flex-wrap: wrap; gap: 6px; }
+    .tag {
+      border-radius: 20px; padding: 4px 11px; font-size: 10px; font-weight: 500;
+    }
+    .tag-p { background: var(--prod-light); color: var(--prod-mid); }
+    .tag-t { background: var(--tech-light); color: var(--tech-mid); }
+
+    .identity-cta {
+      padding: 12px 16px;
+      border-top: 1px solid var(--border);
+      text-align: center;
+    }
+    .identity-cta p { font-size: 10px; color: var(--text-3); margin-bottom: 3px; }
+    .identity-cta a { font-size: 12px; font-weight: 500; color: var(--text-1); }
+    .identity-cta a:hover { color: var(--tech-mid); }
+
+    /* ══════════════════════════════════════════════════════
+       ██ TECH PROJ ██  (Technology Projects)
+    ══════════════════════════════════════════════════════ */
+    .projects-section {
+      padding: 72px 0;
+      background: var(--white);
+      border-top: 1px solid var(--border);
+    }
+    .projects-header { margin-bottom: 36px; }
+    .proj-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .proj-card {
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      background: var(--white);
+      transition: box-shadow 0.25s, transform 0.25s;
+    }
+    .proj-card:hover {
+      box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+      transform: translateY(-3px);
+    }
+    .proj-thumb {
+      height: 80px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 32px;
+    }
+    .proj-thumb.fraud  { background: #fff3f3; }
+    .proj-thumb.ai     { background: #f0f4ff; }
+    .proj-thumb.health { background: #f0faf4; }
+
+    .proj-body { padding: 14px 16px 16px; }
+    .proj-tag {
+      font-size: 9px; text-transform: uppercase;
+      letter-spacing: 1.5px; color: var(--text-3);
+      font-family: var(--font-mono); margin-bottom: 5px;
+    }
+    .proj-name {
+      font-size: 13px; font-weight: 500;
+      color: var(--text-1); line-height: 1.4; margin-bottom: 8px;
+    }
+    .proj-desc {
+      font-size: 12px; color: var(--text-2);
+      line-height: 1.6; margin-bottom: 12px;
+    }
+    .proj-metrics { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 14px; }
+    .proj-metric {
+      font-family: var(--font-mono); font-size: 10px;
+      background: var(--off-white); border: 1px solid var(--border);
+      border-radius: 4px; padding: 3px 8px; color: var(--text-2);
+    }
+    .proj-links { display: flex; gap: 8px; flex-wrap: wrap; }
+    .proj-link {
+      font-size: 11px; font-weight: 500;
+      padding: 6px 14px; border-radius: 40px;
+      border: 1px solid var(--border-mid);
+      transition: background 0.2s, border-color 0.2s;
+      display: inline-flex; align-items: center; gap: 5px;
+    }
+    .proj-link:hover { background: var(--surface); border-color: var(--text-3); }
+    .proj-link svg { width: 12px; height: 12px; }
+
+    /* Tech stack scroller */
+    .stack-section {
+      margin-top: 44px; padding-top: 28px;
+      border-top: 1px solid var(--border);
+    }
+    .stack-label {
+      font-family: var(--font-mono); font-size: 10px;
+      letter-spacing: 2px; text-transform: uppercase;
+      color: var(--text-3); text-align: center; margin-bottom: 14px;
+    }
+    .scroll-outer {
+      overflow: hidden;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 14px 0;
+      background: var(--off-white);
+      position: relative;
+    }
+    .scroll-outer::before, .scroll-outer::after {
+      content: ''; position: absolute; top: 0; bottom: 0; width: 60px; z-index: 2;
+      pointer-events: none;
+    }
+    .scroll-outer::before { left: 0; background: linear-gradient(to right, var(--off-white), transparent); }
+    .scroll-outer::after  { right: 0; background: linear-gradient(to left, var(--off-white), transparent); }
+    .scroll-track {
+      display: flex; gap: 12px;
+      animation: marquee 28s linear infinite;
+      width: max-content;
+    }
+    .scroll-outer:hover .scroll-track { animation-play-state: paused; }
+    @keyframes marquee {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    .logo-chip {
+      display: flex; align-items: center; gap: 8px;
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: var(--radius-md); padding: 7px 14px;
+      white-space: nowrap; transition: border-color 0.2s;
+    }
+    .logo-chip:hover { border-color: var(--border-mid); }
+    .logo-chip span { font-size: 12px; color: var(--text-2); font-weight: 500; }
+    .logo-chip img { width: 20px; height: 20px; object-fit: contain; }
+
+    /* ══════════════════════════════════════════════════════
+       ██ PROD PROJ ██  (Product Projects — add yours here)
+    ══════════════════════════════════════════════════════ */
+    .prod-projects-section {
+      padding: 72px 0;
+      background: var(--off-white);
+      border-top: 1px solid var(--border);
+    }
+    .prod-placeholder {
+      border: 1.5px dashed var(--border-mid);
+      border-radius: var(--radius-lg);
+      padding: 52px 24px;
+      text-align: center;
+      background: var(--white);
+    }
+    .prod-placeholder p { font-size: 14px; color: var(--text-2); margin-bottom: 6px; font-weight: 500; }
+    .prod-placeholder span { font-size: 12px; color: var(--text-3); }
+
+    /* ══════════════════════════════════════════════════════
+       ██ EXPERIENCE ██
+    ══════════════════════════════════════════════════════ */
+    .experience-section {
+      padding: 72px 0;
+      background: var(--white);
+      border-top: 1px solid var(--border);
+    }
+    .exp-header { margin-bottom: 40px; }
+    .exp-timeline { position: relative; padding-left: 36px; }
+    .exp-timeline::before {
+      content: ''; position: absolute;
+      left: 10px; top: 8px; bottom: 8px;
+      width: 1px; background: var(--border);
+    }
+    .exp-item { position: relative; margin-bottom: 18px; }
+    .exp-dot {
+      position: absolute; left: -30px; top: 18px;
+      width: 13px; height: 13px; border-radius: 50%;
+      border: 2px solid var(--white);
+    }
+    .exp-dot.d1 { background: var(--text-1); }
+    .exp-dot.d2 { background: #555; }
+    .exp-dot.d3 { background: #999; }
+    .exp-dot.d4 { background: var(--border-mid); }
+    .exp-card {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: var(--radius-lg); padding: 18px 20px;
+      transition: box-shadow 0.2s;
+    }
+    .exp-card:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.06); }
+    .exp-top {
+      display: flex; justify-content: space-between;
+      align-items: flex-start; gap: 12px; margin-bottom: 4px;
+    }
+    .exp-company {
+      font-family: var(--font-display);
+      font-size: 17px; font-weight: 500;
+      color: var(--text-1);
+    }
+    .exp-date {
+      font-family: var(--font-mono); font-size: 11px;
+      color: var(--text-3); white-space: nowrap; flex-shrink: 0;
+      background: var(--off-white); border: 1px solid var(--border);
+      border-radius: 4px; padding: 3px 8px;
+    }
+    .exp-role {
+      font-size: 12px; font-weight: 500;
+      color: var(--text-2); margin-bottom: 4px;
+    }
+    .exp-product-line {
+      font-size: 11px; color: var(--text-3);
+      font-style: italic; margin-bottom: 12px;
+    }
+    .exp-bullets {
+      list-style: none; display: flex; flex-direction: column; gap: 7px;
+    }
+    .exp-bullets li {
+      font-size: 13px; color: var(--text-2); line-height: 1.6;
+      padding-left: 14px; position: relative;
+    }
+    .exp-bullets li::before {
+      content: ''; position: absolute; left: 0; top: 9px;
+      width: 5px; height: 1px; background: var(--border-mid);
+    }
+    /* Expand/collapse toggle */
+    .exp-toggle {
+      margin-top: 12px; background: none; border: none;
+      cursor: pointer; font-size: 11px; color: var(--text-3);
+      font-family: var(--font-body);
+      display: flex; align-items: center; gap: 5px;
+      transition: color 0.2s;
+    }
+    .exp-toggle:hover { color: var(--text-1); }
+    .exp-extra { display: none; }
+    .exp-extra.open { display: flex; flex-direction: column; gap: 7px; margin-top: 7px; }
+
+    /* ══════════════════════════════════════════════════════
+       ██ CERTS ██
+    ══════════════════════════════════════════════════════ */
+    .certs-section {
+      padding: 56px 0;
+      background: var(--off-white);
+      border-top: 1px solid var(--border);
+    }
+    .certs-inner {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: var(--radius-lg); padding: 28px;
+    }
+    .certs-title {
+      font-family: var(--font-display);
+      font-size: 18px; font-weight: 400;
+      text-align: center; margin-bottom: 20px;
+    }
+    .certs-row { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
+    .cert-card {
+      background: var(--off-white); border: 1px solid var(--border);
+      border-radius: var(--radius-md); padding: 10px 14px;
+      display: flex; align-items: center; gap: 10px;
+      min-width: 200px; transition: box-shadow 0.2s;
+    }
+    .cert-card:hover { box-shadow: 0 3px 14px rgba(0,0,0,0.07); }
+    .cert-logo {
+      width: 32px; height: 32px; border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 11px; font-weight: 700; flex-shrink: 0; color: #fff;
+    }
+    .cert-logo.ps    { background: #1a3460; }
+    .cert-logo.pendo { background: #ff2d6d; }
+    .cert-info-org { font-size: 10px; color: var(--text-3); }
+    .cert-info-name {
+      font-size: 11px; font-weight: 500; color: var(--text-1);
+      transition: color 0.2s;
+    }
+    .cert-card:hover .cert-info-name { color: var(--tech-mid); }
+    .cert-badge {
+      background: var(--tech-light); color: var(--green-badge);
+      font-size: 9px; border-radius: 20px;
+      padding: 2px 7px; margin-top: 3px; display: inline-block;
+    }
+
+    /* ══════════════════════════════════════════════════════
+       ██ FOOTER ██
+    ══════════════════════════════════════════════════════ */
+    .footer-section {
+      padding: 48px 0 32px;
+      background: var(--text-1);
+      border-top: 1px solid var(--border);
+    }
+    .footer-inner {
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 20px;
+    }
+    .footer-tagline {
+      font-family: var(--font-display);
+      font-size: 22px; font-weight: 400; color: var(--white);
+      font-style: italic;
+    }
+    .footer-sub { font-size: 12px; color: rgba(255,255,255,0.45); margin-top: 5px; }
+    .footer-btns { display: flex; gap: 10px; flex-wrap: wrap; }
+    .footer-btn-outline {
+      border: 1px solid rgba(255,255,255,0.2); color: #fff;
+      padding: 9px 20px; border-radius: 40px; font-size: 12px;
+      transition: border-color 0.2s, background 0.2s;
+      display: inline-flex; align-items: center; gap: 6px;
+    }
+    .footer-btn-outline:hover { border-color: rgba(255,255,255,0.5); background: rgba(255,255,255,0.06); }
+    .footer-btn-solid {
+      background: #fff; color: var(--text-1);
+      padding: 9px 20px; border-radius: 40px; font-size: 12px; font-weight: 500;
+      transition: opacity 0.2s;
+      display: inline-flex; align-items: center; gap: 6px;
+    }
+    .footer-btn-solid:hover { opacity: 0.88; }
+    .footer-bottom {
+      margin-top: 32px; padding-top: 20px;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 10px;
+    }
+    .footer-copy { font-size: 11px; color: rgba(255,255,255,0.3); }
+    .footer-nav { display: flex; gap: 20px; }
+    .footer-nav a { font-size: 11px; color: rgba(255,255,255,0.4); transition: color 0.2s; }
+    .footer-nav a:hover { color: rgba(255,255,255,0.8); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 880px) {
+      .hero-grid { grid-template-columns: 1fr; }
+      .hero-photo-wrap { display: none; }
+      .identity-grid { grid-template-columns: 1fr; }
+      .proj-grid { grid-template-columns: 1fr 1fr; }
+      .nav-links, .nav-cta { display: none; }
+      .nav-mobile-btn { display: flex; }
+    }
+    @media (max-width: 580px) {
+      .proj-grid { grid-template-columns: 1fr; }
+      .footer-inner { flex-direction: column; align-items: flex-start; }
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <!-- ══════════════════════════════════════════════════════
+       ██ NAV ██
+  ══════════════════════════════════════════════════════ -->
+  <nav class="nav" id="mainNav">
+    <div class="nav-inner">
+      <div class="nav-logo">Ankur <span>Ratwaya</span></div>
+      <ul class="nav-links">
+        <li><a href="#identity">Skills</a></li>
+        <li><a href="#tech-projects">Tech Projects</a></li>
+        <li><a href="#prod-projects">Product Projects</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <!-- ░░ TO EDIT: replace href with your CV file path ░░ -->
+      <a class="nav-cta" href="Gen_Ankur_Resume_2026.pdf" download>Download CV ↓</a>
+      <button class="nav-mobile-btn" id="mobileMenuBtn" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div class="nav-mobile-menu" id="mobileMenu">
+      <a href="#identity">Skills</a>
+      <a href="#tech-projects">Tech Projects</a>
+      <a href="#prod-projects">Product Projects</a>
+      <a href="#experience">Experience</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </nav>
+
+  <!-- ══════════════════════════════════════════════════════
+       ██ HERO ██
+  ══════════════════════════════════════════════════════ -->
+  <section class="hero-section">
+    <div class="container">
+      <div class="hero-grid">
+
+        <!-- Left: Text -->
+        <div>
+          <!-- ░░ TO EDIT: change availability status ░░ -->
+          <div class="hero-avail">
+            <span class="hero-avail-dot"></span>
+            Open to opportunities
+          </div>
+
+          <!-- ░░ TO EDIT: your name ░░ -->
+          <h1 class="hero-name">Ankur <em>Ratwaya</em></h1>
+
+          <!-- ░░ TO EDIT: your role / tagline ░░ -->
+          <p class="hero-role">Product Leader · AI/ML Practitioner</p>
+          <p class="hero-degree"><b>B.Tech CS + MBA</b> · IIIT Gwalior</p>
+
+          <p class="hero-tagline">
+            12 years bridging product strategy and technology — from roadmaps
+            to ML models, from user research to AI-powered systems.
+          </p>
+
+          <div class="hero-btns">
+            <a class="btn-primary" href="#tech-projects">View My Work</a>
+            <!-- ░░ TO EDIT: replace with your email ░░ -->
+            <a class="btn-outline" href="mailto:ankur.ratwaya@gmail.com">Let's Talk →</a>
+          </div>
+
+          <!-- ░░ TO EDIT: update stat numbers ░░ -->
+          <div class="hero-stats">
+            <div class="hero-stat">
+              <div class="hero-stat-n">12+</div>
+              <div class="hero-stat-l">Yrs Exp</div>
+            </div>
+            <div class="hero-stat">
+              <div class="hero-stat-n">AI/ML</div>
+              <div class="hero-stat-l">Certified</div>
+            </div>
+            <div class="hero-stat">
+              <div class="hero-stat-n">3+</div>
+              <div class="hero-stat-l">Products Built</div>
+            </div>
+            <div class="hero-stat">
+              <div class="hero-stat-n">6</div>
+              <div class="hero-stat-l">Certifications</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Photo -->
+        <!-- ░░ TO EDIT: replace src with your photo path or base64 ░░ -->
+        <div class="hero-photo-wrap">
+          <img class="hero-photo" src="photo.png" alt="Ankur Ratwaya"/>
+          <div class="hero-photo-badge">Product · Technology · AI/ML</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════
+       ██ IDENTITY ██  Product | Technology split
+  ══════════════════════════════════════════════════════ -->
+  <section class="identity-section" id="identity">
+    <div class="container">
+      <div class="identity-header reveal">
+        <p class="section-label">What I bring</p>
+        <h2 class="section-title">Two superpowers. One professional.</h2>
+      </div>
+
+      <div class="identity-grid reveal">
+
+        <!-- ── PRODUCT COLUMN ── -->
+        <div class="identity-col">
+          <div class="identity-head product">
+            <span class="identity-head-title">Product</span>
+            <span class="identity-head-sub">10+ yrs</span>
+          </div>
+          <!-- ░░ TO EDIT: update skill names and bar widths (as %) ░░ -->
+          <div class="identity-skills">
+            <div class="skill-row">
+              <div class="skill-name">Strategy & Roadmapping</div>
+              <div class="skill-bar"><div class="skill-fill-p" style="width:92%"></div></div>
+            </div>
+            <div class="skill-row">
+              <div class="skill-name">Growth & Monetisation</div>
+              <div class="skill-bar"><div class="skill-fill-p" style="width:85%"></div></div>
+            </div>
+            <div class="skill-row">
+              <div class="skill-name">User Research & Design Thinking</div>
+              <div class="skill-bar"><div class="skill-fill-p" style="width:88%"></div></div>
+            </div>
+            <div class="skill-row">
+              <div class="skill-name">GTM & Stakeholder Management</div>
+              <div class="skill-bar"><div class="skill-fill-p" style="width:80%"></div></div>
+            </div>
+          </div>
+          <!-- ░░ TO EDIT: update product tags ░░ -->
+          <div class="identity-tags">
+            <span class="tag tag-p">OKRs</span>
+            <span class="tag tag-p">Figma</span>
+            <span class="tag tag-p">A/B Testing</span>
+            <span class="tag tag-p">Pendo</span>
+            <span class="tag tag-p">MoEngage</span>
+            <span class="tag tag-p">Jira</span>
+            <span class="tag tag-p">Scrum</span>
+          </div>
+          <div class="identity-cta">
+            <p>4× Product School · 2× Pendo certified</p>
+            <a href="#certs">See Certifications →</a>
+          </div>
+        </div>
+
+        <!-- ── TECHNOLOGY COLUMN ── -->
+        <div class="identity-col">
+          <div class="identity-head tech">
+            <span class="identity-head-title">Technology</span>
+            <span class="identity-head-sub">8 yrs total</span>
+          </div>
+          <div class="identity-skills">
+            <div class="skill-row">
+              <div class="skill-name">AI / ML Engineering</div>
+              <div class="skill-bar"><div class="skill-fill-t" style="width:78%"></div></div>
+            </div>
+            <div class="skill-row">
+              <div class="skill-name">Data Science & Analytics</div>
+              <div class="skill-bar"><div class="skill-fill-t" style="width:82%"></div></div>
+            </div>
+            <div class="skill-row">
+              <div class="skill-name">LLM Orchestration & Agents</div>
+              <div class="skill-bar"><div class="skill-fill-t" style="width:70%"></div></div>
+            </div>
+            <div class="skill-row">
+              <div class="skill-name">Web Development (PHP · Laravel · AWS)</div>
+              <div class="skill-bar"><div class="skill-fill-t" style="width:75%"></div></div>
+            </div>
+          </div>
+
+          <!-- Tech journey mini-timeline -->
+          <div class="tech-journey">
+            <div class="tj-label">Tech journey</div>
+            <div class="tj-row">
+              <div class="tj-node">
+                <div class="tj-card">
+                  <div class="tj-card-title">Web Dev</div>
+                  <div class="tj-card-years">5 years</div>
+                  <div class="tj-card-skills">PHP · Laravel<br>MySQL · AWS · JS</div>
+                </div>
+              </div>
+              <div class="tj-arrow">→</div>
+              <div class="tj-node">
+                <div class="tj-card current">
+                  <div class="tj-card-title">AI / ML</div>
+                  <div class="tj-card-years">3 years · now</div>
+                  <div class="tj-card-skills">Python · Scikit-learn<br>CrewAI · LiteLLM</div>
+                  <span class="tj-badge">Current focus</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ░░ TO EDIT: update tech tags ░░ -->
+          <div class="identity-tags">
+            <span class="tag tag-t">Python</span>
+            <span class="tag tag-t">Scikit-learn</span>
+            <span class="tag tag-t">XGBoost</span>
+            <span class="tag tag-t">CrewAI</span>
+            <span class="tag tag-t">LiteLLM</span>
+            <span class="tag tag-t">Groq</span>
+            <span class="tag tag-t">Streamlit</span>
+          </div>
+          <div class="identity-cta">
+            <p>ML certified · 3 shipped AI/ML projects</p>
+            <a href="#tech-projects">See Tech Projects →</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════
+       ██ TECH PROJ ██  Technology Projects
+  ══════════════════════════════════════════════════════ -->
+  <section class="projects-section" id="tech-projects">
+    <div class="container">
+      <div class="projects-header reveal">
+        <p class="section-label">Built with code</p>
+        <h2 class="section-title">Technology projects</h2>
+        <p class="section-sub">AI/ML systems built from scratch — real data, real models, deployed.</p>
+      </div>
+
+      <div class="proj-grid reveal">
+
+        <!-- ░░ PROJECT 1 ░░ TO EDIT: update name, desc, metrics, links ░░ -->
+        <div class="proj-card">
+          <div class="proj-thumb fraud">🛡️</div>
+          <div class="proj-body">
+            <div class="proj-tag">ML · Finance</div>
+            <div class="proj-name">Detecting Financial Fraud with ML Precision</div>
+            <div class="proj-desc">
+              Dual specialist XGBoost models on 6.3M transactions with SHAP
+              explainability and a real-time Streamlit interface.
+            </div>
+            <div class="proj-metrics">
+              <span class="proj-metric">AUC 0.9923</span>
+              <span class="proj-metric">96% Recall</span>
+              <span class="proj-metric">6.3M rows</span>
+              <span class="proj-metric">SHAP</span>
+            </div>
+            <div class="proj-links">
+              <!-- ░░ TO EDIT: replace href with your project file path ░░ -->
+              <a class="proj-link" href="project-fraud.html" target="_blank">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                View Project
+              </a>
+              <!-- ░░ TO EDIT: replace href with your GitHub repo URL ░░ -->
+              <a class="proj-link" href="YOUR_GITHUB_LINK_HERE" target="_blank">GitHub ↗</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- ░░ PROJECT 2 ░░ TO EDIT: update name, desc, metrics, links ░░ -->
+        <div class="proj-card">
+          <div class="proj-thumb ai">🤖</div>
+          <div class="proj-body">
+            <div class="proj-tag">AI Agents · LLM</div>
+            <div class="proj-name">AI-powered Job Search Automation System</div>
+            <div class="proj-desc">
+              Agentic AI system with 3 CrewAI agents automating job search,
+              cover letter generation, and LinkedIn outreach via Groq + LLaMA 3.3.
+            </div>
+            <div class="proj-metrics">
+              <span class="proj-metric">3 AI Agents</span>
+              <span class="proj-metric">CrewAI</span>
+              <span class="proj-metric">LLaMA 3.3</span>
+              <span class="proj-metric">USAJobs API</span>
+            </div>
+            <div class="proj-links">
+              <!-- ░░ TO EDIT: replace href with your project file path ░░ -->
+              <a class="proj-link" href="project-jobsearch.html" target="_blank">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                View Project
+              </a>
+              <!-- ░░ TO EDIT: replace href with your GitHub repo URL ░░ -->
+              <a class="proj-link" href="YOUR_GITHUB_LINK_HERE" target="_blank">GitHub ↗</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- ░░ PROJECT 3 ░░ TO EDIT: update name, desc, metrics, links ░░ -->
+        <div class="proj-card">
+          <div class="proj-thumb health">⚕️</div>
+          <div class="proj-body">
+            <div class="proj-tag">ML · Health</div>
+            <div class="proj-name">Health Insurance Cost Predictor</div>
+            <div class="proj-desc">
+              End-to-end ML app predicting personalised insurance premiums using
+              dual-model XGBoost architecture deployed live on Streamlit Cloud.
+            </div>
+            <div class="proj-metrics">
+              <span class="proj-metric">XGBoost</span>
+              <span class="proj-metric">Streamlit</span>
+              <span class="proj-metric">Live App</span>
+              <span class="proj-metric">Dual Model</span>
+            </div>
+            <div class="proj-links">
+              <!-- ░░ TO EDIT: replace href with your project file path ░░ -->
+              <a class="proj-link" href="project-insurance.html" target="_blank">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                View Project
+              </a>
+              <!-- ░░ TO EDIT: replace href with live app URL ░░ -->
+              <a class="proj-link" href="https://ml-project-premium-prediction-by-ankur.streamlit.app/" target="_blank">Live App ↗</a>
+              <!-- ░░ TO EDIT: replace href with your GitHub repo URL ░░ -->
+              <a class="proj-link" href="YOUR_GITHUB_LINK_HERE" target="_blank">GitHub ↗</a>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /proj-grid -->
+
+      <!-- Tech Stack Scroller -->
+      <div class="stack-section reveal">
+        <div class="stack-label">Tech stack — hover to pause</div>
+        <div class="scroll-outer" role="region" aria-label="Technology stack">
+          <div class="scroll-track" id="scrollTrack">
+            <!-- First set -->
+            <div class="logo-chip"><span>🐍</span><span>Python</span></div>
+            <div class="logo-chip"><span>🐼</span><span>Pandas</span></div>
+            <div class="logo-chip"><span>🔢</span><span>NumPy</span></div>
+            <div class="logo-chip"><span>⚙️</span><span>Scikit-learn</span></div>
+            <div class="logo-chip"><span>🚀</span><span>XGBoost</span></div>
+            <div class="logo-chip"><span>📊</span><span>Matplotlib</span></div>
+            <div class="logo-chip"><span>🎈</span><span>Streamlit</span></div>
+            <div class="logo-chip"><span>⚡</span><span>Groq</span></div>
+            <div class="logo-chip"><span>🚂</span><span>LiteLLM</span></div>
+            <div class="logo-chip"><span>🤝</span><span>CrewAI</span></div>
+            <div class="logo-chip"><span>📦</span><span>Joblib</span></div>
+            <div class="logo-chip"><span>🔮</span><span>Pendo</span></div>
+            <div class="logo-chip"><span>🎓</span><span>Product School</span></div>
+            <!-- Duplicate set for seamless loop -->
+            <div class="logo-chip"><span>🐍</span><span>Python</span></div>
+            <div class="logo-chip"><span>🐼</span><span>Pandas</span></div>
+            <div class="logo-chip"><span>🔢</span><span>NumPy</span></div>
+            <div class="logo-chip"><span>⚙️</span><span>Scikit-learn</span></div>
+            <div class="logo-chip"><span>🚀</span><span>XGBoost</span></div>
+            <div class="logo-chip"><span>📊</span><span>Matplotlib</span></div>
+            <div class="logo-chip"><span>🎈</span><span>Streamlit</span></div>
+            <div class="logo-chip"><span>⚡</span><span>Groq</span></div>
+            <div class="logo-chip"><span>🚂</span><span>LiteLLM</span></div>
+            <div class="logo-chip"><span>🤝</span><span>CrewAI</span></div>
+            <div class="logo-chip"><span>📦</span><span>Joblib</span></div>
+            <div class="logo-chip"><span>🔮</span><span>Pendo</span></div>
+            <div class="logo-chip"><span>🎓</span><span>Product School</span></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════
+       ██ PROD PROJ ██  Product Projects
+       ░░ TO ADD A PROJECT: copy one .proj-card block from
+          the tech projects section above and paste inside
+          .proj-grid below. Update text and links.
+  ══════════════════════════════════════════════════════ -->
+  <section class="prod-projects-section" id="prod-projects">
+    <div class="container">
+      <div class="projects-header reveal">
+        <p class="section-label">Built as a PM</p>
+        <h2 class="section-title">Product projects</h2>
+        <p class="section-sub">Products built end-to-end — strategy, design, and launch.</p>
+      </div>
+
+      <!-- ░░ REPLACE the placeholder below with your product project cards ░░ -->
+      <div class="prod-placeholder reveal">
+        <p>Product project case studies coming soon</p>
+        <span>Share your project details and these cards will be built in the same style as above</span>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════
+       ██ EXPERIENCE ██
+       ░░ TO EDIT: update company, role, dates, bullets.
+          Each <li> is one bullet point from your resume.
+  ══════════════════════════════════════════════════════ -->
+  <section class="experience-section" id="experience">
+    <div class="container">
+      <div class="exp-header reveal">
+        <p class="section-label">Career</p>
+        <h2 class="section-title">Where I've worked</h2>
+        <p class="section-sub">12 years across product leadership and technology — startups to global publishers.</p>
+      </div>
+
+      <div class="exp-timeline">
+
+        <!-- ── JOB 1: SWADHAAR FINACCESS ── -->
+        <div class="exp-item reveal">
+          <div class="exp-dot d1"></div>
+          <div class="exp-card">
+            <div class="exp-top">
+              <div>
+                <div class="exp-company">Swadhaar Finaccess</div>
+                <div class="exp-role">Product Lead</div>
+                <div class="exp-product-line">WhatsApp-based financial inclusion platform</div>
+              </div>
+              <div class="exp-date">Current</div>
+            </div>
+            <ul class="exp-bullets">
+              <li>Spearheaded a cross-functional team of 12+ developers, PMs, UX designers, and data analysts to design and scale a WhatsApp-based chatbot for financial inclusion — enabling users to discover government schemes, access educational videos, and stay protected from financial fraud</li>
+              <li>Leveraged A/B testing frameworks to continuously refine conversational flows and user touchpoints, driving higher engagement, longer session durations, and a 25% uplift in user retention</li>
+              <li>Conducted a deep-dive into the full acquisition funnel, combining analytics with user journey mapping to expose hidden friction points — translating insights into smoother onboarding flows and higher-converting entry pages</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- ── JOB 2: CAMBRIDGE UNIVERSITY PRESS ── -->
+        <div class="exp-item reveal">
+          <div class="exp-dot d2"></div>
+          <div class="exp-card">
+            <div class="exp-top">
+              <div>
+                <div class="exp-company">Cambridge University Press & Assessment</div>
+                <div class="exp-role">Senior Product Manager</div>
+                <div class="exp-product-line">Integrated Business Partnership and Client Management Platform</div>
+              </div>
+              <div class="exp-date">Dec 2022 – Jul 2024</div>
+            </div>
+            <ul class="exp-bullets">
+              <li>Led strategic partnerships with Product Head to conceptualise and launch Cambridge Business Partnership Platform, onboarding 300+ B2B clients across India, Brazil, Qatar, Kuwait, and Vietnam — resulting in 3× monthly revenue growth</li>
+              <li>Optimised operational expenses by 25% through strategic vendor management restructuring and renegotiating partnership deals across multiple markets</li>
+              <li>Conducted on-site visits to B2B partners for product adoption support, user feedback collection, and new business opportunity identification, securing 8 additional partnerships</li>
+              <li>Led cross-functional product strategy development for customer-facing microsite, reducing refund requests by 30% through improved user experience design</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- ── JOB 3: BADA BUSINESS COMMUNITY ── -->
+        <div class="exp-item reveal">
+          <div class="exp-dot d3"></div>
+          <div class="exp-card">
+            <div class="exp-top">
+              <div>
+                <div class="exp-company">Bada Business Community</div>
+                <div class="exp-role">Product Manager II</div>
+                <div class="exp-product-line">LinkedIn-like business networking solution for entrepreneurs in emerging Indian markets</div>
+              </div>
+              <div class="exp-date">Jul 2021 – Nov 2022</div>
+            </div>
+            <ul class="exp-bullets">
+              <li>Improved first-time user experience by introducing mobile sign-up with Truecaller integration, increasing signups by 18%</li>
+              <li>Improved average engagement rate by 30% in 5 weeks by integrating MoEngage's event-triggered notifications into the existing user journey</li>
+              <li>Conceptualised and built the conversational AI chatbot system (Yellow Messenger) to support the customer success team — 25–30% of enquiries automated within 30 days of launch</li>
+              <li>After successful chatbot implementation, led the automation project extending services to accounts renewals, partner commissions, and post-sales issue resolutions</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- ── JOB 4: THINKVAULT ── -->
+        <div class="exp-item reveal">
+          <div class="exp-dot d4"></div>
+          <div class="exp-card">
+            <div class="exp-top">
+              <div>
+                <div class="exp-company">ThinkVault</div>
+                <div class="exp-role">Product Manager · Software Developer <span style="font-weight:400;color:var(--text-3)">(Founding Team)</span></div>
+                <div class="exp-product-line">Multi-tenant educational ERP SaaS solution</div>
+              </div>
+              <div class="exp-date">Oct 2014 – Jun 2021</div>
+            </div>
+            <!-- First 2 bullets always visible -->
+            <ul class="exp-bullets">
+              <li>Created comprehensive product vision and strategic roadmap for a multi-tenant educational ERP SaaS solution, aligning technical capabilities with market demands for scalable white-label deployment</li>
+              <li>Systematically broke down complex educational workflow requirements into granular user stories, enabling efficient sprint planning and measurable progress tracking</li>
+            </ul>
+            <!-- Extra bullets revealed on toggle -->
+            <ul class="exp-bullets exp-extra" id="thinkvault-extra">
+              <li>Implemented rigorous cost-vs-value analysis framework to prioritise feature development, ensuring optimal resource allocation and maximum ROI</li>
+              <li>Actively supported design team through hands-on wireframes and user flow diagrams, ensuring seamless translation of client requirements into intuitive interfaces</li>
+              <li>As Software Developer: designed and implemented robust backend architecture using PHP (Laravel) with MySQL optimisation and Elasticsearch integration for high-performance, scalable web applications</li>
+              <li>Managed comprehensive AWS infrastructure including EC2 server configuration, S3 bucket setup, and Elasticsearch implementation for advanced search capabilities</li>
+            </ul>
+            <button class="exp-toggle" onclick="toggleExp('thinkvault-extra', this)">
+              <span>▸</span> Show more
+            </button>
+          </div>
+        </div>
+
+      </div><!-- /exp-timeline -->
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════
+       ██ CERTS ██
+       ░░ TO EDIT: replace "YOUR_CERT_LINK_HERE" with the
+          actual URL of each certification. All open in a
+          new tab automatically.
+  ══════════════════════════════════════════════════════ -->
+  <section class="certs-section" id="certs">
+    <div class="container">
+      <div class="certs-inner reveal">
+        <div class="certs-title">Certifications</div>
+        <div class="certs-row">
+
+          <!-- Product School Certs -->
+          <a class="cert-card" href="YOUR_CERT_LINK_HERE" target="_blank" rel="noopener">
+            <div class="cert-logo ps">PS</div>
+            <div>
+              <div class="cert-info-org">Product School</div>
+              <div class="cert-info-name">Product Roadmapping (PRC)</div>
+              <span class="cert-badge">Verified ✓</span>
+            </div>
+          </a>
+
+          <a class="cert-card" href="YOUR_CERT_LINK_HERE" target="_blank" rel="noopener">
+            <div class="cert-logo ps">PS</div>
+            <div>
+              <div class="cert-info-org">Product School</div>
+              <div class="cert-info-name">Product-Led Growth (PLGC)</div>
+              <span class="cert-badge">Verified ✓</span>
+            </div>
+          </a>
+
+          <!-- ░░ TO EDIT: add 2 more Product School certs if needed ░░ -->
+          <a class="cert-card" href="YOUR_CERT_LINK_HERE" target="_blank" rel="noopener">
+            <div class="cert-logo ps">PS</div>
+            <div>
+              <div class="cert-info-org">Product School</div>
+              <div class="cert-info-name">Certification 3</div>
+              <span class="cert-badge">Verified ✓</span>
+            </div>
+          </a>
+
+          <a class="cert-card" href="YOUR_CERT_LINK_HERE" target="_blank" rel="noopener">
+            <div class="cert-logo ps">PS</div>
+            <div>
+              <div class="cert-info-org">Product School</div>
+              <div class="cert-info-name">Certification 4</div>
+              <span class="cert-badge">Verified ✓</span>
+            </div>
+          </a>
+
+          <!-- Pendo Certs -->
+          <a class="cert-card" href="YOUR_CERT_LINK_HERE" target="_blank" rel="noopener">
+            <div class="cert-logo pendo">P</div>
+            <div>
+              <div class="cert-info-org">Pendo</div>
+              <div class="cert-info-name">Product-led Certified</div>
+              <span class="cert-badge">Verified ✓</span>
+            </div>
+          </a>
+
+          <a class="cert-card" href="YOUR_CERT_LINK_HERE" target="_blank" rel="noopener">
+            <div class="cert-logo pendo">P</div>
+            <div>
+              <div class="cert-info-org">Pendo</div>
+              <div class="cert-info-name">Product Analytics Certification</div>
+              <span class="cert-badge">Verified ✓</span>
+            </div>
+          </a>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════
+       ██ FOOTER ██
+       ░░ TO EDIT: update LinkedIn URL and email
+  ══════════════════════════════════════════════════════ -->
+  <footer class="footer-section" id="contact">
+    <div class="container">
+      <div class="footer-inner">
+        <div>
+          <div class="footer-tagline">Let's build something together</div>
+          <div class="footer-sub">Gurugram, India · Open to global roles</div>
+        </div>
+        <div class="footer-btns">
+          <!-- ░░ TO EDIT: your LinkedIn URL ░░ -->
+          <a class="footer-btn-outline" href="https://www.linkedin.com/in/ankurratwaya/" target="_blank" rel="noopener">
+            LinkedIn ↗
+          </a>
+          <!-- ░░ TO EDIT: your email ░░ -->
+          <a class="footer-btn-solid" href="mailto:ankur.ratwaya@gmail.com">
+            Get in Touch
+          </a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-copy">© 2026 Ankur Ratwaya. All rights reserved.</div>
+        <nav class="footer-nav">
+          <a href="#identity">Skills</a>
+          <a href="#tech-projects">Projects</a>
+          <a href="#experience">Experience</a>
+          <a href="#certs">Certifications</a>
+        </nav>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ══════════════════════════════════════════════════════
+       JAVASCRIPT — scroll effects, nav, expand/collapse
+  ══════════════════════════════════════════════════════ -->
+  <script>
+    // ── Scroll-reveal ──
+    const revealEls = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((e, i) => {
+        if (e.isIntersecting) {
+          setTimeout(() => e.target.classList.add('visible'), i * 80);
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    revealEls.forEach(el => observer.observe(el));
+
+    // ── Nav shadow on scroll ──
+    window.addEventListener('scroll', () => {
+      document.getElementById('mainNav').classList.toggle('scrolled', window.scrollY > 20);
+    });
+
+    // ── Mobile menu ──
+    const mobileBtn = document.getElementById('mobileMenuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    mobileBtn.addEventListener('click', () => {
+      mobileBtn.classList.toggle('open');
+      mobileMenu.classList.toggle('open');
+    });
+    mobileMenu.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => {
+        mobileBtn.classList.remove('open');
+        mobileMenu.classList.remove('open');
+      });
+    });
+
+    // ── Experience expand/collapse ──
+    function toggleExp(id, btn) {
+      const el = document.getElementById(id);
+      const isOpen = el.classList.toggle('open');
+      btn.innerHTML = isOpen
+        ? '<span>▾</span> Show less'
+        : '<span>▸</span> Show more';
+    }
+  </script>
+
+</body>
+</html>

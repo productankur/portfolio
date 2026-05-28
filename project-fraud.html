@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Fraud Detection System — Ankur Ratwaya</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+:root[data-theme="dark"] {
+  --bg:          #080c14;
+  --bg2:         #0d1420;
+  --bg3:         #111827;
+  --surface:     #141e2e;
+  --border:      rgba(255,255,255,0.07);
+  --text:        #f0f4ff;
+  --text2:       #8896b0;
+  --accent:      #ef4444;
+  --accent2:     #3b82f6;
+  --accent3:     #10b981;
+  --glow:        rgba(239,68,68,0.15);
+  --glow2:       rgba(59,130,246,0.12);
+  --tag-bg:      rgba(255,255,255,0.06);
+  --card-shadow: 0 4px 32px rgba(0,0,0,0.4);
+}
+:root[data-theme="light"] {
+  --bg:          #f8faff;
+  --bg2:         #f0f4ff;
+  --bg3:         #e8eef8;
+  --surface:     #ffffff;
+  --border:      rgba(0,0,0,0.08);
+  --text:        #0d1420;
+  --text2:       #4a5568;
+  --accent:      #dc2626;
+  --accent2:     #2563eb;
+  --accent3:     #059669;
+  --glow:        rgba(220,38,38,0.08);
+  --glow2:       rgba(37,99,235,0.08);
+  --tag-bg:      rgba(0,0,0,0.05);
+  --card-shadow: 0 4px 24px rgba(0,0,0,0.08);
+}
+
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+
+body{
+  font-family:'DM Sans',sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  transition:background .3s,color .3s;
+  overflow-x:hidden;
+}
+
+/* ── NOISE TEXTURE ── */
+body::before{
+  content:'';position:fixed;inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events:none;z-index:0;opacity:.4;
+}
+
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  padding:1rem 2rem;
+  display:flex;justify-content:space-between;align-items:center;
+  background:rgba(8,12,20,0.85);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);
+  transition:background .3s;
+}
+[data-theme="light"] nav{background:rgba(248,250,255,0.9);}
+.nav-logo{font-family:'Syne',sans-serif;font-weight:800;font-size:1rem;letter-spacing:.05em;}
+.nav-logo span{color:var(--accent);}
+.nav-right{display:flex;gap:1rem;align-items:center;}
+.nav-link{font-size:.8rem;color:var(--text2);text-decoration:none;letter-spacing:.05em;text-transform:uppercase;transition:color .2s;background:none;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;padding:0;}
+.nav-link:hover{color:var(--text);}
+
+/* ── TOGGLE ── */
+.toggle-btn{
+  position:relative;width:52px;height:28px;
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:14px;cursor:pointer;
+  transition:background .3s;
+  flex-shrink:0;
+}
+.toggle-btn::after{
+  content:'';position:absolute;top:3px;left:3px;
+  width:20px;height:20px;border-radius:50%;
+  background:var(--accent);
+  transition:transform .3s,background .3s;
+  box-shadow:0 0 8px var(--glow);
+}
+[data-theme="light"] .toggle-btn::after{transform:translateX(24px);background:var(--accent2);}
+.toggle-icon{position:absolute;top:50%;transform:translateY(-50%);font-size:11px;pointer-events:none;}
+.toggle-icon.sun{right:6px;}
+.toggle-icon.moon{left:6px;}
+
+/* ── HERO ── */
+.hero{
+  min-height:100vh;
+  display:flex;flex-direction:column;justify-content:center;
+  padding:8rem 2rem 4rem;
+  position:relative;
+  max-width:1200px;margin:0 auto;
+}
+.hero-tag{
+  display:inline-flex;align-items:center;gap:.5rem;
+  font-family:'Space Mono',monospace;font-size:.7rem;
+  color:var(--accent);letter-spacing:.1em;text-transform:uppercase;
+  border:1px solid rgba(239,68,68,.3);
+  padding:.35rem .75rem;border-radius:4px;
+  margin-bottom:2rem;width:fit-content;
+  animation:fadeUp .6s ease both;
+}
+.hero-tag::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--accent);animation:pulse 1.5s infinite;}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:.3;}}
+
+h1{
+  font-family:'Syne',sans-serif;font-weight:800;
+  font-size:clamp(2.5rem,6vw,5rem);
+  line-height:1.05;letter-spacing:-.02em;
+  margin-bottom:1.5rem;
+  animation:fadeUp .7s .1s ease both;
+}
+h1 .accent{color:var(--accent);}
+h1 .accent2{color:var(--accent2);}
+
+.hero-desc{
+  font-size:1.05rem;color:var(--text2);max-width:600px;
+  line-height:1.7;margin-bottom:2.5rem;
+  animation:fadeUp .7s .2s ease both;
+}
+
+/* ── STAT STRIP ── */
+.stat-strip{
+  display:flex;flex-wrap:wrap;gap:1rem;
+  animation:fadeUp .7s .3s ease both;
+}
+.stat-badge{
+  font-family:'Space Mono',monospace;font-size:.75rem;
+  padding:.5rem 1rem;border-radius:6px;
+  border:1px solid var(--border);
+  background:var(--surface);
+  display:flex;align-items:center;gap:.5rem;
+  transition:border-color .2s,transform .2s;
+}
+.stat-badge:hover{border-color:var(--accent);transform:translateY(-2px);}
+.stat-badge .dot{width:8px;height:8px;border-radius:50%;}
+.dot-red{background:var(--accent);}
+.dot-blue{background:var(--accent2);}
+.dot-green{background:var(--accent3);}
+.dot-yellow{background:#f59e0b;}
+
+/* ── SECTION ── */
+section{max-width:1200px;margin:0 auto;padding:5rem 2rem;}
+.section-label{
+  font-family:'Space Mono',monospace;font-size:.68rem;
+  color:var(--accent);letter-spacing:.12em;text-transform:uppercase;
+  margin-bottom:.75rem;
+}
+.section-title{
+  font-family:'Syne',sans-serif;font-weight:700;
+  font-size:clamp(1.6rem,3vw,2.2rem);
+  margin-bottom:.75rem;letter-spacing:-.01em;
+}
+.section-sub{color:var(--text2);font-size:.95rem;line-height:1.6;max-width:600px;margin-bottom:3rem;}
+
+/* ── DIVIDER ── */
+.divider{border:none;border-top:1px solid var(--border);max-width:1200px;margin:0 auto;}
+
+/* ── TECH STACK ── */
+.tech-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1rem;}
+.tech-card{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:10px;padding:1.25rem 1.5rem;
+  transition:border-color .2s,transform .2s,box-shadow .2s;
+  position:relative;overflow:hidden;
+}
+.tech-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,var(--accent),transparent);
+  opacity:0;transition:opacity .3s;
+}
+.tech-card:hover{border-color:rgba(239,68,68,.3);transform:translateY(-3px);box-shadow:var(--card-shadow);}
+.tech-card:hover::before{opacity:1;}
+.tech-category{font-size:.68rem;font-family:'Space Mono',monospace;color:var(--accent2);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.5rem;}
+.tech-name{font-family:'Syne',sans-serif;font-weight:700;font-size:1rem;margin-bottom:.25rem;}
+.tech-desc{font-size:.8rem;color:var(--text2);line-height:1.5;}
+
+/* ── PIPELINE ── */
+.pipeline{
+  display:flex;align-items:center;flex-wrap:wrap;gap:0;
+  margin-bottom:3rem;
+}
+.pipe-step{
+  flex:1;min-width:120px;
+  background:var(--surface);border:1px solid var(--border);
+  padding:1.25rem 1rem;text-align:center;
+  position:relative;transition:background .2s,border-color .2s;
+  cursor:default;
+}
+.pipe-step:hover{background:var(--bg3);border-color:var(--accent);}
+.pipe-step:not(:last-child)::after{
+  content:'→';
+  position:absolute;right:-12px;top:50%;transform:translateY(-50%);
+  color:var(--accent);font-size:1rem;z-index:1;
+  background:var(--bg);padding:0 2px;
+}
+[data-theme="light"] .pipe-step:not(:last-child)::after{background:var(--bg2);}
+.pipe-num{font-family:'Space Mono',monospace;font-size:.65rem;color:var(--accent);margin-bottom:.4rem;}
+.pipe-name{font-family:'Syne',sans-serif;font-weight:700;font-size:.8rem;margin-bottom:.3rem;}
+.pipe-tech{font-size:.7rem;color:var(--text2);}
+
+/* ── MODEL CARDS ── */
+.model-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-bottom:2rem;}
+@media(max-width:640px){.model-grid{grid-template-columns:1fr;}}
+.model-card{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:12px;padding:2rem;
+  position:relative;overflow:hidden;
+  transition:transform .2s,box-shadow .2s;
+}
+.model-card:hover{transform:translateY(-4px);box-shadow:var(--card-shadow);}
+.model-card.transfer{border-top:3px solid var(--accent);}
+.model-card.cashout{border-top:3px solid var(--accent2);}
+.model-type{font-family:'Syne',sans-serif;font-weight:800;font-size:1.3rem;margin-bottom:.25rem;}
+.model-algo{font-family:'Space Mono',monospace;font-size:.7rem;color:var(--text2);margin-bottom:1.5rem;}
+.metric-row{display:flex;justify-content:space-between;margin-bottom:1rem;}
+.metric{text-align:center;}
+.metric-val{font-family:'Space Mono',monospace;font-size:1.3rem;font-weight:700;}
+.metric-val.red{color:var(--accent);}
+.metric-val.blue{color:var(--accent2);}
+.metric-val.green{color:var(--accent3);}
+.metric-label{font-size:.7rem;color:var(--text2);margin-top:.2rem;}
+.metric-bar{height:4px;border-radius:2px;margin-top:.5rem;background:var(--border);}
+.metric-fill{height:100%;border-radius:2px;background:var(--accent3);}
+
+/* ── FLOW DIAGRAM ── */
+.flow-container{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:12px;padding:2rem;
+  overflow-x:auto;
+}
+.flow{display:flex;align-items:flex-start;gap:1.5rem;min-width:700px;}
+.flow-col{display:flex;flex-direction:column;gap:1rem;flex:1;}
+.flow-node{
+  background:var(--bg3);border:1px solid var(--border);
+  border-radius:8px;padding:.85rem 1rem;font-size:.8rem;
+  transition:border-color .2s;
+}
+.flow-node:hover{border-color:var(--accent2);}
+.flow-node .fn-label{font-family:'Space Mono',monospace;font-size:.65rem;color:var(--accent2);margin-bottom:.25rem;}
+.flow-node .fn-name{font-family:'Syne',sans-serif;font-weight:700;font-size:.85rem;}
+.flow-node .fn-detail{font-size:.72rem;color:var(--text2);margin-top:.2rem;}
+.flow-arrow{
+  display:flex;align-items:center;color:var(--accent);
+  font-size:1.4rem;padding-top:1.5rem;flex-shrink:0;
+}
+.flow-col-title{
+  font-family:'Space Mono',monospace;font-size:.65rem;
+  color:var(--text2);letter-spacing:.08em;text-transform:uppercase;
+  margin-bottom:.25rem;text-align:center;
+}
+
+/* ── API SECTION ── */
+.api-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;}
+@media(max-width:640px){.api-grid{grid-template-columns:1fr;}}
+.api-card{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:10px;padding:1.5rem;
+  transition:border-color .2s;
+}
+.api-card:hover{border-color:var(--accent3);}
+.api-method{
+  display:inline-block;font-family:'Space Mono',monospace;font-size:.7rem;
+  padding:.2rem .6rem;border-radius:4px;margin-bottom:.75rem;font-weight:700;
+}
+.post{background:rgba(16,185,129,.15);color:var(--accent3);}
+.get{background:rgba(59,130,246,.15);color:var(--accent2);}
+.api-endpoint{font-family:'Space Mono',monospace;font-size:.95rem;font-weight:700;margin-bottom:.5rem;}
+.api-desc{font-size:.8rem;color:var(--text2);line-height:1.5;margin-bottom:1rem;}
+.api-tag{
+  display:inline-block;font-size:.7rem;
+  background:var(--tag-bg);padding:.2rem .6rem;
+  border-radius:4px;margin:.2rem .2rem 0 0;color:var(--text2);
+}
+
+/* ── DECISIONS ── */
+.decisions-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1rem;}
+.decision-card{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:10px;padding:1.5rem;
+  transition:border-color .2s,transform .2s;
+}
+.decision-card:hover{border-color:var(--accent);transform:translateY(-3px);}
+.decision-icon{font-size:1.5rem;margin-bottom:.75rem;}
+.decision-title{font-family:'Syne',sans-serif;font-weight:700;font-size:.95rem;margin-bottom:.5rem;}
+.decision-why{font-size:.8rem;color:var(--text2);line-height:1.6;}
+
+/* ── METRICS TABLE ── */
+.metrics-table{width:100%;border-collapse:collapse;font-size:.85rem;}
+.metrics-table th{
+  font-family:'Space Mono',monospace;font-size:.7rem;
+  color:var(--text2);letter-spacing:.05em;text-transform:uppercase;
+  padding:.75rem 1rem;border-bottom:1px solid var(--border);text-align:left;
+}
+.metrics-table td{padding:.85rem 1rem;border-bottom:1px solid var(--border);}
+.metrics-table tr:hover td{background:var(--bg3);}
+.badge{
+  display:inline-flex;align-items:center;gap:.3rem;
+  font-family:'Space Mono',monospace;font-size:.75rem;
+  padding:.2rem .6rem;border-radius:4px;font-weight:700;
+}
+.badge-green{background:rgba(16,185,129,.12);color:var(--accent3);}
+.badge-red{background:rgba(239,68,68,.12);color:var(--accent);}
+.badge-blue{background:rgba(59,130,246,.12);color:var(--accent2);}
+.winner{color:var(--accent3);font-size:.7rem;font-family:'Space Mono',monospace;}
+
+/* ── FOOTER ── */
+footer{
+  border-top:1px solid var(--border);
+  padding:3rem 2rem;
+  max-width:1200px;margin:0 auto;
+  display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1.5rem;
+}
+.footer-left .built-by{
+  font-family:'Syne',sans-serif;font-weight:700;font-size:1rem;margin-bottom:.25rem;
+}
+.footer-left .built-by span{color:var(--accent);}
+.footer-left .role{font-size:.85rem;color:var(--text2);}
+.linkedin-btn{
+  display:inline-flex;align-items:center;gap:.6rem;
+  font-family:'Space Mono',monospace;font-size:.75rem;
+  padding:.6rem 1.2rem;border-radius:6px;
+  background:var(--accent2);color:#fff;
+  text-decoration:none;font-weight:700;
+  transition:opacity .2s,transform .2s;
+  letter-spacing:.03em;
+}
+.linkedin-btn:hover{opacity:.85;transform:translateY(-2px);}
+.linkedin-btn svg{width:16px;height:16px;fill:#fff;}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease;}
+.reveal.visible{opacity:1;transform:none;}
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar{width:6px;height:6px;}
+::-webkit-scrollbar-track{background:var(--bg);}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px;}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">FRAUD<span>.</span>AI</div>
+  <div class="nav-right">
+    <button class="nav-link" onclick="scrollToSection('stack')">Stack</button>
+    <button class="nav-link" onclick="scrollToSection('pipeline')">Pipeline</button>
+    <button class="nav-link" onclick="scrollToSection('models')">Models</button>
+    <button class="nav-link" onclick="scrollToSection('api')">API</button>
+    <button class="toggle-btn" onclick="toggleTheme()" title="Toggle theme">
+      <span class="toggle-icon moon">🌙</span>
+      <span class="toggle-icon sun">☀️</span>
+    </button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-tag">
+    <span class="dot dot-red"></span>
+    Real-time Fraud Detection System
+  </div>
+  <h1>
+    Detecting <span class="accent">Financial Fraud</span><br/>
+    with <span class="accent2">ML Precision</span>
+  </h1>
+  <p class="hero-desc">
+    An end-to-end machine learning pipeline built on 6.3 million transactions —
+    featuring dual specialist models, SHAP explainability, and a real-time
+    Streamlit interface for fraud analysts.
+  </p>
+  <div class="stat-strip">
+    <div class="stat-badge"><span class="dot dot-red"></span>6.3M Transactions</div>
+    <div class="stat-badge"><span class="dot dot-green"></span>AUC 0.9923</div>
+    <div class="stat-badge"><span class="dot dot-blue"></span>2 Specialist Models</div>
+    <div class="stat-badge"><span class="dot dot-yellow"></span>96% Recall</div>
+    <div class="stat-badge"><span class="dot dot-red"></span>SHAP Explainability</div>
+    <div class="stat-badge"><span class="dot dot-green"></span>Streamlit Interface</div>
+  </div>
+</div>
+
+<hr class="divider"/>
+
+<!-- TECH STACK -->
+<section id="stack">
+  <div class="section-label reveal">Technology Stack</div>
+  <div class="section-title reveal">Every Tool, Every Library</div>
+  <p class="section-sub reveal">A complete breakdown of every technology used across data processing, modelling, explainability, and deployment.</p>
+
+  <div class="tech-grid reveal">
+    <div class="tech-card">
+      <div class="tech-category">Language</div>
+      <div class="tech-name">Python 3.12</div>
+      <div class="tech-desc">Core language for all data processing, modelling, and application logic.</div>
+    </div>
+    <div class="tech-card">
+      <div class="tech-category">Primary Model</div>
+      <div class="tech-name">XGBoost</div>
+      <div class="tech-desc">Gradient boosted trees — chosen for speed, performance, and native feature importance on tabular fraud data.</div>
+    </div>
+    <div class="tech-card">
+      <div class="tech-category">Baseline Model</div>
+      <div class="tech-name">Random Forest</div>
+      <div class="tech-desc">Ensemble model used as benchmark. AUC 0.9892 vs XGBoost's 0.9923.</div>
+    </div>
+    <div class="tech-card">
+      <div class="tech-category">Data Processing</div>
+      <div class="tech-name">Pandas + NumPy</div>
+      <div class="tech-desc">6.3M row dataset processing, feature engineering, outlier flagging, and balance mismatch detection.</div>
+    </div>
+    <div class="tech-card">
+      <div class="tech-category">Imbalance Handling</div>
+      <div class="tech-name">SMOTE</div>
+      <div class="tech-desc">Synthetic Minority Oversampling — applied only on training data to handle 0.13% fraud rate without data leakage.</div>
+    </div>
+    <div class="tech-card">
+      <div class="tech-category">Explainability</div>
+      <div class="tech-name">SHAP</div>
+      <div class="tech-desc">SHapley Additive exPlanations — per-transaction feature attribution showing exactly why each transaction was flagged.</div>
+    </div>
+    <div class="tech-card">
+      <div class="tech-category">Visualisation</div>
+      <div class="tech-name">Matplotlib + Seaborn</div>
+      <div class="tech-desc">Distribution plots, confusion matrices, ROC curves, precision-recall curves, and SHAP bar charts.</div>
+    </div>
+    <div class="tech-card">
+      <div class="tech-category">ML Pipeline</div>
+      <div class="tech-name">Scikit-learn</div>
+      <div class="tech-desc">Train-test split, classification metrics, confusion matrix, VIF scoring, and threshold tuning utilities.</div>
+    </div>
+    <div class="tech-card">
+      <div class="tech-category">Model Serialisation</div>
+      <div class="tech-name">Joblib</div>
+      <div class="tech-desc">Efficient model persistence — both specialist models saved and loaded for Streamlit deployment.</div>
+    </div>
+    <div class="tech-card">
+      <div class="tech-category">Interface</div>
+      <div class="tech-name">Streamlit</div>
+      <div class="tech-desc">Real-time fraud detection UI — CSV upload, model router, results table, SHAP explanation panel, and download.</div>
+    </div>
+    <div class="tech-card">
+      <div class="tech-category">Environment</div>
+      <div class="tech-name">Google Colab</div>
+      <div class="tech-desc">Cloud-based Jupyter environment with GPU support and Google Drive integration for model persistence.</div>
+    </div>
+    <div class="tech-card">
+      <div class="tech-category">Version Control</div>
+      <div class="tech-name">GitHub</div>
+      <div class="tech-desc">Source control for application code, model artifacts, and deployment configuration.</div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider"/>
+
+<!-- PIPELINE -->
+<section id="pipeline">
+  <div class="section-label reveal">Architecture</div>
+  <div class="section-title reveal">End-to-End ML Pipeline</div>
+  <p class="section-sub reveal">Eight sequential stages from raw CSV to live fraud predictions — each stage built with a clear purpose and decision rationale.</p>
+
+  <div class="pipeline reveal">
+    <div class="pipe-step">
+      <div class="pipe-num">01</div>
+      <div class="pipe-name">Data Exploration</div>
+      <div class="pipe-tech">Pandas · Seaborn</div>
+    </div>
+    <div class="pipe-step">
+      <div class="pipe-num">02</div>
+      <div class="pipe-name">Cleaning & EDA</div>
+      <div class="pipe-tech">IQR · VIF · Correlation</div>
+    </div>
+    <div class="pipe-step">
+      <div class="pipe-num">03</div>
+      <div class="pipe-name">Feature Engineering</div>
+      <div class="pipe-tech">SMOTE · Encoding</div>
+    </div>
+    <div class="pipe-step">
+      <div class="pipe-num">04</div>
+      <div class="pipe-name">Model Training</div>
+      <div class="pipe-tech">XGBoost · RF</div>
+    </div>
+    <div class="pipe-step">
+      <div class="pipe-num">05</div>
+      <div class="pipe-name">Error Analysis</div>
+      <div class="pipe-tech">SHAP · Threshold</div>
+    </div>
+    <div class="pipe-step">
+      <div class="pipe-num">06</div>
+      <div class="pipe-name">Segmentation</div>
+      <div class="pipe-tech">TRANSFER · CASH_OUT</div>
+    </div>
+    <div class="pipe-step">
+      <div class="pipe-num">07</div>
+      <div class="pipe-name">Retraining</div>
+      <div class="pipe-tech">Drift · Versioning</div>
+    </div>
+    <div class="pipe-step">
+      <div class="pipe-num">08</div>
+      <div class="pipe-name">Streamlit App</div>
+      <div class="pipe-tech">Deploy · Explain</div>
+    </div>
+  </div>
+
+  <!-- DATA FLOW -->
+  <div class="section-label reveal" style="margin-top:3rem;">Data Flow</div>
+  <div class="section-title reveal" style="font-size:1.3rem;margin-bottom:1.5rem;">How a Transaction Gets Scored</div>
+  <div class="flow-container reveal">
+    <div class="flow">
+      <div class="flow-col">
+        <div class="flow-col-title">Input</div>
+        <div class="flow-node">
+          <div class="fn-label">Source</div>
+          <div class="fn-name">CSV Upload</div>
+          <div class="fn-detail">Raw transaction data with 11 columns</div>
+        </div>
+        <div class="flow-node">
+          <div class="fn-label">Filter</div>
+          <div class="fn-name">Type Router</div>
+          <div class="fn-detail">Keep only TRANSFER & CASH_OUT rows</div>
+        </div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-col">
+        <div class="flow-col-title">Engineering</div>
+        <div class="flow-node">
+          <div class="fn-label">Feature</div>
+          <div class="fn-name">Balance Delta</div>
+          <div class="fn-detail">oldbalanceOrg − newbalanceOrig</div>
+        </div>
+        <div class="flow-node">
+          <div class="fn-label">Feature</div>
+          <div class="fn-name">Outlier Flag</div>
+          <div class="fn-detail">IQR-based is_high_amount</div>
+        </div>
+        <div class="flow-node">
+          <div class="fn-label">Feature</div>
+          <div class="fn-name">Mismatch Flag</div>
+          <div class="fn-detail">Balance equation integrity check</div>
+        </div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-col">
+        <div class="flow-col-title">Prediction</div>
+        <div class="flow-node">
+          <div class="fn-label">Model A</div>
+          <div class="fn-name">TRANSFER Model</div>
+          <div class="fn-detail">XGBoost — AUC 1.00 · Recall 100%</div>
+        </div>
+        <div class="flow-node">
+          <div class="fn-label">Model B</div>
+          <div class="fn-name">CASH_OUT Model</div>
+          <div class="fn-detail">XGBoost — AUC 0.9985 · Recall 99%</div>
+        </div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-col">
+        <div class="flow-col-title">Output</div>
+        <div class="flow-node">
+          <div class="fn-label">Score</div>
+          <div class="fn-name">Fraud Probability</div>
+          <div class="fn-detail">0.00 – 1.00 confidence score</div>
+        </div>
+        <div class="flow-node">
+          <div class="fn-label">Explain</div>
+          <div class="fn-name">SHAP Values</div>
+          <div class="fn-detail">Per-feature attribution for each flag</div>
+        </div>
+        <div class="flow-node">
+          <div class="fn-label">Export</div>
+          <div class="fn-name">Download CSV</div>
+          <div class="fn-detail">Flagged transactions for review</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider"/>
+
+<!-- MODELS -->
+<section id="models">
+  <div class="section-label reveal">Model Architecture</div>
+  <div class="section-title reveal">Two Specialist Models</div>
+  <p class="section-sub reveal">A single global model achieved AUC 0.9923. Segmentation into type-specific models pushed TRANSFER to perfect AUC 1.00 and reduced false alarms by 99%.</p>
+
+  <div class="model-grid reveal">
+    <div class="model-card transfer">
+      <div class="model-type">TRANSFER Model</div>
+      <div class="model-algo">XGBoost · n_estimators=100 · max_depth=6</div>
+      <div class="metric-row">
+        <div class="metric">
+          <div class="metric-val red">1.00</div>
+          <div class="metric-label">Recall</div>
+          <div class="metric-bar"><div class="metric-fill" style="width:100%;background:var(--accent);"></div></div>
+        </div>
+        <div class="metric">
+          <div class="metric-val green">0.98</div>
+          <div class="metric-label">Precision</div>
+          <div class="metric-bar"><div class="metric-fill" style="width:98%;"></div></div>
+        </div>
+        <div class="metric">
+          <div class="metric-val green">0.99</div>
+          <div class="metric-label">F1 Score</div>
+          <div class="metric-bar"><div class="metric-fill" style="width:99%;"></div></div>
+        </div>
+        <div class="metric">
+          <div class="metric-val red">1.00</div>
+          <div class="metric-label">ROC-AUC</div>
+          <div class="metric-bar"><div class="metric-fill" style="width:100%;background:var(--accent);"></div></div>
+        </div>
+      </div>
+      <div style="font-size:.75rem;color:var(--text2);margin-top:.5rem;">532,909 transactions · 4,097 fraud cases · 0.77% fraud rate</div>
+    </div>
+
+    <div class="model-card cashout">
+      <div class="model-type">CASH_OUT Model</div>
+      <div class="model-algo">XGBoost · n_estimators=100 · max_depth=6</div>
+      <div class="metric-row">
+        <div class="metric">
+          <div class="metric-val blue">0.99</div>
+          <div class="metric-label">Recall</div>
+          <div class="metric-bar"><div class="metric-fill" style="width:99%;background:var(--accent2);"></div></div>
+        </div>
+        <div class="metric">
+          <div class="metric-val green">0.68</div>
+          <div class="metric-label">Precision</div>
+          <div class="metric-bar"><div class="metric-fill" style="width:68%;"></div></div>
+        </div>
+        <div class="metric">
+          <div class="metric-val green">0.81</div>
+          <div class="metric-label">F1 Score</div>
+          <div class="metric-bar"><div class="metric-fill" style="width:81%;"></div></div>
+        </div>
+        <div class="metric">
+          <div class="metric-val blue">0.9985</div>
+          <div class="metric-label">ROC-AUC</div>
+          <div class="metric-bar"><div class="metric-fill" style="width:99.85%;background:var(--accent2);"></div></div>
+        </div>
+      </div>
+      <div style="font-size:.75rem;color:var(--text2);margin-top:.5rem;">2,237,500 transactions · 4,116 fraud cases · 0.18% fraud rate</div>
+    </div>
+  </div>
+
+  <!-- COMPARISON TABLE -->
+  <div class="flow-container reveal">
+    <table class="metrics-table">
+      <thead>
+        <tr>
+          <th>Model</th>
+          <th>Recall</th>
+          <th>Precision</th>
+          <th>F1</th>
+          <th>ROC-AUC</th>
+          <th>Missed Frauds</th>
+          <th>False Alarms</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span style="font-family:'Syne',sans-serif;font-weight:700;">Global XGBoost</span></td>
+          <td><span class="badge badge-green">96%</span></td>
+          <td><span class="badge badge-red">5%</span></td>
+          <td><span class="badge badge-red">0.10</span></td>
+          <td><span class="badge badge-blue">0.9923</span></td>
+          <td>59</td>
+          <td>29,634</td>
+        </tr>
+        <tr>
+          <td><span style="font-family:'Syne',sans-serif;font-weight:700;">TRANSFER Specialist</span> <span class="winner">★ Winner</span></td>
+          <td><span class="badge badge-green">100%</span></td>
+          <td><span class="badge badge-green">98%</span></td>
+          <td><span class="badge badge-green">0.99</span></td>
+          <td><span class="badge badge-green">1.0000</span></td>
+          <td>0</td>
+          <td>~16</td>
+        </tr>
+        <tr>
+          <td><span style="font-family:'Syne',sans-serif;font-weight:700;">CASH_OUT Specialist</span> <span class="winner">★ Winner</span></td>
+          <td><span class="badge badge-green">99%</span></td>
+          <td><span class="badge badge-blue">68%</span></td>
+          <td><span class="badge badge-green">0.81</span></td>
+          <td><span class="badge badge-green">0.9985</span></td>
+          <td>~8</td>
+          <td>~275</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<hr class="divider"/>
+
+<!-- API -->
+<section id="api">
+  <div class="section-label reveal">API Design</div>
+  <div class="section-title reveal">Production Microservices Architecture</div>
+  <p class="section-sub reveal">How this system would be structured as a production REST API — ready for integration with banking core systems or third-party payment processors.</p>
+
+  <div class="api-grid reveal">
+    <div class="api-card">
+      <span class="api-method post">POST</span>
+      <div class="api-endpoint">/api/v1/predict</div>
+      <div class="api-desc">Accepts a single transaction or batch CSV. Routes to TRANSFER or CASH_OUT specialist model automatically. Returns fraud probability and prediction label.</div>
+      <span class="api-tag">Input: JSON / CSV</span>
+      <span class="api-tag">Output: fraud_probability</span>
+      <span class="api-tag">Model Router</span>
+      <span class="api-tag">Real-time</span>
+    </div>
+    <div class="api-card">
+      <span class="api-method post">POST</span>
+      <div class="api-endpoint">/api/v1/explain</div>
+      <div class="api-desc">Returns SHAP feature attribution values for a given transaction. Shows exactly which features drove the fraud prediction — designed for compliance and analyst review.</div>
+      <span class="api-tag">SHAP Values</span>
+      <span class="api-tag">Per-feature</span>
+      <span class="api-tag">Compliance Ready</span>
+      <span class="api-tag">Audit Trail</span>
+    </div>
+    <div class="api-card">
+      <span class="api-method get">GET</span>
+      <div class="api-endpoint">/api/v1/health</div>
+      <div class="api-desc">Returns current model versions, last retrain date, recent precision/recall metrics, and system status. Used by monitoring dashboards and alerting systems.</div>
+      <span class="api-tag">Model Version</span>
+      <span class="api-tag">Live Metrics</span>
+      <span class="api-tag">Monitoring</span>
+    </div>
+    <div class="api-card">
+      <span class="api-method post">POST</span>
+      <div class="api-endpoint">/api/v1/retrain</div>
+      <div class="api-desc">Triggers model retraining pipeline with new labelled data. Validates performance against current production model before swap. Supports A/B model evaluation.</div>
+      <span class="api-tag">MLOps</span>
+      <span class="api-tag">A/B Testing</span>
+      <span class="api-tag">Drift Detection</span>
+      <span class="api-tag">Auto Rollback</span>
+    </div>
+  </div>
+</section>
+
+<hr class="divider"/>
+
+<!-- DECISIONS -->
+<section>
+  <div class="section-label reveal">Engineering Decisions</div>
+  <div class="section-title reveal">Why Each Choice Was Made</div>
+  <p class="section-sub reveal">Every major technical decision was data-driven — not assumption-based.</p>
+
+  <div class="decisions-grid reveal">
+    <div class="decision-card">
+      <div class="decision-icon">⚡</div>
+      <div class="decision-title">XGBoost over Random Forest</div>
+      <div class="decision-why">XGBoost achieved AUC 0.9923 vs RF's 0.9892. More importantly, it scored higher recall on fraud cases — the metric that matters most in financial fraud detection.</div>
+    </div>
+    <div class="decision-card">
+      <div class="decision-icon">✂️</div>
+      <div class="decision-title">Model Segmentation</div>
+      <div class="decision-why">Fraud in TRANSFER (0.77% rate) behaves differently from CASH_OUT (0.18% rate). Specialist models improved TRANSFER recall to 100% and reduced false alarms by 99%.</div>
+    </div>
+    <div class="decision-card">
+      <div class="decision-icon">⚖️</div>
+      <div class="decision-title">SMOTE for Imbalance</div>
+      <div class="decision-why">Only 0.13% of transactions are fraud. Without SMOTE the model would predict "legit" for everything and hit 99.87% accuracy while catching zero fraud.</div>
+    </div>
+    <div class="decision-card">
+      <div class="decision-icon">🎯</div>
+      <div class="decision-title">Threshold Tuning</div>
+      <div class="decision-why">Default 0.5 threshold caused 29,634 false alarms. Tuning to 0.9829 using F1 maximisation reduced false alarms to 291 — a 99% reduction.</div>
+    </div>
+    <div class="decision-card">
+      <div class="decision-icon">🔍</div>
+      <div class="decision-title">SHAP over Feature Importance</div>
+      <div class="decision-why">Feature importance shows WHAT matters globally. SHAP shows WHY a specific transaction was flagged — essential for compliance, auditability, and analyst trust.</div>
+    </div>
+    <div class="decision-card">
+      <div class="decision-icon">🚫</div>
+      <div class="decision-title">Dropped isFlaggedFraud</div>
+      <div class="decision-why">The existing rule-based flag would have leaked the answer to the model — like an open-book exam. Removing it forces the model to learn real patterns independently.</div>
+    </div>
+    <div class="decision-card">
+      <div class="decision-icon">📐</div>
+      <div class="decision-title">Feature: orig_balance_diff</div>
+      <div class="decision-why">Raw balance columns were 78% correlated. Combining them into a single "amount drained" feature became the strongest predictor at 67.7% SHAP importance.</div>
+    </div>
+    <div class="decision-card">
+      <div class="decision-icon">🔬</div>
+      <div class="decision-title">Kept Outliers</div>
+      <div class="decision-why">In fraud detection, extreme transactions ARE the signal. Removing outliers would delete the most suspicious cases. IQR flagging was used instead of removal.</div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider"/>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-left">
+    <div class="built-by">Built by <span>Ankur Ratwaya</span></div>
+    <div class="role">Product Manager × AI Engineer</div>
+  </div>
+  <a href="https://www.linkedin.com/in/ankurratwaya/" target="_blank" class="linkedin-btn">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+    </svg>
+    Connect on LinkedIn
+  </a>
+</footer>
+
+<script>
+// ── THEME TOGGLE ──
+function toggleTheme(){
+  const html = document.documentElement;
+  html.setAttribute('data-theme',
+    html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+  localStorage.setItem('theme', html.getAttribute('data-theme'));
+}
+const saved = localStorage.getItem('theme');
+if(saved) document.documentElement.setAttribute('data-theme', saved);
+
+// ── SMOOTH SCROLL WITH NAV OFFSET ──
+function scrollToSection(id){
+  var el = document.getElementById(id);
+  if(!el) return;
+  var nav  = document.querySelector('nav');
+  var navH = nav ? nav.offsetHeight : 70;
+  var top  = el.getBoundingClientRect().top + window.pageYOffset - navH - 20;
+  window.scrollTo({ top: top, behavior: 'smooth' });
+}
+
+// ── ACTIVE NAV HIGHLIGHT ──
+var sections = ['stack','pipeline','models','api'];
+window.addEventListener('scroll', function(){
+  var nav  = document.querySelector('nav');
+  var navH = nav ? nav.offsetHeight : 70;
+  sections.forEach(function(id){
+    var el   = document.getElementById(id);
+    var btns = document.querySelectorAll('.nav-link');
+    if(!el) return;
+    var rect = el.getBoundingClientRect();
+    if(rect.top <= navH + 40 && rect.bottom >= navH + 40){
+      btns.forEach(function(b){ b.style.color = ''; });
+      btns.forEach(function(b){
+        if(b.textContent.toLowerCase() === id.toLowerCase())
+          b.style.color = 'var(--accent)';
+      });
+    }
+  });
+});
+
+// ── SCROLL REVEAL ──
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if(e.isIntersecting){ e.target.classList.add('visible'); }
+  });
+}, {threshold: 0.1});
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

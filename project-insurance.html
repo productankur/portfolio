@@ -1,0 +1,980 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Health Insurance Cost Predictor — Architecture</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    [data-theme="dark"] {
+      --bg: #090d12;
+      --bg2: #0f1520;
+      --bg3: #151e2e;
+      --border: rgba(255,255,255,0.07);
+      --text: #e8edf5;
+      --text-muted: #6b7a96;
+      --accent: #3b82f6;
+      --accent2: #06b6d4;
+      --accent3: #8b5cf6;
+      --success: #10b981;
+      --warning: #f59e0b;
+      --card-bg: #0f1520;
+      --card-border: rgba(59,130,246,0.15);
+      --glow: rgba(59,130,246,0.15);
+      --tag-bg: rgba(59,130,246,0.12);
+      --tag-text: #93c5fd;
+      --node-bg: #151e2e;
+      --arrow: #3b82f6;
+      --hero-grad: linear-gradient(135deg, #090d12 0%, #0f1520 50%, #0d1a2e 100%);
+    }
+
+    [data-theme="light"] {
+      --bg: #f0f4fb;
+      --bg2: #ffffff;
+      --bg3: #e8eef8;
+      --border: rgba(0,0,0,0.08);
+      --text: #0f172a;
+      --text-muted: #64748b;
+      --accent: #2563eb;
+      --accent2: #0891b2;
+      --accent3: #7c3aed;
+      --success: #059669;
+      --warning: #d97706;
+      --card-bg: #ffffff;
+      --card-border: rgba(37,99,235,0.15);
+      --glow: rgba(37,99,235,0.08);
+      --tag-bg: rgba(37,99,235,0.08);
+      --tag-text: #1d4ed8;
+      --node-bg: #e8eef8;
+      --arrow: #2563eb;
+      --hero-grad: linear-gradient(135deg, #dbeafe 0%, #f0f4fb 50%, #ede9fe 100%);
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      line-height: 1.7;
+      transition: background var(--transition), color var(--transition);
+      overflow-x: hidden;
+    }
+
+    /* ── THEME TOGGLE ── */
+    .theme-toggle {
+      position: fixed;
+      top: 24px;
+      right: 28px;
+      z-index: 999;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 50px;
+      padding: 6px 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      box-shadow: 0 4px 20px var(--glow);
+      transition: all var(--transition);
+    }
+    .theme-toggle:hover { box-shadow: 0 4px 30px var(--glow), 0 0 0 1px var(--accent); }
+    .toggle-track {
+      width: 44px; height: 24px;
+      background: var(--bg3);
+      border-radius: 12px;
+      position: relative;
+      transition: background var(--transition);
+    }
+    .toggle-thumb {
+      width: 18px; height: 18px;
+      background: var(--accent);
+      border-radius: 50%;
+      position: absolute;
+      top: 3px; left: 3px;
+      transition: transform var(--transition), background var(--transition);
+      box-shadow: 0 0 8px var(--accent);
+    }
+    [data-theme="light"] .toggle-thumb { transform: translateX(20px); }
+    .toggle-icon { font-size: 14px; user-select: none; }
+
+    /* ── HERO ── */
+    .hero {
+      background: var(--hero-grad);
+      padding: 100px 40px 80px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      border-bottom: 1px solid var(--border);
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 60% 60% at 50% 0%, var(--glow), transparent 70%);
+      pointer-events: none;
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--tag-bg);
+      color: var(--tag-text);
+      border: 1px solid var(--card-border);
+      border-radius: 50px;
+      padding: 6px 16px;
+      font-family: 'DM Mono', monospace;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      margin-bottom: 28px;
+      animation: fadeUp 0.6s ease both;
+    }
+    .hero h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(2.4rem, 6vw, 4.5rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      margin-bottom: 20px;
+      animation: fadeUp 0.6s 0.1s ease both;
+    }
+    .hero h1 span {
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero p {
+      max-width: 580px;
+      margin: 0 auto 36px;
+      color: var(--text-muted);
+      font-size: 1.05rem;
+      animation: fadeUp 0.6s 0.2s ease both;
+    }
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--accent);
+      color: #fff;
+      text-decoration: none;
+      padding: 14px 28px;
+      border-radius: 10px;
+      font-family: 'Syne', sans-serif;
+      font-weight: 600;
+      font-size: 0.95rem;
+      letter-spacing: 0.02em;
+      transition: all 0.2s ease;
+      animation: fadeUp 0.6s 0.3s ease both;
+      box-shadow: 0 4px 20px rgba(59,130,246,0.4);
+    }
+    .hero-cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(59,130,246,0.5);
+    }
+    .hero-cta svg { width: 16px; height: 16px; }
+
+    /* ── MAIN CONTAINER ── */
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 28px;
+    }
+
+    /* ── SECTION ── */
+    section { padding: 72px 0; border-bottom: 1px solid var(--border); }
+    section:last-child { border-bottom: none; }
+
+    .section-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+      max-width: 60px;
+    }
+    .section-title {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 12px;
+    }
+    .section-desc {
+      color: var(--text-muted);
+      max-width: 600px;
+      margin-bottom: 48px;
+    }
+
+    /* ── ARCHITECTURE DIAGRAM ── */
+    .arch-diagram {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+    }
+    .arch-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      width: 100%;
+      flex-wrap: wrap;
+    }
+    .arch-node {
+      background: var(--node-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 18px 24px;
+      text-align: center;
+      min-width: 160px;
+      position: relative;
+      transition: all 0.25s ease;
+    }
+    .arch-node:hover {
+      border-color: var(--accent);
+      box-shadow: 0 0 24px var(--glow);
+      transform: translateY(-2px);
+    }
+    .arch-node .node-icon { font-size: 28px; margin-bottom: 8px; }
+    .arch-node .node-title {
+      font-family: 'Syne', sans-serif;
+      font-weight: 600;
+      font-size: 0.85rem;
+      color: var(--text);
+    }
+    .arch-node .node-sub {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+    .arch-node.accent { border-color: var(--accent); background: rgba(59,130,246,0.07); }
+    .arch-node.success { border-color: var(--success); background: rgba(16,185,129,0.07); }
+    .arch-node.warning { border-color: var(--warning); background: rgba(245,158,11,0.07); }
+    .arch-node.purple { border-color: var(--accent3); background: rgba(139,92,246,0.07); }
+
+    .arch-arrow {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--arrow);
+      font-size: 22px;
+      margin: 4px 0;
+      opacity: 0.7;
+    }
+    .arch-arrow.horiz { margin: 0 4px; }
+
+    .arch-split {
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      gap: 40px;
+      width: 100%;
+      flex-wrap: wrap;
+    }
+    .arch-branch {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+    }
+    .branch-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      color: var(--text-muted);
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 50px;
+      padding: 3px 12px;
+      margin-bottom: 4px;
+    }
+
+    /* ── TECH STACK GRID ── */
+    .tech-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+    }
+    .tech-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 24px;
+      transition: all 0.25s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .tech-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--accent);
+      opacity: 0;
+      transition: opacity 0.25s;
+    }
+    .tech-card:hover { border-color: var(--card-border); box-shadow: 0 8px 32px var(--glow); }
+    .tech-card:hover::before { opacity: 1; }
+    .tech-card-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+    .tech-icon {
+      width: 44px; height: 44px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      flex-shrink: 0;
+    }
+    .tech-icon.red { background: rgba(239,68,68,0.12); }
+    .tech-icon.orange { background: rgba(245,158,11,0.12); }
+    .tech-icon.blue { background: rgba(59,130,246,0.12); }
+    .tech-icon.green { background: rgba(16,185,129,0.12); }
+    .tech-icon.purple { background: rgba(139,92,246,0.12); }
+    .tech-icon.cyan { background: rgba(6,182,212,0.12); }
+
+    .tech-name {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+    }
+    .tech-version {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+    .tech-desc { color: var(--text-muted); font-size: 0.88rem; line-height: 1.6; }
+    .tech-role {
+      display: inline-block;
+      margin-top: 12px;
+      background: var(--tag-bg);
+      color: var(--tag-text);
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.06em;
+      padding: 3px 10px;
+      border-radius: 4px;
+    }
+
+    /* ── FILE STRUCTURE ── */
+    .file-tree {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+    }
+    .file-tree-header {
+      background: var(--bg3);
+      padding: 14px 20px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border-bottom: 1px solid var(--border);
+    }
+    .dot { width: 12px; height: 12px; border-radius: 50%; }
+    .dot.red { background: #ef4444; }
+    .dot.yellow { background: #f59e0b; }
+    .dot.green { background: #10b981; }
+    .file-tree-title {
+      font-family: 'DM Mono', monospace;
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-left: 8px;
+    }
+    .file-tree-body { padding: 20px 24px; }
+    .file-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .file-item:last-child { border-bottom: none; }
+    .file-icon { font-size: 18px; flex-shrink: 0; margin-top: 2px; }
+    .file-name {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: var(--accent2);
+    }
+    .file-desc { font-size: 0.83rem; color: var(--text-muted); margin-top: 3px; }
+
+    /* ── FEATURE PILLS ── */
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 16px;
+    }
+    .feature-pill {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      transition: all 0.2s ease;
+    }
+    .feature-pill:hover {
+      border-color: var(--card-border);
+      transform: translateX(4px);
+    }
+    .feature-num {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: var(--accent);
+      opacity: 0.25;
+      line-height: 1;
+      min-width: 36px;
+    }
+    .feature-text strong {
+      font-family: 'Syne', sans-serif;
+      font-weight: 600;
+      display: block;
+      margin-bottom: 4px;
+    }
+    .feature-text span { font-size: 0.87rem; color: var(--text-muted); }
+
+    /* ── RISK TABLE ── */
+    .risk-table {
+      width: 100%;
+      border-collapse: collapse;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .risk-table th {
+      background: var(--bg3);
+      padding: 14px 20px;
+      text-align: left;
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      border-bottom: 1px solid var(--border);
+    }
+    .risk-table td {
+      padding: 14px 20px;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.9rem;
+    }
+    .risk-table tr:last-child td { border-bottom: none; }
+    .risk-table tr:hover td { background: var(--bg3); }
+    .risk-bar {
+      height: 6px;
+      border-radius: 3px;
+      background: var(--bg3);
+      width: 100%;
+      overflow: hidden;
+    }
+    .risk-fill { height: 100%; border-radius: 3px; background: linear-gradient(90deg, var(--accent), var(--accent2)); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--bg2);
+      border-top: 1px solid var(--border);
+      padding: 40px 28px;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.88rem;
+    }
+    footer a { color: var(--accent); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .fade-in {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 640px) {
+      .hero { padding: 80px 20px 60px; }
+      section { padding: 48px 0; }
+      .arch-split { flex-direction: column; align-items: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Theme Toggle -->
+  <button class="theme-toggle" onclick="toggleTheme()" title="Toggle theme">
+    <span class="toggle-icon">🌙</span>
+    <div class="toggle-track">
+      <div class="toggle-thumb"></div>
+    </div>
+    <span class="toggle-icon">☀️</span>
+  </button>
+
+  <!-- ── HERO ── -->
+  <div class="hero">
+    <div class="hero-badge">
+      <span>⚕️</span> ML Project · Insurance Domain
+    </div>
+    <h1>Health Insurance<br><span>Cost Predictor</span></h1>
+    <p>An end-to-end machine learning application that predicts personalized insurance premiums using a dual-model XGBoost architecture deployed on Streamlit.</p>
+    <a href="https://ml-project-premium-prediction-by-ankur.streamlit.app/" target="_blank" class="hero-cta">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+      Launch Live App
+    </a>
+  </div>
+
+  <!-- ── DATASET STATS ── -->
+  <section style="padding: 48px 0; background: var(--bg2);">
+    <div class="container">
+      <div class="section-label">Training Data</div>
+      <h2 class="section-title">Dataset Overview</h2>
+      <p class="section-desc">The models were trained on a rich, structured insurance dataset spanning diverse demographic and lifestyle profiles.</p>
+
+      <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;" class="fade-in">
+
+        <div class="tech-card" style="text-align:center; padding: 32px 20px;">
+          <div style="font-family:'Syne',sans-serif; font-size: 3rem; font-weight: 800; background: linear-gradient(90deg, var(--accent), var(--accent2)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; line-height:1;">50,000</div>
+          <div style="font-family:'DM Mono',monospace; font-size:11px; letter-spacing:0.08em; color:var(--text-muted); text-transform:uppercase; margin-top:8px;">Training Rows</div>
+          <div style="font-size:0.82rem; color:var(--text-muted); margin-top:6px;">Diverse insurance applicant records</div>
+        </div>
+
+        <div class="tech-card" style="text-align:center; padding: 32px 20px;">
+          <div style="font-family:'Syne',sans-serif; font-size: 3rem; font-weight: 800; background: linear-gradient(90deg, var(--accent3), var(--accent)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; line-height:1;">13</div>
+          <div style="font-family:'DM Mono',monospace; font-size:11px; letter-spacing:0.08em; color:var(--text-muted); text-transform:uppercase; margin-top:8px;">Total Columns</div>
+          <div style="font-size:0.82rem; color:var(--text-muted); margin-top:6px;">12 input features + 1 target variable</div>
+        </div>
+
+        <div class="tech-card" style="text-align:center; padding: 32px 20px;">
+          <div style="font-family:'Syne',sans-serif; font-size: 3rem; font-weight: 800; background: linear-gradient(90deg, var(--success), var(--accent2)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; line-height:1;">2</div>
+          <div style="font-family:'DM Mono',monospace; font-size:11px; letter-spacing:0.08em; color:var(--text-muted); text-transform:uppercase; margin-top:8px;">Model Segments</div>
+          <div style="font-size:0.82rem; color:var(--text-muted); margin-top:6px;">Age ≤ 25 · Age > 25 cohorts</div>
+        </div>
+
+        <div class="tech-card" style="text-align:center; padding: 32px 20px;">
+          <div style="font-family:'Syne',sans-serif; font-size: 3rem; font-weight: 800; background: linear-gradient(90deg, var(--warning), var(--success)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; line-height:1;">₹</div>
+          <div style="font-family:'DM Mono',monospace; font-size:11px; letter-spacing:0.08em; color:var(--text-muted); text-transform:uppercase; margin-top:8px;">Target Variable</div>
+          <div style="font-size:0.82rem; color:var(--text-muted); margin-top:6px;">Annual insurance premium (INR)</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── ARCHITECTURE ── -->
+  <section>
+    <div class="container">
+      <div class="section-label">System Design</div>
+      <h2 class="section-title">Architecture Overview</h2>
+      <p class="section-desc">The application follows a clean pipeline: user inputs flow through feature engineering, age-based routing, and segment-specific model inference to produce a premium estimate.</p>
+
+      <div class="arch-diagram fade-in">
+
+        <!-- Input -->
+        <div class="arch-row">
+          <div class="arch-node accent">
+            <div class="node-icon">🖥️</div>
+            <div class="node-title">Streamlit UI</div>
+            <div class="node-sub">main.py · 12 input fields</div>
+          </div>
+        </div>
+
+        <div class="arch-arrow">↓</div>
+
+        <!-- Preprocessing -->
+        <div class="arch-row">
+          <div class="arch-node">
+            <div class="node-icon">⚙️</div>
+            <div class="node-title">Feature Engineering</div>
+            <div class="node-sub">One-hot · Ordinal · Risk Score</div>
+          </div>
+        </div>
+
+        <div class="arch-arrow">↓</div>
+
+        <!-- Router -->
+        <div class="arch-row">
+          <div class="arch-node warning">
+            <div class="node-icon">🔀</div>
+            <div class="node-title">Age-Based Router</div>
+            <div class="node-sub">Age ≤ 25 vs Age > 25</div>
+          </div>
+        </div>
+
+        <div class="arch-arrow">↓</div>
+
+        <!-- Two branches -->
+        <div class="arch-split">
+          <div class="arch-branch">
+            <div class="branch-label">Age ≤ 25</div>
+            <div class="arch-arrow">↓</div>
+            <div class="arch-node purple">
+              <div class="node-icon">📐</div>
+              <div class="node-title">scaler_young</div>
+              <div class="node-sub">StandardScaler</div>
+            </div>
+            <div class="arch-arrow">↓</div>
+            <div class="arch-node purple">
+              <div class="node-icon">🤖</div>
+              <div class="node-title">model_young</div>
+              <div class="node-sub">XGBoost Regressor</div>
+            </div>
+          </div>
+
+          <div class="arch-branch">
+            <div class="branch-label">Age > 25</div>
+            <div class="arch-arrow">↓</div>
+            <div class="arch-node accent">
+              <div class="node-icon">📐</div>
+              <div class="node-title">scaler_rest</div>
+              <div class="node-sub">StandardScaler</div>
+            </div>
+            <div class="arch-arrow">↓</div>
+            <div class="arch-node accent">
+              <div class="node-icon">🤖</div>
+              <div class="node-title">model_rest</div>
+              <div class="node-sub">XGBoost Regressor</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="arch-arrow">↓</div>
+
+        <!-- Output -->
+        <div class="arch-row">
+          <div class="arch-node success">
+            <div class="node-icon">💰</div>
+            <div class="node-title">Predicted Premium</div>
+            <div class="node-sub">Annual cost in ₹</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── TECH STACK ── -->
+  <section>
+    <div class="container">
+      <div class="section-label">Dependencies</div>
+      <h2 class="section-title">Technology Stack</h2>
+      <p class="section-desc">Every layer of the application is built with battle-tested, production-grade Python libraries.</p>
+
+      <div class="tech-grid">
+
+        <div class="tech-card fade-in">
+          <div class="tech-card-header">
+            <div class="tech-icon red">🎈</div>
+            <div>
+              <div class="tech-name">Streamlit</div>
+              <div class="tech-version">v1.45.1</div>
+            </div>
+          </div>
+          <div class="tech-desc">Powers the entire frontend — a responsive 4×3 input grid and real-time prediction display — with zero front-end code required.</div>
+          <span class="tech-role">UI / Deployment</span>
+        </div>
+
+        <div class="tech-card fade-in">
+          <div class="tech-card-header">
+            <div class="tech-icon green">🚀</div>
+            <div>
+              <div class="tech-name">XGBoost</div>
+              <div class="tech-version">v2.1.4</div>
+            </div>
+          </div>
+          <div class="tech-desc">Gradient boosted decision trees powering both segment-specific regressors. Chosen for strong performance on tabular data with mixed feature types.</div>
+          <span class="tech-role">ML Algorithm</span>
+        </div>
+
+        <div class="tech-card fade-in">
+          <div class="tech-card-header">
+            <div class="tech-icon orange">🔬</div>
+            <div>
+              <div class="tech-name">scikit-learn</div>
+              <div class="tech-version">v1.6.1</div>
+            </div>
+          </div>
+          <div class="tech-desc">Provides StandardScaler for feature normalization, separately fitted per age segment to ensure accurate feature distribution handling.</div>
+          <span class="tech-role">Preprocessing</span>
+        </div>
+
+        <div class="tech-card fade-in">
+          <div class="tech-card-header">
+            <div class="tech-icon blue">🐼</div>
+            <div>
+              <div class="tech-name">Pandas</div>
+              <div class="tech-version">v2.2.2</div>
+            </div>
+          </div>
+          <div class="tech-desc">Constructs the structured feature DataFrame from raw user inputs, handles one-hot encoding column scaffolding, and manages column operations.</div>
+          <span class="tech-role">Data Manipulation</span>
+        </div>
+
+        <div class="tech-card fade-in">
+          <div class="tech-card-header">
+            <div class="tech-icon cyan">🔢</div>
+            <div>
+              <div class="tech-name">NumPy</div>
+              <div class="tech-version">v2.0.2</div>
+            </div>
+          </div>
+          <div class="tech-desc">Underpins all numerical computation within Pandas and scikit-learn transformations throughout the preprocessing pipeline.</div>
+          <span class="tech-role">Numerical Computing</span>
+        </div>
+
+        <div class="tech-card fade-in">
+          <div class="tech-card-header">
+            <div class="tech-icon purple">💾</div>
+            <div>
+              <div class="tech-name">Joblib</div>
+              <div class="tech-version">v1.5.0</div>
+            </div>
+          </div>
+          <div class="tech-desc">Serializes and deserializes all four artefacts (2 models, 2 scalers) efficiently at startup, enabling fast cold-start inference on Streamlit Cloud.</div>
+          <span class="tech-role">Model Serialization</span>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FILE STRUCTURE ── -->
+  <section>
+    <div class="container">
+      <div class="section-label">Codebase</div>
+      <h2 class="section-title">Project Structure</h2>
+      <p class="section-desc">A lean, focused repository — every file has a clear, singular responsibility.</p>
+
+      <div class="file-tree fade-in">
+        <div class="file-tree-header">
+          <div class="dot red"></div>
+          <div class="dot yellow"></div>
+          <div class="dot green"></div>
+          <span class="file-tree-title">ml-project-premium-prediction/</span>
+        </div>
+        <div class="file-tree-body">
+          <div class="file-item">
+            <div class="file-icon">📄</div>
+            <div>
+              <div class="file-name">main.py</div>
+              <div class="file-desc">Streamlit application entry point. Renders the 4×3 input grid, collects all 12 user parameters, invokes the prediction function, and displays the result.</div>
+            </div>
+          </div>
+          <div class="file-item">
+            <div class="file-icon">🧠</div>
+            <div>
+              <div class="file-name">prediction_helper.py</div>
+              <div class="file-desc">Core ML logic. Handles feature engineering (encoding, risk scoring), age-based scaler selection, and routes to the appropriate XGBoost model for inference.</div>
+            </div>
+          </div>
+          <div class="file-item">
+            <div class="file-icon">🤖</div>
+            <div>
+              <div class="file-name">model_young.joblib</div>
+              <div class="file-desc">Serialized XGBoost regressor trained on the ≤ 25 age segment population data.</div>
+            </div>
+          </div>
+          <div class="file-item">
+            <div class="file-icon">🤖</div>
+            <div>
+              <div class="file-name">model_rest.joblib</div>
+              <div class="file-desc">Serialized XGBoost regressor trained on the > 25 age segment population data.</div>
+            </div>
+          </div>
+          <div class="file-item">
+            <div class="file-icon">📐</div>
+            <div>
+              <div class="file-name">scaler_young.joblib</div>
+              <div class="file-desc">StandardScaler fitted on ≤ 25 age segment. Stores column list and scaler object together as a dictionary.</div>
+            </div>
+          </div>
+          <div class="file-item">
+            <div class="file-icon">📐</div>
+            <div>
+              <div class="file-name">scaler_rest.joblib</div>
+              <div class="file-desc">StandardScaler fitted on > 25 age segment. Applied to continuous features before model inference.</div>
+            </div>
+          </div>
+          <div class="file-item">
+            <div class="file-icon">📦</div>
+            <div>
+              <div class="file-name">requirements.txt</div>
+              <div class="file-desc">Pinned dependency manifest used by Streamlit Community Cloud to reproduce the exact runtime environment.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── KEY DESIGN DECISIONS ── -->
+  <section>
+    <div class="container">
+      <div class="section-label">Engineering Decisions</div>
+      <h2 class="section-title">Key Design Choices</h2>
+      <p class="section-desc">Intentional decisions that shape the model's accuracy and reliability.</p>
+
+      <div class="feature-grid">
+        <div class="feature-pill fade-in">
+          <div class="feature-num">01</div>
+          <div class="feature-text">
+            <strong>Dual-Model Architecture</strong>
+            <span>Age ≤ 25 and Age > 25 populations have fundamentally different risk profiles. Separate models per segment capture these non-linear dynamics more accurately than a single model.</span>
+          </div>
+        </div>
+        <div class="feature-pill fade-in">
+          <div class="feature-num">02</div>
+          <div class="feature-text">
+            <strong>Segment-Specific Scalers</strong>
+            <span>Each model has its own fitted StandardScaler. Shared scalers would introduce distribution mismatch between training and inference for the young cohort.</span>
+          </div>
+        </div>
+        <div class="feature-pill fade-in">
+          <div class="feature-num">03</div>
+          <div class="feature-text">
+            <strong>Normalized Medical Risk Score</strong>
+            <span>Medical history is converted into a continuous normalized score (0–1) rather than raw categories, making it directly usable as a numeric feature without sparsity issues.</span>
+          </div>
+        </div>
+        <div class="feature-pill fade-in">
+          <div class="feature-num">04</div>
+          <div class="feature-text">
+            <strong>Ordinal Insurance Plan Encoding</strong>
+            <span>Bronze=1, Silver=2, Gold=3 preserves the natural ordering of plan tiers, which carries real premium signal and outperforms one-hot encoding for this feature.</span>
+          </div>
+        </div>
+        <div class="feature-pill fade-in">
+          <div class="feature-num">05</div>
+          <div class="feature-text">
+            <strong>Baseline Category Dropping</strong>
+            <span>One-hot encoded columns use the baseline-drop convention (e.g., Female, Northeast, Married are implicit baselines), preventing multicollinearity in the feature matrix.</span>
+          </div>
+        </div>
+        <div class="feature-pill fade-in">
+          <div class="feature-num">06</div>
+          <div class="feature-text">
+            <strong>Zero-Init Feature DataFrame</strong>
+            <span>The preprocessor initializes all 18 expected columns to zero before populating values. This guarantees the correct feature schema regardless of which options the user selects.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── MEDICAL RISK TABLE ── -->
+  <section>
+    <div class="container">
+      <div class="section-label">Feature Engineering</div>
+      <h2 class="section-title">Medical Risk Scoring</h2>
+      <p class="section-desc">Medical history is translated into a single normalized continuous score using domain-informed risk weights, then scaled to [0, 1] with a max possible score of 14.</p>
+
+      <div class="fade-in" style="border-radius:14px; overflow:hidden; border:1px solid var(--border);">
+        <table class="risk-table">
+          <thead>
+            <tr>
+              <th>Condition</th>
+              <th>Raw Score</th>
+              <th>Normalized (÷14)</th>
+              <th>Weight</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Heart Disease</td>
+              <td>8</td>
+              <td>0.571</td>
+              <td><div class="risk-bar"><div class="risk-fill" style="width:57%"></div></div></td>
+            </tr>
+            <tr>
+              <td>Diabetes</td>
+              <td>6</td>
+              <td>0.429</td>
+              <td><div class="risk-bar"><div class="risk-fill" style="width:43%"></div></div></td>
+            </tr>
+            <tr>
+              <td>High Blood Pressure</td>
+              <td>6</td>
+              <td>0.429</td>
+              <td><div class="risk-bar"><div class="risk-fill" style="width:43%"></div></div></td>
+            </tr>
+            <tr>
+              <td>Thyroid</td>
+              <td>5</td>
+              <td>0.357</td>
+              <td><div class="risk-bar"><div class="risk-fill" style="width:36%"></div></div></td>
+            </tr>
+            <tr>
+              <td>Diabetes & Heart Disease</td>
+              <td>14</td>
+              <td>1.000</td>
+              <td><div class="risk-bar"><div class="risk-fill" style="width:100%"></div></div></td>
+            </tr>
+            <tr>
+              <td>No Disease / None</td>
+              <td>0</td>
+              <td>0.000</td>
+              <td><div class="risk-bar"><div class="risk-fill" style="width:0%"></div></div></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ── -->
+  <footer>
+    <div style="margin-bottom:12px;">
+      <strong style="font-family:'Syne',sans-serif; font-size:1.1rem;">Health Insurance Cost Predictor</strong>
+    </div>
+    <div style="margin-bottom:16px; color:var(--text-muted);">Built with Python · XGBoost · Streamlit</div>
+    <div style="display:flex; gap:24px; justify-content:center; flex-wrap:wrap;">
+      <a href="https://ml-project-premium-prediction-by-ankur.streamlit.app/" target="_blank">🚀 Live App</a>
+      <a href="https://github.com/productankur/ml-project-premium-prediction" target="_blank">💻 GitHub Repo</a>
+    </div>
+    <div style="margin-top:20px; font-size:0.8rem;">For educational and demonstrative purposes only.</div>
+  </footer>
+
+  <script>
+    function toggleTheme() {
+      const html = document.documentElement;
+      html.dataset.theme = html.dataset.theme === 'dark' ? 'light' : 'dark';
+    }
+
+    // Scroll-triggered fade-in
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((e, i) => {
+        if (e.isIntersecting) {
+          setTimeout(() => e.target.classList.add('visible'), i * 80);
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
