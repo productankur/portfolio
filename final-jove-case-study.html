@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JoVE — BioPharma Case Study · Senior PM Assignment</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#1a1a1a;
+  --ink2:#444;
+  --ink3:#6b6b6b;
+  --ink4:#999;
+  --bg:#fafaf8;
+  --white:#ffffff;
+  --border:#e5e3dc;
+  --border2:#d4d1c9;
+  --teal:#0a7fa5;
+  --teal-d:#086b8c;
+  --teal-bg:#eef7fb;
+  --teal-border:#b0dcea;
+  --teal-text:#065f78;
+  --amber:#d97706;
+  --amber-bg:#fffbeb;
+  --amber-border:#fcd34d;
+  --amber-text:#92400e;
+}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--ink);line-height:1.65;-webkit-font-smoothing:antialiased;font-size:15px}
+
+/* NAV */
+nav{
+  position:sticky;top:0;z-index:100;
+  background:rgba(255,255,255,0.97);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--border);
+  padding:0 clamp(1rem,4vw,3rem);
+  display:flex;align-items:center;justify-content:space-between;
+  height:56px;
+}
+.nav-logo{display:flex;align-items:center;text-decoration:none}
+.nav-right{display:flex;align-items:center;gap:.75rem}
+.nav-tag{
+  font-size:.6875rem;font-weight:500;letter-spacing:.07em;text-transform:uppercase;
+  color:var(--teal-text);background:var(--teal-bg);
+  border:1px solid var(--teal-border);
+  padding:.275rem .75rem;border-radius:100px;
+}
+.nav-btn{
+  display:inline-flex;align-items:center;gap:.375rem;
+  font-size:.8rem;font-weight:500;color:var(--teal-text);
+  background:var(--teal-bg);border:1px solid var(--teal-border);
+  padding:.4rem .9rem;border-radius:8px;text-decoration:none;
+  transition:background .2s;
+}
+.nav-btn:hover{background:#d0edf5}
+.nav-btn svg{width:11px;height:11px}
+@media(max-width:480px){.nav-tag{display:none}.nav-btn span{display:none}}
+
+/* HERO */
+.hero{
+  background:var(--white);
+  padding:clamp(2rem,5vw,4rem) clamp(1rem,4vw,3rem) clamp(1.5rem,3vw,2.5rem);
+  border-bottom:1px solid var(--border);
+}
+.hero-inner{max-width:780px;margin:0 auto}
+.hero-badges{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1.25rem}
+.badge{
+  display:inline-flex;align-items:center;gap:.4rem;
+  font-size:.6875rem;font-weight:500;letter-spacing:.07em;text-transform:uppercase;
+  padding:.3rem .8rem;border-radius:100px;
+}
+.badge-teal{color:var(--teal-text);background:var(--teal-bg);border:1px solid var(--teal-border)}
+.badge-amber{color:var(--amber-text);background:var(--amber-bg);border:1px solid var(--amber-border)}
+.badge-amber::before{content:'';width:6px;height:6px;background:var(--amber);border-radius:50%}
+h1{
+  font-family:'DM Serif Display',serif;
+  font-size:clamp(1.875rem,5vw,3.25rem);
+  line-height:1.1;letter-spacing:-.02em;
+  color:var(--ink);margin-bottom:1rem;
+}
+h1 em{font-style:italic;color:var(--teal-d)}
+.hero-sub{
+  font-size:clamp(.875rem,1.6vw,1rem);
+  color:var(--ink3);font-weight:300;
+  line-height:1.75;margin-bottom:1.75rem;
+}
+.hero-meta{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  border:1px solid var(--border);border-radius:12px;overflow:hidden;
+  background:var(--white);
+}
+.meta-item{padding:.75rem 1rem;border-right:1px solid var(--border)}
+.meta-item:last-child{border-right:none}
+.meta-label{font-size:.5875rem;font-weight:500;letter-spacing:.09em;text-transform:uppercase;color:var(--ink4);margin-bottom:.25rem;display:block}
+.meta-value{font-size:.875rem;font-weight:500;color:var(--ink);display:block}
+@media(max-width:620px){
+  .hero-meta{grid-template-columns:1fr 1fr}
+  .meta-item{border-bottom:1px solid var(--border)}
+  .meta-item:nth-child(even){border-right:none}
+  .meta-item:nth-last-child(-n+2){border-bottom:none}
+}
+
+/* SHARED */
+.section{padding:clamp(1.5rem,4vw,2.75rem) clamp(1rem,4vw,3rem)}
+.section-white{background:var(--white)}
+.section-grey{background:var(--bg)}
+.inner{max-width:860px;margin:0 auto}
+.divider{height:1px;background:var(--border)}
+.eyebrow{font-size:.6875rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--teal-text);margin-bottom:.4rem}
+h2{
+  font-family:'DM Serif Display',serif;
+  font-size:clamp(1.25rem,2.5vw,1.75rem);
+  letter-spacing:-.015em;line-height:1.2;
+  color:var(--ink);margin-bottom:.875rem;
+}
+p.body{color:var(--ink3);font-size:.9375rem;line-height:1.75;font-weight:300;margin-bottom:.75rem}
+p.body:last-child{margin-bottom:0}
+
+/* BRIEF — full width problem statement + 3-col cards row */
+.brief-problem{margin-bottom:1.25rem}
+.brief-cards-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.875rem}
+@media(max-width:680px){.brief-cards-row{grid-template-columns:1fr}}
+.brief-right{display:flex;flex-direction:column;gap:1rem}
+.info-card{background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:1rem 1.125rem}
+.card-label{font-size:.625rem;font-weight:500;letter-spacing:.09em;text-transform:uppercase;color:var(--ink4);margin-bottom:.45rem}
+.info-card p{font-size:.875rem;color:var(--ink2);line-height:1.65;margin:0}
+.info-card p strong{color:var(--ink);font-weight:500}
+.highlight-card{
+  background:var(--teal-bg);
+  border:1px solid var(--teal-border);
+  border-radius:12px;padding:1rem 1.125rem;
+  display:flex;align-items:flex-start;gap:.875rem;
+}
+.highlight-icon{
+  width:34px;height:34px;flex-shrink:0;
+  background:rgba(10,127,165,.15);border:1px solid var(--teal-border);
+  border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:1rem;
+}
+.highlight-card h3{font-size:.9rem;font-weight:500;color:var(--ink);margin-bottom:.15rem}
+.highlight-card p{font-size:.8rem;color:var(--ink3);margin:0;line-height:1.4}
+.view-btn{
+  display:inline-flex;align-items:center;gap:.4rem;
+  font-size:.8rem;font-weight:500;color:var(--teal-text);
+  background:var(--teal-bg);border:1px solid var(--teal-border);
+  padding:.45rem .9rem;border-radius:8px;text-decoration:none;
+  transition:background .2s;align-self:flex-start;
+}
+.view-btn:hover{background:#d0edf5}
+.view-btn svg{width:11px;height:11px}
+
+/* PERSONAS */
+.personas-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.875rem;margin:.875rem 0}
+@media(max-width:680px){.personas-grid{grid-template-columns:1fr}}
+.persona-card{
+  background:var(--white);border:1px solid var(--border);
+  border-radius:14px;padding:1.125rem;
+  transition:box-shadow .2s,transform .2s;
+}
+.persona-card:hover{box-shadow:0 8px 28px rgba(0,0,0,.07);transform:translateY(-2px)}
+.persona-flag{font-size:.65rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--teal-text);background:var(--teal-bg);border:1px solid var(--teal-border);padding:.2rem .6rem;border-radius:100px;display:inline-block;margin-bottom:.65rem}
+.persona-card h3{font-family:'DM Serif Display',serif;font-size:1.05rem;color:var(--ink);margin-bottom:.2rem}
+.persona-card .persona-type{font-size:.8rem;color:var(--ink4);margin-bottom:.65rem}
+.persona-need{font-size:.875rem;color:var(--ink3);line-height:1.6;margin-bottom:.65rem}
+.persona-need:last-child{margin-bottom:0}
+.persona-need strong{color:var(--ink2);font-weight:500}
+
+/* PAIN POINTS */
+.painpoints-list{display:flex;flex-direction:column;gap:.625rem;margin:.875rem 0}
+.pain-item{
+  background:var(--white);border:1px solid var(--border);
+  border-radius:12px;padding:.875rem 1.125rem;
+  display:flex;align-items:flex-start;gap:.875rem;
+}
+.pain-num{
+  font-size:.7rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;
+  color:var(--amber-text);background:var(--amber-bg);border:1px solid var(--amber-border);
+  padding:.2rem .55rem;border-radius:100px;flex-shrink:0;margin-top:2px;
+}
+.pain-item p{font-size:.9375rem;color:var(--ink3);line-height:1.65;margin:0}
+
+/* USER JOURNEY */
+.journey-card{
+  background:var(--white);border:1px solid var(--border);
+  border-radius:14px;overflow:hidden;margin:.875rem 0;
+}
+.journey-header{padding:1rem 1.25rem;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:1rem}
+.journey-avatar{
+  width:40px;height:40px;border-radius:50%;
+  background:linear-gradient(135deg,var(--teal-bg),#d0edf5);
+  border:2px solid var(--teal-border);
+  display:flex;align-items:center;justify-content:center;font-size:1.125rem;flex-shrink:0;
+}
+.journey-name{font-size:.9rem;font-weight:500;color:var(--ink);margin-bottom:.1rem}
+.journey-meta{font-size:.75rem;color:var(--ink4)}
+.journey-steps{padding:1rem 1.25rem;display:flex;flex-direction:column;gap:0}
+.journey-step{display:flex;align-items:flex-start;gap:1rem;padding:.75rem 0;border-bottom:1px solid var(--border)}
+.journey-step:last-child{border-bottom:none;padding-bottom:0}
+.step-dot-wrap{display:flex;flex-direction:column;align-items:center;gap:0;flex-shrink:0;padding-top:3px}
+.step-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.step-dot.up{background:var(--teal)}
+.step-dot.peak{background:#f59e0b}
+.step-dot.down{background:#f87171}
+.step-line{width:2px;flex:1;background:var(--border);min-height:20px;margin-top:3px}
+.step-content h4{font-size:.875rem;font-weight:500;color:var(--ink);margin-bottom:.2rem}
+.step-content p{font-size:.8rem;color:var(--ink4);line-height:1.5;margin:0}
+
+/* SOLUTIONS */
+.solutions-wrap{display:flex;flex-direction:column;gap:1.25rem;margin:.875rem 0}
+.solution-block{background:var(--white);border:1px solid var(--border);border-radius:14px;overflow:hidden}
+.solution-header{
+  padding:.875rem 1.25rem;border-bottom:1px solid var(--border);
+  display:flex;align-items:center;gap:.875rem;
+  background:linear-gradient(90deg,var(--teal-bg) 0%,transparent 100%);
+}
+.solution-num{
+  width:30px;height:30px;border-radius:8px;
+  background:var(--teal);color:white;
+  font-size:.75rem;font-weight:500;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.solution-header h3{font-size:.9375rem;font-weight:500;color:var(--ink);margin:0}
+.solution-body{padding:1rem 1.25rem;display:flex;flex-direction:column;gap:.875rem}
+.solution-desc{font-size:.9375rem;color:var(--ink3);line-height:1.75;font-weight:300}
+.feature-tags{display:flex;flex-wrap:wrap;gap:.4rem}
+.ftag{font-size:.75rem;font-weight:500;background:var(--teal-bg);color:var(--teal-text);border:1px solid var(--teal-border);padding:.225rem .65rem;border-radius:100px}
+.ftag.amber{background:var(--amber-bg);color:var(--amber-text);border-color:var(--amber-border)}
+
+/* ARCHITECTURE DIAGRAM */
+.arch-wrap{
+  margin:.875rem 0;border:1px solid var(--border);border-radius:14px;
+  background:var(--white);box-shadow:0 2px 12px rgba(0,0,0,.04);
+  padding:1.25rem;cursor:pointer;
+}
+.arch-wrap img{width:100%;display:block;border-radius:8px;background:var(--white)}
+.arch-caption{
+  margin-top:.625rem;padding:.45rem .25rem 0;border-top:1px solid var(--border);
+  font-size:.75rem;color:var(--ink4);background:transparent;
+  display:flex;align-items:center;gap:.5rem;
+}
+.arch-caption::before{content:'';width:6px;height:6px;background:var(--teal);border-radius:50%;flex-shrink:0}
+
+/* WIREFRAMES — 2 col desktop, 1 col mobile */
+.wireframes-grid{display:grid;grid-template-columns:1fr 1fr;gap:.875rem;margin:.875rem 0}
+@media(max-width:700px){.wireframes-grid{grid-template-columns:1fr}}
+.wireframe-card{
+  border:1px solid var(--border);border-radius:12px;overflow:hidden;
+  box-shadow:0 2px 10px rgba(0,0,0,.04);cursor:pointer;
+  transition:box-shadow .2s,transform .15s;
+}
+.wireframe-card:hover{box-shadow:0 6px 20px rgba(0,0,0,.1);transform:translateY(-2px)}
+.wireframe-card img{width:100%;display:block}
+.wireframe-label{
+  padding:.45rem .875rem;border-top:1px solid var(--border);
+  font-size:.7rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;
+  color:var(--ink4);background:var(--bg);
+}
+
+/* KPI */
+.kpi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.875rem;margin:.875rem 0}
+@media(max-width:560px){.kpi-grid{grid-template-columns:1fr 1fr}}
+.kpi-card{
+  background:var(--white);border:1px solid var(--border);
+  border-radius:12px;padding:.875rem;text-align:center;
+  transition:box-shadow .2s;
+}
+.kpi-card:hover{box-shadow:0 6px 20px rgba(0,0,0,.06)}
+.kpi-icon{font-size:1.125rem;margin-bottom:.4rem;display:block}
+.kpi-name{font-size:.875rem;font-weight:500;color:var(--ink);display:block;margin-bottom:.2rem}
+.kpi-desc{font-size:.6875rem;color:var(--ink4);line-height:1.5}
+
+/* TIMELINE */
+.timeline-card{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:1rem 1.125rem;margin:.875rem 0}
+.timeline-item{display:flex;align-items:flex-start;gap:.875rem;padding:.625rem 0;border-bottom:1px solid var(--border)}
+.timeline-item:first-child{padding-top:0}
+.timeline-item:last-child{border-bottom:none;padding-bottom:0}
+.t-dot{width:8px;height:8px;border-radius:50%;background:var(--teal);flex-shrink:0;margin-top:5px}
+.t-dot.amber{background:var(--amber)}
+.t-content h4{font-size:.875rem;font-weight:500;color:var(--ink);margin-bottom:.15rem}
+.t-content p{font-size:.8rem;color:var(--ink4);margin:0;line-height:1.5}
+
+/* LIGHTBOX SLIDER */
+.lightbox{
+  display:none;position:fixed;inset:0;z-index:1000;
+  background:rgba(0,0,0,.92);
+  align-items:center;justify-content:center;
+  padding:1rem;
+}
+.lightbox.active{display:flex}
+.lightbox-inner{
+  position:relative;max-width:min(1200px,96vw);max-height:92vh;
+  display:flex;flex-direction:column;align-items:center;width:100%;
+}
+.lightbox-img-wrap{
+  position:relative;width:100%;display:flex;
+  align-items:center;justify-content:center;
+}
+.lightbox-inner img{
+  max-width:100%;max-height:calc(88vh - 5rem);
+  border-radius:10px;object-fit:contain;
+  box-shadow:0 20px 60px rgba(0,0,0,.6);
+  display:block;
+}
+/* Close */
+.lightbox-close{
+  position:absolute;top:-2.75rem;right:0;
+  background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);
+  color:white;font-size:1.125rem;line-height:1;
+  width:34px;height:34px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;transition:background .2s;z-index:10;
+}
+.lightbox-close:hover{background:rgba(255,255,255,.3)}
+/* Arrows */
+.lightbox-arrow{
+  position:absolute;top:50%;transform:translateY(-50%);
+  background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);
+  color:white;font-size:1.25rem;line-height:1;
+  width:44px;height:44px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;transition:background .2s,transform .2s;
+  user-select:none;z-index:10;flex-shrink:0;
+}
+.lightbox-arrow:hover{background:rgba(255,255,255,.25);transform:translateY(-50%) scale(1.08)}
+.lightbox-arrow.left{left:-56px}
+.lightbox-arrow.right{right:-56px}
+@media(max-width:700px){
+  .lightbox-arrow.left{left:-2px}
+  .lightbox-arrow.right{right:-2px}
+  .lightbox-arrow{width:36px;height:36px;font-size:1rem;background:rgba(0,0,0,.5)}
+}
+/* Counter + caption */
+.lightbox-footer{
+  margin-top:.75rem;display:flex;flex-direction:column;align-items:center;gap:.35rem;
+}
+.lightbox-counter{
+  font-size:.7rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;
+  color:rgba(255,255,255,.4);
+}
+.lightbox-caption{
+  font-size:.8rem;color:rgba(255,255,255,.6);
+  text-align:center;letter-spacing:.03em;
+}
+
+/* FOOTER */
+footer{
+  background:var(--white);border-top:1px solid var(--border);
+  padding:1.25rem clamp(1rem,4vw,3rem);
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;
+}
+.footer-logo{display:block}
+.footer-sep{width:1px;height:14px;background:var(--border2)}
+.footer-left{display:flex;align-items:center;gap:.875rem}
+.footer-text{font-size:.8rem;color:var(--ink4)}
+.footer-link{font-size:.8rem;color:var(--ink3);text-decoration:none;display:inline-flex;align-items:center;gap:.3rem;transition:color .2s}
+.footer-link:hover{color:var(--ink)}
+.footer-link svg{width:10px;height:10px}
+
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(14px);transition:opacity .55s ease,transform .55s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+
+@media(max-width:560px){
+  .personas-grid{grid-template-columns:1fr}
+  .wireframes-grid{grid-template-columns:1fr}
+  .kpi-grid{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo"><img src="data:image/png;base64,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" alt="JoVE" style="height:36px;border-radius:6px;display:block;"></a>
+  <div class="nav-right">
+    <span class="nav-tag">Senior PM Assignment</span>
+    <a href="https://docs.google.com/presentation/d/1fHWpA2lK-oF0tE54Fk9eNmdodPWcS7tgQwmwacNVGzA/edit?usp=sharing" target="_blank" rel="noopener" class="nav-btn">
+      View Presentation
+      <svg viewBox="0 0 11 11" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 9L9 2M5 2h4v4"/></svg>
+    </a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero reveal">
+  <div class="hero-inner">
+    <div class="hero-badges">
+      <span class="badge badge-teal">Case Study · JoVE BioPharma Expansion</span>
+      <span class="badge badge-amber">Senior Product Manager · 2024</span>
+    </div>
+    <h1>Bringing <em>JoVE's platform</em> to<br>BioPharma scientists</h1>
+  </div>
+</div>
+
+<!-- PROBLEM STATEMENT -->
+<div class="section section-grey reveal">
+  <div class="inner">
+    <p class="eyebrow">The Brief</p>
+    <h2>Problem Statement</h2>
+    <div class="brief-problem">
+      <p class="body">JoVE is renowned for its extensive library of research videos that assist academic researchers in understanding experimental techniques. The challenge was to <strong>tailor these resources to meet the specific needs of scientists in BioPharma companies</strong> — while leveraging existing content and being open to building entirely new products for this sector.</p>
+      <p class="body">The core tension: JoVE's current platform serves universities and research groups well, but BioPharma scientists operate with different urgency, different resource constraints, and in many cases, in geographies with limited access to existing networks.</p>
+    </div>
+    <div class="brief-cards-row">
+      <div class="highlight-card" style="flex-direction:column;gap:.5rem">
+        <div style="display:flex;align-items:center;gap:.625rem">
+          <div class="highlight-icon">🎯</div>
+          <h3 style="font-size:.875rem;font-weight:500;color:var(--ink)">Core Objective</h3>
+        </div>
+        <p style="font-size:.8rem;color:var(--ink3);line-height:1.5;margin:0">Expand JoVE's platform to serve BioPharma scientists in developing markets with content and tools that translate directly to lab outcomes.</p>
+      </div>
+      <div class="info-card">
+        <div class="card-label">Target Segments</div>
+        <p>BioPharma Start-Ups &amp; MSMEs · Government-Aided Pharma Organisations · Private Label Pharmaceutical Manufacturers</p>
+      </div>
+      <div class="info-card">
+        <div class="card-label">Key Geographies</div>
+        <p>Sri Lanka · Bhutan · Nepal · Bangladesh · African continent (Kenya, Nigeria and beyond)</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- PERSONAS -->
+<div class="section section-white reveal">
+  <div class="inner">
+    <p class="eyebrow">User Research</p>
+    <h2>Personas</h2>
+    <p class="body">Three distinct organisational archetypes emerged — each with different maturities, resources, and goals, but converging on the same core pain.</p>
+    <div class="personas-grid">
+      <div class="persona-card">
+        <span class="persona-flag">Nairobi, Kenya</span>
+        <h3>Hope Biotech</h3>
+        <p class="persona-type">2-year-old BioPharma Start-Up</p>
+        <p class="persona-need"><strong>Primary Need:</strong> Access to the latest best practices in the BioPharma industry. Currently lacks structured knowledge resources to run reproducible experiments.</p>
+      </div>
+      <div class="persona-card">
+        <span class="persona-flag">Kathmandu, Nepal</span>
+        <h3>Aspire Biotech</h3>
+        <p class="persona-type">15-year-old Vaccines Distributor</p>
+        <p class="persona-need"><strong>Primary Need:</strong> Access to experienced human resource to plan and set up an insulin manufacturing facility in Nepal.</p>
+      </div>
+      <div class="persona-card">
+        <span class="persona-flag">Colombo, Sri Lanka</span>
+        <h3>Lanka Glycols</h3>
+        <p class="persona-type">Government-Aided BioPharma Firm</p>
+        <p class="persona-need"><strong>Primary Need:</strong> University research &amp; R&amp;D Lab connections. Focus is establishing a Hepatitis B vaccine manufacturing facility.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PAIN POINTS -->
+<div class="section section-grey reveal">
+  <div class="inner">
+    <p class="eyebrow">Shared Pain Points</p>
+    <h2>Where the system fails them</h2>
+    <div class="painpoints-list">
+      <div class="pain-item">
+        <span class="pain-num">01</span>
+        <p>Unable to replicate crucial experiments using text-only protocols — written instructions leave too much room for interpretation in a wet lab setting.</p>
+      </div>
+      <div class="pain-item">
+        <span class="pain-num">02</span>
+        <p>Unclear written protocols make reproduction <strong>expensive, time-consuming, and error-prone</strong>, burning through limited R&amp;D budgets.</p>
+      </div>
+      <div class="pain-item">
+        <span class="pain-num">03</span>
+        <p>No structured access to industry experts — the knowledge held by experienced BioPharma scientists simply isn't reachable from emerging markets.</p>
+      </div>
+      <div class="pain-item">
+        <span class="pain-num">04</span>
+        <p>Reproducing experiments via on-site R&amp;D or international travel is prohibitively expensive and slow — a journey that can take months and cost thousands.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- USER JOURNEY -->
+<div class="section section-white reveal">
+  <div class="inner">
+    <p class="eyebrow">User Journey</p>
+    <h2>Alvin's story — Hope Biotech (Kenya) </h2>
+    <p class="body">Alvin (56) is a BioPharma scientist with 17 years of experience. He founded Hope Biotech in Kenya 2 years ago and is building a drug to reduce heart attack and stroke risk. He has investor funding and a team of junior scientists — but is stuck.</p>
+    <div class="journey-card">
+      <div class="journey-header">
+        <div class="journey-avatar">🧬</div>
+        <div>
+          <p class="journey-name">Alvin, 56 — Founder, Hope Biotech</p>
+          <p class="journey-meta">Nairobi, Kenya · BioPharma Scientist, 17 years experience</p>
+        </div>
+      </div>
+      <div class="journey-steps">
+        <div class="journey-step">
+          <div class="step-dot-wrap">
+            <div class="step-dot up"></div>
+            <div class="step-line"></div>
+          </div>
+          <div class="step-content">
+            <h4>Searches for manufacturing protocols online</h4>
+            <p>Finds a handful of journals and research papers on drug manufacturing — motivation is high.</p>
+          </div>
+        </div>
+        <div class="journey-step">
+          <div class="step-dot-wrap">
+            <div class="step-dot peak"></div>
+            <div class="step-line"></div>
+          </div>
+          <div class="step-content">
+            <h4>Starts the R&amp;D journey with optimism</h4>
+            <p>Team begins experiments. Energy is strong, initial progress looks promising.</p>
+          </div>
+        </div>
+        <div class="journey-step">
+          <div class="step-dot-wrap">
+            <div class="step-dot down"></div>
+            <div class="step-line"></div>
+          </div>
+          <div class="step-content">
+            <h4>Motivation drops sharply after failed replications</h4>
+            <p>The team has been trying for weeks to repeat an important experiment by following written instructions, but can't get it to work. It's costing them time, money, and energy — and the team is getting frustrated.</p>
+          </div>
+        </div>
+        <div class="journey-step">
+          <div class="step-dot-wrap">
+            <div class="step-dot down"></div>
+          </div>
+          <div class="step-content">
+            <h4>Travel option deemed infeasible</h4>
+            <p>The team wanted to travel to get in-person help, but that didn't work out — they don't know anyone at the factories or universities who could help, and the trip would be too expensive.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- SOLUTIONS -->
+<div class="section section-grey reveal">
+  <div class="inner">
+    <p class="eyebrow">Product Strategy</p>
+    <h2>Two solutions</h2>
+    <p class="body">Rather than a single product, the strategy proposes two distinct offerings that serve different stages of the BioPharma journey — one for knowledge and capability-building, one for clinical execution.</p>
+    <div class="solutions-wrap">
+      <div class="solution-block">
+        <div class="solution-header">
+          <div class="solution-num">1</div>
+          <h3>JoVE for BioPharma — Enhanced Platform</h3>
+        </div>
+        <div class="solution-body">
+          <p class="solution-desc">Leverage JoVE's existing platform as an interface between academics, industry veterans, and small-to-medium BioPharma companies. The key insight: JoVE already has the content and the contributor network — the job is to surface it in a format that maps directly to lab outcomes, not academic publication.</p>
+          <div class="feature-tags">
+            <span class="ftag">End-to-end process videos</span>
+            <span class="ftag">Peer-reviewed content</span>
+            <span class="ftag">Expert access &amp; mentorship</span>
+            <span class="ftag">LMS &amp; Discussion Forum</span>
+            <span class="ftag">Live Webinars</span>
+            <span class="ftag">Encyclopedia</span>
+            <span class="ftag">AI Chatbot</span>
+            <span class="ftag">Data Simulators</span>
+          </div>
+        </div>
+      </div>
+      <div class="solution-block">
+        <div class="solution-header">
+          <div class="solution-num">2</div>
+          <h3>JoVE Clinical Trial Platform</h3>
+        </div>
+        <div class="solution-body">
+          <p class="solution-desc">A new platform purpose-built for drug manufacturers in emerging markets to run structured clinical trials. Training data sourced from hospitals, diagnostics labs, and BioPharma corporates feeds an ML engine that produces real-time predictive reports — allowing companies like Hope Biotech to run trials that would otherwise require costly partnerships with established research CROs.</p>
+          <div class="feature-tags">
+            <span class="ftag amber">Patient Recruitment</span>
+            <span class="ftag amber">Clinical Trial Design</span>
+            <span class="ftag amber">Data Analysis</span>
+            <span class="ftag amber">Predictive Analytics</span>
+            <span class="ftag">Heart Attack Prediction</span>
+            <span class="ftag">Cervical Cancer Detection</span>
+            <span class="ftag">Covid-19 Chest Reports</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ARCHITECTURE: SOLUTION 1 -->
+<div class="section section-white reveal">
+  <div class="inner">
+    <p class="eyebrow">High-Level Architecture</p>
+    <h2>Solution 1 — Platform flow</h2>
+    <p class="body">Contributors from universities, private R&amp;D labs, BioPharma corporates, and research groups submit content through JoVE's editorial pipeline (manuscript → peer review → filming → post-production). The platform then delivers this knowledge to consumers via LMS, forums, live webinars, encyclopedia, chatbot, and simulators.</p>
+    <div class="arch-wrap">
+      <img src="C:\Users\Manager\Downloads\JOVE_ASSETS\Jove Flow Diagram.jpeg" alt="JoVE Solution 1 — High Level Architecture: Contributors flow through JoVE aggregator to consumer segments" loading="lazy">
+      <div class="arch-caption">Solution 1 — Content aggregation and distribution architecture from contributors to BioPharma consumers</div>
+    </div>
+  </div>
+</div>
+
+<!-- ARCHITECTURE: SOLUTION 2 -->
+<div class="section section-grey reveal">
+  <div class="inner">
+    <p class="eyebrow">Clinical Trial Architecture</p>
+    <h2>Solution 2 — Data &amp; ML pipeline</h2>
+    <p class="body">Clients (BioPharma start-ups, government organisations, private manufacturers) upload patient and trial data. This feeds a JoVE-hosted ML model trained on data from hospitals, diagnostics labs, and BioPharma corporates — producing real-time predictive reports that guide trial decisions.</p>
+    <div class="arch-wrap">
+      <img src="C:\Users\Manager\Downloads\JOVE_ASSETS\Jove Clinical Trial Platform.png" alt="JoVE Clinical Trial Platform — data pipeline from sources through ML model to real-time reports" loading="lazy">
+      <div class="arch-caption">Solution 2 — Clinical Trial Platform: data upload → ML training layer → predictive analysis → real-time reports</div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- WIREFRAMES -->
+<div class="section section-white reveal">
+  <div class="inner">
+    <p class="eyebrow">Platform Design</p>
+    <h2>Clinical Trial Platform — Key screens</h2>
+    <p class="body">The wireframes walk through the complete user flow — from the landing dashboard and project creation, through subject profile entry, data analysis, ML classification, and the final predictive risk report.</p>
+
+    <div class="wireframes-grid-3" style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1.25rem 0;">
+
+      <div class="wireframe-card">
+        <img src="C:\Users\Manager\Downloads\JOVE_ASSETS\Screen 1.jpg" alt="Screen 1 — JoVE Clinical Trial Platform Landing Dashboard" loading="lazy" style="width:100%;display:block;">
+        <div class="wireframe-label">Screen 1 — Dashboard Landing Page</div>
+      </div>
+
+      <div class="wireframe-card">
+        <img src="C:\Users\Manager\Downloads\JOVE_ASSETS\Screen 2.jpg" alt="Screen 2 — Project Creation Page" loading="lazy" style="width:100%;display:block;">
+        <div class="wireframe-label">Screen 2 — Project Creation</div>
+      </div>
+
+      <div class="wireframe-card">
+        <img src="C:\Users\Manager\Downloads\JOVE_ASSETS\Screen 3.jpg" alt="Screen 3 — Heart Attack Detection Project" loading="lazy" style="width:100%;display:block;">
+        <div class="wireframe-label">Screen 3 — Project Overview &amp; Subject Data</div>
+      </div>
+
+      <div class="wireframe-card">
+        <img src="C:\Users\Manager\Downloads\JOVE_ASSETS\Screen 4.jpg" alt="Screen 4 — Subject Profile Form" loading="lazy" style="width:100%;display:block;">
+        <div class="wireframe-label">Screen 4 — Subject Profile Entry</div>
+      </div>
+
+      <div class="wireframe-card">
+        <img src="C:\Users\Manager\Downloads\JOVE_ASSETS\Screen 5.jpg" alt="Screen 5 — Analysis Lab / Start Analysis" loading="lazy" style="width:100%;display:block;">
+        <div class="wireframe-label">Screen 5 — Data Analysis Lab</div>
+      </div>
+
+      <div class="wireframe-card">
+        <img src="C:\Users\Manager\Downloads\JOVE_ASSETS\Screen 6.jpg" alt="Screen 6 — Heart Attack Classifier" loading="lazy" style="width:100%;display:block;">
+        <div class="wireframe-label">Screen 6 — Heart Attack Classifier (ML)</div>
+      </div>
+
+      <div class="wireframe-card">
+        <img src="C:\Users\Manager\Downloads\JOVE_ASSETS\Screen 7.jpg" alt="Screen 7 — Analysis Completion with Risk Factors" loading="lazy" style="width:100%;display:block;">
+        <div class="wireframe-label">Screen 7 — Analysis Completion &amp; Risk Factors</div>
+      </div>
+
+      <div class="wireframe-card">
+        <img src="C:\Users\Manager\Downloads\JOVE_ASSETS\Screen 8.jpg" alt="Screen 8 — Final Report with Apollo Score and Recommended Protocol" loading="lazy" style="width:100%;display:block;">
+        <div class="wireframe-label">Screen 8 — Final Report &amp; Recommended Protocol</div>
+      </div>
+
+    </div>
+
+    <div class="info-card" style="margin-top:1rem">
+      <div class="card-label">Key Platform Features (Clinical Trial)</div>
+      <p>Subject profile creation (physical attributes, lifestyle, heart health, medical history) · Bulk data upload · Analytics Lab with ML model selection · Heart attack classifier · Analysis completion with risk factor breakdown · Final reports with Apollo Score, Framingham Score, and recommended protocols (lab tests, diagnostics, medication, referrals)</p>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- USER JOURNEY: FULL FLOW -->
+<div class="section section-grey reveal">
+  <div class="inner">
+    <p class="eyebrow">End-to-End Flow</p>
+    <h2>From JoVE learner to clinical trial operator</h2>
+    <p class="body">The two solutions work in sequence: a company like Hope Biotech first builds capability on JoVE's learning platform, then — once they've secured government approvals and set up a manufacturing unit — migrates to the Clinical Trial Platform to run and analyse trials.</p>
+    <div class="timeline-card">
+      <div class="timeline-item">
+        <div class="t-dot"></div>
+        <div class="t-content">
+          <h4>Discovery → Platform Demo</h4>
+          <p>Hope Biotech team visits JoVE, attends a product demo. Chooses between standard courses or customised courses with mentorship.</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="t-dot"></div>
+        <div class="t-content">
+          <h4>Subscription → Learning access</h4>
+          <p>Subscribes (team-based or monthly/yearly). Gets access to enrolled courses, discussion forums, case studies, success stories, and peer networking.</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="t-dot amber"></div>
+        <div class="t-content">
+          <h4>Successful trials → Manufacturing unit</h4>
+          <p>After multiple successful lab trials and government approvals, sets up a manufacturing unit. Takes clinical trial approval.</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="t-dot amber"></div>
+        <div class="t-content">
+          <h4>Clinical Trial Platform — onboarding</h4>
+          <p>Explores the Clinical Trial Platform, attends demo, opts for a 1-year subscription. Creates project, enters medicine details, connects with industry experts, receives clinical trial plan.</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="t-dot"></div>
+        <div class="t-content">
+          <h4>Patient recruitment → Trial execution</h4>
+          <p>Downloads interested patient data and hospital/clinic information. Signs agreements. Creates subject profiles. Runs trial for a defined duration.</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="t-dot"></div>
+        <div class="t-content">
+          <h4>Data upload → ML analysis → Final report</h4>
+          <p>Uploads post-trial data. ML model processes it. Outputs: Disease Progression Report, Treatment Effectiveness, Patient Health Score — enabling a go/no-go decision on the trial.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- SUCCESS METRICS -->
+<div class="section section-white reveal">
+  <div class="inner">
+    <p class="eyebrow">Success Metrics</p>
+    <h2>How we'd measure impact</h2>
+    <div class="kpi-grid">
+      <div class="kpi-card">
+        <span class="kpi-icon">📹</span>
+        <span class="kpi-name">Video Completion Rate</span>
+        <span class="kpi-desc">Do BioPharma scientists watch protocol videos end-to-end?</span>
+      </div>
+      <div class="kpi-card">
+        <span class="kpi-icon">🔁</span>
+        <span class="kpi-name">Experiment Replication Success</span>
+        <span class="kpi-desc">% of users who successfully reproduce a method after watching</span>
+      </div>
+      <div class="kpi-card">
+        <span class="kpi-icon">🏢</span>
+        <span class="kpi-name">Enterprise Subscriptions</span>
+        <span class="kpi-desc">Team-based plans from BioPharma MSMEs and start-ups</span>
+      </div>
+      <div class="kpi-card">
+        <span class="kpi-icon">🧪</span>
+        <span class="kpi-name">Clinical Trials Run</span>
+        <span class="kpi-desc">Number of active trials on the platform per quarter</span>
+      </div>
+      <div class="kpi-card">
+        <span class="kpi-icon">📊</span>
+        <span class="kpi-name">Report Accuracy</span>
+        <span class="kpi-desc">ML model prediction accuracy vs. ground truth outcomes</span>
+      </div>
+      <div class="kpi-card">
+        <span class="kpi-icon">🌍</span>
+        <span class="kpi-name">Geographic Reach</span>
+        <span class="kpi-desc">Active users across target emerging market countries</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-left">
+    <img src="data:image/png;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADb/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCAEIAhYDASIAAhEBAxEB/8QAHQABAAICAwEBAAAAAAAAAAAAAAcIAQYCBAUDCf/EAE8QAAEDAwEDBgcLCQYFBQAAAAABAgMEBREGByExCBITQVFxMmF0gZGxshQiIzM1NnKSocHRFRYYQlVWc5TSJEVSU4KDJkNiosI3RpOj4f/EABsBAQACAwEBAAAAAAAAAAAAAAAEBgMFBwIB/8QAOBEBAAEDAgIGBgoCAwEAAAAAAAECAwQFEQYxEiFBUXGhEzIzYZGxFBUWIkJTgcHR4SNSYvDxJP/aAAwDAQACEQMRAD8A0cAHdnLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAbfs62d3/W07lt8bYKSNcSVUu5iL2J2r3EoN5OeYMu1MvTY6qb3ufSarL1vBxK/R3bnX+s/JOsabk36enRT1IAyDdNo+zXUGinNmrGNqaF681lVD4OexydSmlIT8fJtZNEXLVW8T3I12zXZq6FcbSyADMxAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB2LVSPuF0paGPw6iZkTe9yon3nXO9p2sS3X+317ky2nqY5VTxNcini7NUW6pp57S90bdKN+S8OlbLRWCw0lpoYmxw08aNTCeEvWq+NVPUwh1rfVw1tDBV070fFNGkjHIvFFTKHYQ4dXVVVVM1c+102iKYpiKeTpX22Ud3tVRbq6Bk1POxWPa5M7lT1lG9U2tbLqW4WlVVfctQ+NF7URd32F7amWOGF00j0axjVc5y8EROKlG9e3KO8a0u1yhXMVRVPcxe1ucIXXguu56S7T+HaPirfEdNHRont/Z4oAL+qYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAYwZPrRwOq6yGlYqNfNI2NqrwRVXAmYiN5fYjedoSjsl2w1mk6Rtou8D6+2MX4JWu+EhTsTPFPES03bvoL3N0q1Fcj8fF+5l534faRk3k8arVqL+WLLv8A+uX+gz+jvqz9sWX68v8AQUfMt8P5VyblVzaZ57b9fksuPXqtijoRRvHv/wDXw2sbZ6vU1DJZ7HBJQW+TdNI53wkqdm7ghEJMi8njVif3xZfry/0ET3qgltV3qrZO9j5aaV0T3MzzVVFxuyb7R7mnRRNnCnfbrnv/AFarUKMuavSZMc3UAPZ0xpe86knWO2UivY1ffyuXDG96m3uXKLVM1VztCBRRVXPRpjeXi5GSWKDYvWORFrr1AxetsMSu+1ceo9eDYzaGonTXWsf9FrUNXXruFT+Lf9JTqdLyavwoQyZyT5Fsg0w3w5a5/wDuon3H2TZLpLGFjq1/31MM8RYkd/wZY0fI9yvmRksEuyTSSpujrE/31PjJsg0w7wJq5n+6i/cI4ixPf8CdIyI7kB5GSb59jFodnobrWM+k1qnk1+xarairQ3qF69TZolbnzpn1GajXcKr8W3jDFVpeTT+FE4Pa1Rpe9abnSO50qsY5cMlavOY7uU8imjSapjhdKyJHvRqvfnDcrxXHUbOi7Rco6dM7whVW6qKujVG0uAJhh5PeqZo2yR3myOY5EVqo+TCov+g5/o76s/bFl+vL/Qar7Q6d+bHn/Cd9VZk/glDYJkXk76s/bFl+vL/QR7tB0fc9E3ttrub4ZXviSVkkKqrHIuU3ZRF3KhIxtXw8qv0dm5Eyw3sDIsU9O5TtDXQAbFEAEyqo1Eyq8CW7ZsB1ZW2+nq/yjaoOmja/o5HSc5uUzhcM4kPL1DGw4ib9fR35JFjFvZG8Wqd9kSAmT9HfVn7Ysv15f6AvJ31Yn98WX68n9BC+0Om/mx5/wk/VWZ+XKGwd3UFtdZ71V2t9RDUvpZVjdJCqqxypxxlEU6OTb0VxXTFVPKWvqiaZmJZMHfstnut6qkprVQVFZKv6sTFXHf2El6e2C6vuLWy3CejtbF6pHK9/obu+0iZWo4uJ7auI+fwSLOHfv+zpmUS5GSxFJycqNGp7q1LO53X0dOiJ9qn0qeTnblj+A1HVNd1c+Bqp6zV/anTd9unPwlN+pMzb1fOFc0Mks6m2DastjHTWyelu0ab+bGqxyfVXd9pGF1ttwtVW6kuVHNSTt4slYrVNri6hjZcb2a4n5/DmhX8S9j+0pmHVBjJlCYjAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB3dPfL9u8qi9tDpHd098v27yqL20Md/2VXhL3b9ePFfOJPg29xywYi+Lb3HI4bMOnQ4vTcUb2h/Pq9+Wy+0peV3Ao1tD+fd78tl9pS58F+3u+EfNXOJPZUeLzLNQyXO7UtviXD6iVsaL2ZXiWm09aKOx2mC3UMaNiibjPW5etV8alftjtJ7r1/Q5TKRc6VfMn4lkTZcS35m7TaieqI3Q9GtRFFVfax1DchEO3LU91tt5o7dbK+alb0HSS9GuMqq4T1EXVF8vVTlZ7rWv75nfiR8PQbuTai70oiJZsjVaLNyaOjvMLWrJGnF7U71Pm6spGoquqoUROOZEKkyTzyb5JpH/SeqnDLu1fSTo4Y77nl/aLOt/8PP8ApbltXSOxiphXPDD0Pqkka8HtXuUqDzndq+k5x1E8a5jnlZ9F6ofJ4Y7rnl/ZGt/8PNbzKeIFUKe+3qn+Jutazumd+JKOw3U12ud5q6C5V81U1IOkjSRc4VFRF9ZCzNBu41qbvSiYhKx9VovXIo6O26UL9aqS9Wqe3VsaSRStxv8A1V6lTxoVZvlBLarxV26VcvppXRqvbheJbQrhtmpkp9oFcqJhJUZJ6Wp+BI4av1Rdqtb9Uxuxa1ajoU19qxvJ91KzUGz6ljkm59XQf2eZM70RPBXzp6iRE39pU3k26mSx67bb6iTmUtzb0K5Xckib2L6085bJpVOIMH6Hm1RHq1dcfr/bd6TlfSMaJnnHVLKpuIb5U2nkuGj6e9xR5mtsnv1RN/Rvwi/bgmR3A8/UFthvNkrLXUt50VVC6JyL40IGn5U4mTRejsny7UvLsRfs1W++FDMmcnavdBNarxV22oarZaaZ0TkXtRcHUO1UVRXTFUcpc3qiaZ2lvGxHTaam2g0NPNHz6WmX3ROipuVreCL3rguSxMJhOBD/ACXtMpbNIS32eNUqbm/3iqnCJvD0rlfQTE05VxNnfS82aafVo6o/dedFxfQY0TPOrr/gVDUtrGpE0roe4XRj+bUczoqf+I7cno4+Y21/ArPyqdTrW6gpdN08mYKJvSzoi8ZHJuRe5PWRNFwfpuZRbnlznwj/ALsk6llfRseqrt5QhWR7pJHSPcrnOVVcq8VVSTdjuymt1jI253FX0lma7w8YdOqdTfF4zX9k2kJdZawp7auW0sfwtU9OpiLw714FzLbR09vooaKkibFBCxGRsamEaiF14j1yrCiMex68857o/lW9H0yMmfS3fVjzdLTOnbRpy3tobPQQ0sLU38xN7l7VXiqnq47TknA69fVU1FSy1VXPHBBE3nPe92GtROtVOb1VVXKt5neZXCKaaKdo6oh90wFxghfUXKC0/RVb6e1W6quLWLjpVckbHd2d+Dlprb/p24VkdNdaCptiPXCTK5HsTvxvRDZ/UWoej9J6KdvP4c0L60xOn0OnG6ZMHga10dZNW251Hd6Nkioi9HMiYkjXtRT3KSeGpgjqKeVksUjecx7FyjkXrRT7LwNbbuV2q4qonaYTaqKblPRqjeJUn2m6HuWiL2tHV/C0sqqtNUIm6Rvj7FTrQ1RC7O0vSdHq/StTa6iNqz81X00ipvjkTgqepSllfSz0NdPRVUaxzQSLHI1U3oqLhTqfD2sfWNmYr9enn7/eo2raf9Eu70+rPL+HxABYGpAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA7unvl+3eVRe2h0ju6e+X7d5VF7aGO/7Krwl7t+vHivpF8W3uORxi+Lb3HI4bLp0cmHcCjW0T59Xvy2X2lLyu4FGtofz6vflsvtKXPgv293wj5q5xJ7OjxbXyfIEk1bVTqnxVKuF73ITwQrydG5ul1fjhCxM+dSajLr9W+bV7oh40qNsaP1Vy21VCz7QKxM5SJjGJ4sNT8TS0Nn2qP5+vrqvZNj0IhrKF0wKYpxrce6Fcyp3vVT75AASkcAAA3rYXN0WvoWZ+NgkZ9mfuNFNt2OvVu0W14XCKsiL/APG4h6jT0sW5HulJxJ2v0eMLJEB7f4kZrOJ6J8ZStX0KqE+pwIM5RDcamoHdtLj/ALlKdw/O2bEe6Vh1aN8efGEa0s8lNVRVMLlbJE9HsVOpUXKF4Nnl/h1NpC3XiJyKs0KdIifqvTc5F86FGye+SfqVI6i4aYqJcJInummaq9fB6J5sL5jZ8WYHp8SL1POj5TzQdByvRZHo55VfNYkGEUyczXZVjlQ6cba9ZxXqCPmw3KPL8cOlbuX0phSNtJWea/6koLPAi8+qmazd1J1r6MlqOUJpz8v7O6uSJnOqqBfdMeE34Twk9GfQRxyUdMNqLlW6oqY8tp06Cmyn66+E7zJu86nRNO1mLejVXJn71H3f17P++5T8zTpq1GKI5Vdf8rCWehp7ba6a30rEZDTxNjY1OpETB2zDeAcc8mqZneVviIiNoedqe6wWSwVt1qXIkVLC6Rc9eE3J6SjV+uVReLzWXSrerpqqZ0r1XtVc4LBcqvVDqW0UmmKaTmyVbumqcL/y28E86+oredG4RwPRY85FUddXLwj+1O4gyvSXotU8qfmtFyWrAyg0ZNens/tFwmXCr/lt3J9uSYzVdk1KlHs4sUCIif2Njl71TP3m1FG1PInIy7lye2ZWfBtRax6KI7hVK6cqrV1QtfT6TpJHMhYxJ6rmr4ar4LV8SJv85YpUIi2g7FYtW6pqb5Jf5aZZ0anRJTo5G4THHJL0K/i2MuLuTPVEdXVv1sGq2r92xNuzHXPPwVZQKWH/AEcKb96Zv5VP6h+jhTfvRN/Kp/UX37Uab/v5T/Cq/Umb/r5w7vJU1PLX2at05VSK99AqSQZXf0bsoqeZfWTgRhsq2Tx6Ev8APdIr1JW9LTrCsboUZ1ouc5XsJPOe6zdx72ZXcx5+7PX3dfat2m0XbePTRe5wKmSpfKYsrbVtHkq4mc2K4Qtn3f4uDvUW0IA5XtEi01guCcWvlhXuVEX7ibwvfm1qNNPZVEx+/wCyLrlqK8SZ7tpV7QBOAOqqKAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB3dPfL9u8qi9tDpHd098v27yqL20Md/wBlV4S92/XjxX0i+Lb3HI4xfFt7jkcNl06OTDuBRraJ8+r35bL7Sl5XcCjW0T59Xvy2X2lLpwX7e74R81c4j9nR4t75OTk93XdvWsca/apNHWQfydpcX64w58KnR3od/wDpOB616Ns2r9Pk86VO+NSrFtQ3a8u38f7kNcQ2va7GsW0G5ovW9rk87UNUQu+FO+Pbn3R8layY2vVeMgAJLAAAAbXshbztotpTse9f/rcaobpsShWXaFRuRPio5H/9qp95E1CdsW5PulIxI3v0eMLGEG8oj5x2/wAlX2lJxIH5QUiP1dSsz4FIntKU3QI3zY8JWPVp/wDmnxhG6HsaNvUundUW+8wqqLTTI5yJ1t4OT0Kp46BeBerlum7RNFXKY2VaiuaKoqjnC/Vsq4K6gp62mej4Z42yMcnBUVModoiHkwal/KujH2eeTnVFsfzURV3rG7e30b0JeOLZ2LViZFdmrsn/AMdIxb8ZFmm5Ha+NTCyenkhlajmSNVrkXrRUwp5GidN0elbDFaKFMxRuc9XKm9yuVVyvpx5j3OahnBHi5VFM0RPVPX8GWaKZq6W3WIfKplZBC+aRyNYxqucq9SIfRcoRlyjNUOsGgpaSnl5tZclWnZjijF8NfRu85mxMarKvU2aedU7PGReixaquVdit+07UUmqdbXC6ucqxOkWOBOyNu5v4+c1leATiZU7VYs02LdNujlEbOb3Lk3K5rq5yvLs/ekmh7I9vBaGLH1EPeNG2F3Ftx2X2aRHZdFEsLvErVx+BvJxbMom3kXKJ7Jn5uj41UV2aao7YgOKqmTkQTymZdVWSqob5ZrxX01BI3oZmQyq1rHpvRcJ2p6j3gYc5t+LMVRTM97zl5P0a1NyY32ToZKQ/n7rRf/c90/mHD8/dafvPdP5hxZvsXkfmR5tL9o7X+k+S7wyUh/P3Wn7z3T+YcPz91p+890/mHD7F5H5keZ9o7X+k+S72fGQhyt1/4UtPlq+wpB/5+60/ee6fzDjoXrUd+vULIbtdqytjY7nNbNKrkavamSbpvC1/EyqL1VcTFM+9Fzdct5Fiq1FMxu8tAEBd1aAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA7unvl+3eVRe2h0ju6e+X7d5VF7aGO/7Krwl7t+vHivpF8W3uORxi+Lb3HI4bLp0cmHcCjW0T59Xvy2X2lLyu4FGtonz6vflsvtKXPgv293wj5q5xJ7KjxbBsHqUh10kSrhJ6d7fOmF+4sGVd2e17bZrO2Vcj0ZGkyNeq8ERd33loUVFRFReJM4jt9HJirvhH0avezNPdKv8At6pFg1uk+Pe1FMx6L40y1fUR+ilqr/puyX5WOutBHUujRWscuUVqL40NbqtlGkZs8ynqYP4cy/fkmYGvWLNim3cid46kfK0q7cu1V0TG0q85GSdpdjenXL8HXXFn+tq/+J8H7F7P+pd65O9GL9xsI4gw57Z+CJOk5Pd5oQyMk3s2L2bHvrvXqviRifcdiLY3pxq/CVtxf/ran/ifZ4gwo7Z+BGk5PdHxQRkkrk90qyapq6pU3Q0ypnxuVPwN+pdlWkIVTn0tRPj/ADJl+7Bslg09Z7EkiWqgipukREercqrsdqqa7UNds37FVq3E7yl4ml3bd2muuY6nqFd9t9Qk+vqhiLlIYmM+zP3lh5HtjY571RrWplVXqQqxrS4tuuq7lcGO50ctQ5WL/wBKLhPsRCLw1amciqvuhn1muItRT3y8jAUAuqtN52Gal/NnaFRTSSc2lq19zT5XdhyphV7lwXIR2Uyfn8iq1Uci4VFyilztjOo01NoC31sj+fUxN6Co37+e3dv70wvnKFxjg7TRlU9vVP7LVw7lbxVYnxj926oACjLQ4u3ZKi8obU66h19PTQyc6ktqe548LuVyL75fTu8xZHarqNuldE3C6o5EnSPo6dF65Hbk/HzFKZZHzTPlkcrnvVXOVeKqvEu3B+B0rlWVVHLqjx7VZ4hytqabEdvXLhgLwMhToCpp65KOpmxzV2lqmRE6RfdFMirxXg9E+xfSWIzvKE2O51llu9NdKCVYqimkSRjkXs6u5S5OzPWtu1pYI66lka2qYiNqadV99G7r3dnYpzjivS6rV76VRH3aufun+1w0HOprt+gqnrjl4NuPN1JZqC/WiotdzgbNSzt5r2r9ip2Kh6KLuHHeVGmqaZiqmeuFhqpiqNpVG2kbItRaZqZqm308tyteVVkkLcvjTsc1N/nI2e17HK17VaqcUVMH6A83xHmVmnbHWyLJV2ignev6z4GqvqLlhcY3bdEU36Ol746lcyOHaK6t7VW3uUSY171wxiuVepENj09oTV1+Vv5NsNY+N3/NfGrGfWdhC5lJYLNSORaa00MKp1sgan3Hoo1ETCIiIZL/ABpXMbWrW3jO/wAni1w5TE/5K/grvo3k+TveyfVFzbG1N609LvVfErl+5DStv+nbTpjWVPbLPSpT06UTHKmcqrlVcqq9pb1Cq/Kp/wDUeHyGP1uPmg6tl52ox6arq2nq7PgargWMXDn0dPXvHX2omTgAgOgKoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB3dOpnUFuRN6rVxY+uh0jYNmlA+56/sdExqu59bGrvotdzlX0Ipgyq4osV1T2RLLZpmq5TEd8Lwx+AnccjDOBk4g6aw7gUa2h/Pu9+Wy+0peV/AoztBVF1zelRcp7tl9pS58F+3u+EfNW+JPZUeLwiWdnW1GOio4rXqFJFjjRGx1LU5yonUjk4+cicYLzmYdrLo6FyFZx8m5j1dKiVoqDWOma1WpT3qkcrtyNc/mr9p7yLlMoVFt3yhTfxW+tC3EXxTPooUrV9NowZp6EzO+/NZNPzasqJ6UbbOQOE0scMTpZXtZG1Muc5cIiEO7RtqSvWS2abkVrd7ZKtOK+Jn4kLDwbuXX0bcfr2Qk5GVbx6elXKZMp2mHSRt8J7U71KnOvF2dlHXStXPH4d34nwlrKyRF6WrqH/AEpFU30cMVdtzyaqdbjso81sJ7jb4EzPXU0X05Wp955NdrTS1Gi9Ne6TKdTH85fsKvKDPRwzbj17k/Biq1uv8NMJU2j7T23OkltVhR7IJE5stQ5MOcnY1OpCLECA3uJh2sS30LcNXfyK79XSrkABKYBeBMXJb1Ktu1VUWCeXFPcWc6NqruSVvZ3p6kIdU5U80tPMyaCV8UrFy17HKiovaioQ9Qw6c3GqsVdvz7EnEyJxr1NyOx+gHPb/AIkMK9v+JCiP5xX/APbdx/mX/iY/OK//ALauP8y/8Sl/Yu7+bHwWP7SUflz8UtcqrVS1t8pdM00mYaJvTVGF3OkdwTzJ6yEkPpUTTVMzp6iaSaV65c97lc5e9VOBc9OwqcHGpsU9nnParmZkzk3qrs9oACajCnqaV1DdtM3eK52iqfBOxd6J4L07HJ1oeWDzct03KZorjeJeqaqqKoqpnaYWj2f7cbDeY46W/wCLTW8Fe7fC9fEvV5yWKGtpKynbPSVMNRE7e18b0ci+dCgZ37RebvaJOktdyq6N3WsMqtz6Cn5vB9m5M1Y9XR909cfysGNxDcoja7T0vf2r6ZTtM5TtKY0u1faBTt5rdR1L0T/MRrvWh93bYNoLv7+endEz8DUTwdmRyrp8/wCGwjiLH/1ny/lcbKdp0bteLVaqd09yuNNSRonhSyI31lN67aVrqsarZtTXBGr1Rycz1Gs1tZV10yzVlVNUyrxfK9XL6VJNngy7M/5bkRHujf57MNziOjb/AB0fFZvWW3jTdsa+Cxxy3apTcj0TmRJ513r5kK9671Xc9Y3113uiRNl5iRsbG3DWtTgn2ngoZQtOm6Ji6f8AetxvV3zzaPM1K/l9Vc9XcIADbteAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPvb6GsuNUyloKWapnevvY4mK5y+ZCx+wDZdWadql1HfmNjrXRq2Cn4rEi8VXxkJbJtRJpjXluucjsQdJ0U/0HblXzcfMXXieyRjXsVHNciKip1oUnizUMmzEY9MbUVRz7Z74WXQcOzdmbtXrU9n7uTdyGQYVd5z9bXCqkbFTySuVEaxquVfEiFDdQ1SVt/r6xq5SapkencrlUtlt71WzTeg6pkUqNra9q08CZ3plMOd5kKfnQODcWqm3cvzynaI/TmqXEV+mqum1HZ1sgAuytPtbvlCn/it9aFp71ebfY7UtdcqhsMTW7srvcvYidalU4JFinjlREVWORyeZT09Tahueoa73VcZ1fjdHGm5jE7EQ0+paZOdco3namN92xws2MairaN5l7+0HX9x1NM6mp1fS21F97Ei73+Ny/caWgQybLHx7ePRFFuNoQrt2u7V0q53kABmYwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGFLg7AtTJqPZ9SdLJzquh/s06Ku/3vgr50wU/N72O7Qn6DuVZLJSvq6WqjRHRNdzffIu5fWaHiLTas/E2txvXTO8fvDa6RmRi396p+7PNcbnL1niax1RaNK2l9xu9U2JjU94zPv5F7Gp1qQJqPlCXuqidFZbVTUCuT42VyyOTuTchEl/vl3v9atZeK+esmX9aR2cdycE8xVcDhHJuVRVkz0ae7nP8N5lcQWqKdrPXPk9baTrGv1rqOS5VWY4G5ZTQZykbPxXrU1jARDJ0OxZosW4t242iOSpXLlV2ua653mQAGVjMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGMGQBjBlAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//2Q==" alt="JoVE" style="height:22px;border-radius:4px;display:block;">
+    <div class="footer-sep"></div>
+    <span class="footer-text">Senior Product Manager Case Study Assignment</span>
+  </div>
+  <a href="https://docs.google.com/presentation/d/1fHWpA2lK-oF0tE54Fk9eNmdodPWcS7tgQwmwacNVGzA/edit?usp=sharing" target="_blank" rel="noopener" class="footer-link">
+    View full presentation
+    <svg viewBox="0 0 11 11" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 9L9 2M5 2h4v4"/></svg>
+  </a>
+</footer>
+
+
+
+
+<!-- LIGHTBOX SLIDER -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true">
+  <div class="lightbox-inner">
+    <button class="lightbox-close" id="lightboxClose" aria-label="Close">✕</button>
+    <div class="lightbox-img-wrap">
+      <button class="lightbox-arrow left" id="lightboxPrev" aria-label="Previous">&#8592;</button>
+      <img id="lightboxImg" src="" alt="">
+      <button class="lightbox-arrow right" id="lightboxNext" aria-label="Next">&#8594;</button>
+    </div>
+    <div class="lightbox-footer">
+      <span class="lightbox-counter" id="lightboxCounter"></span>
+      <span class="lightbox-caption" id="lightboxCaption"></span>
+    </div>
+  </div>
+</div>
+
+<script>
+  // ── Scroll reveal ──────────────────────────────────────────────────────
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(en => {
+      if (en.isIntersecting) { en.target.classList.add('visible'); obs.unobserve(en.target); }
+    });
+  }, { threshold: 0.05 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+  // ── Lightbox slider ────────────────────────────────────────────────────
+  const lb       = document.getElementById('lightbox');
+  const lbImg    = document.getElementById('lightboxImg');
+  const lbCap    = document.getElementById('lightboxCaption');
+  const lbCount  = document.getElementById('lightboxCounter');
+  const lbClose  = document.getElementById('lightboxClose');
+  const lbPrev   = document.getElementById('lightboxPrev');
+  const lbNext   = document.getElementById('lightboxNext');
+
+  // Build the full image pool in order:
+  // 1. Solution 1 arch diagram
+  // 2. Solution 2 arch diagram
+  // 3-10. Wireframe screens
+  let pool = [];  // [{src, caption}]
+
+  function buildPool() {
+    pool = [];
+    // Architecture images (Solution 1 then Solution 2)
+    document.querySelectorAll('.arch-wrap').forEach(wrap => {
+      const img = wrap.querySelector('img');
+      const cap = wrap.querySelector('.arch-caption');
+      if (img) pool.push({ src: img.src, caption: cap ? cap.textContent.trim() : '' });
+    });
+    // Wireframe screens
+    document.querySelectorAll('.wireframe-card').forEach(card => {
+      const img = card.querySelector('img');
+      const cap = card.querySelector('.wireframe-label');
+      if (img) pool.push({ src: img.src, caption: cap ? cap.textContent.trim() : '' });
+    });
+  }
+
+  let current = 0;
+
+  function openLightbox(index) {
+    buildPool();
+    current = Math.max(0, Math.min(index, pool.length - 1));
+    renderSlide();
+    lb.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLightbox() {
+    lb.classList.remove('active');
+    document.body.style.overflow = '';
+    lbImg.src = '';
+  }
+
+  function renderSlide() {
+    const item = pool[current];
+    lbImg.src = item.src;
+    lbImg.alt = item.caption;
+    lbCap.textContent = item.caption;
+    lbCount.textContent = (current + 1) + ' / ' + pool.length;
+    lbPrev.style.opacity = current === 0 ? '0.3' : '1';
+    lbNext.style.opacity = current === pool.length - 1 ? '0.3' : '1';
+  }
+
+  function goNext() {
+    if (current < pool.length - 1) { current++; renderSlide(); }
+  }
+  function goPrev() {
+    if (current > 0) { current--; renderSlide(); }
+  }
+
+  // Wire up clicks on all images
+  document.querySelectorAll('.arch-wrap img').forEach((img, i) => {
+    img.style.cursor = 'pointer';
+    img.addEventListener('click', () => openLightbox(i));
+  });
+  document.querySelectorAll('.wireframe-card img').forEach((img, i) => {
+    img.addEventListener('click', () => openLightbox(2 + i)); // offset by 2 arch images
+  });
+
+  lbClose.addEventListener('click', closeLightbox);
+  lbPrev.addEventListener('click', goPrev);
+  lbNext.addEventListener('click', goNext);
+  lb.addEventListener('click', (e) => { if (e.target === lb) closeLightbox(); });
+  document.addEventListener('keydown', (e) => {
+    if (!lb.classList.contains('active')) return;
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowRight') goNext();
+    if (e.key === 'ArrowLeft') goPrev();
+  });
+
+  // Touch/swipe support
+  let touchStartX = 0;
+  lb.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, { passive: true });
+  lb.addEventListener('touchend', e => {
+    const dx = e.changedTouches[0].clientX - touchStartX;
+    if (Math.abs(dx) > 50) { dx < 0 ? goNext() : goPrev(); }
+  });
+</script>
+</body>
+</html>
