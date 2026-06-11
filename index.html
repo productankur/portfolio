@@ -172,9 +172,37 @@
 
     /* PRODUCT PROJECTS SECTION */
     .prod-projects-section{padding:72px 0;background:var(--off-white);border-top:1px solid var(--border)}
-    .prod-placeholder{border:1.5px dashed var(--border-mid);border-radius:var(--radius-lg);padding:52px 24px;text-align:center;background:var(--white)}
-    .prod-placeholder p{font-size:14px;color:var(--text-2);margin-bottom:6px;font-weight:500}
-    .prod-placeholder span{font-size:12px;color:var(--text-3)}
+    .cs-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    .cs-card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;transition:box-shadow 0.25s,transform 0.25s;display:flex;flex-direction:column;text-decoration:none;color:inherit}
+    .cs-card:hover{box-shadow:0 8px 32px rgba(0,0,0,0.08);transform:translateY(-3px)}
+    .cs-card-thumb{height:72px;background:var(--surface);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+    .cs-card-thumb svg{width:24px;height:24px;stroke:var(--border-mid)}
+    .cs-card-body{padding:16px 16px 14px;display:flex;flex-direction:column;flex:1}
+    .cs-company-row{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+    .cs-logo-wrap{width:28px;height:28px;border-radius:6px;background:var(--off-white);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shrink:0}
+    .cs-logo-wrap img{width:22px;height:22px;object-fit:contain}
+    .cs-logo-initials{font-family:var(--font-display);font-size:11px;font-weight:500;color:var(--text-2)}
+    .cs-company-name{font-size:12px;font-weight:500;color:var(--text-1)}
+    .cs-company-meta{font-size:10px;color:var(--text-3);margin-top:1px}
+    .cs-card-title{font-size:13px;font-weight:500;color:var(--text-1);line-height:1.4;margin-bottom:8px}
+    .cs-tags{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:12px}
+    .cs-tag{font-size:9px;padding:2px 9px;border-radius:20px;background:var(--off-white);border:1px solid var(--border);color:var(--text-2)}
+    .cs-mini-metrics{display:flex;gap:16px;margin-bottom:14px}
+    .cs-mini-metric-val{font-family:var(--font-display);font-size:17px;font-weight:400;color:var(--text-1);line-height:1}
+    .cs-mini-metric-label{font-size:9px;color:var(--text-3);margin-top:2px}
+    .cs-card-footer{display:flex;align-items:center;justify-content:space-between;padding-top:12px;border-top:1px solid var(--border);margin-top:auto}
+    .cs-read-time{font-family:var(--font-mono);font-size:9px;color:var(--text-3)}
+    .cs-cta{font-size:12px;font-weight:500;color:var(--prod-mid);display:inline-flex;align-items:center;gap:4px;transition:gap 0.2s}
+    .cs-card:hover .cs-cta{gap:7px}
+    .cs-cta svg{width:12px;height:12px;stroke:var(--prod-mid)}
+    .cs-carousel-wrap{display:none}
+    .cs-carousel{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding-bottom:4px}
+    .cs-carousel::-webkit-scrollbar{display:none}
+    .cs-carousel .cs-card{min-width:80vw;scroll-snap-align:start;flex-shrink:0}
+    @media(max-width:900px){
+      .cs-grid{display:none}
+      .cs-carousel-wrap{display:block}
+    }
 
     /* CERTS SECTION */
     .certs-section{padding:64px 0;background:var(--white);border-top:1px solid var(--border)}
@@ -507,16 +535,248 @@
   <!-- PRODUCT PROJECTS SECTION -->
   <section class="prod-projects-section" id="prod-projects">
     <div class="container">
+
       <div class="projects-header reveal">
         <p class="section-label">Built as a PM</p>
-        <h2 class="section-title">Product projects</h2>
-        <p class="section-sub">Products built end-to-end — strategy, design, and launch.</p>
+        <h2 class="section-title">Case studies & assignments</h2>
+        <p class="section-sub">Products shaped end-to-end — strategy, research, design, and outcomes.</p>
       </div>
-      <!-- TO EDIT: replace with proj-grid cards when ready -->
-      <div class="prod-placeholder reveal">
-        <p>Product project case studies coming soon</p>
-        <span>Share your projects and these will be built in the same style as above</span>
-      </div>
+
+      <!-- DESKTOP GRID -->
+      <div class="cs-grid reveal">
+
+        <!-- CARD 1 — Unacademy -->
+        <!-- TO EDIT: update href to your server path -->
+        <a class="cs-card" href="case-study-unacademy.html" target="_blank">
+          <div class="cs-card-thumb">
+            <!-- TO EDIT: replace with <img src="assets/cs-unacademy-thumb.png" style="width:100%;height:100%;object-fit:cover"/> -->
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9" stroke-linecap="round"/></svg>
+          </div>
+          <div class="cs-card-body">
+            <div class="cs-company-row">
+              <!-- TO EDIT: swap for logo — <img src="assets/logos/unacademy.png" alt="Unacademy"/> -->
+              <div class="cs-logo-wrap"><span class="cs-logo-initials">UN</span></div>
+              <div>
+                <p class="cs-company-name">Unacademy</p>
+                <p class="cs-company-meta">EdTech · Assignment · Dec 2021</p>
+              </div>
+            </div>
+            <p class="cs-card-title">Designing the data architecture for a Content Management System</p>
+            <div class="cs-tags">
+              <span class="cs-tag">Data Architecture</span>
+              <span class="cs-tag">Content Management</span>
+              <span class="cs-tag">Learning Analytics</span>
+              <span class="cs-tag">MySQL</span>
+              <span class="cs-tag">Elasticsearch</span>
+            </div>
+            <div class="cs-mini-metrics">
+              <div><p class="cs-mini-metric-val">5</p><p class="cs-mini-metric-label">Content dimensions</p></div>
+              <div><p class="cs-mini-metric-val">3</p><p class="cs-mini-metric-label">Systems designed</p></div>
+            </div>
+            <div class="cs-card-footer">
+              <span class="cs-read-time">10 min read</span>
+              <span class="cs-cta">Read <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+            </div>
+          </div>
+        </a>
+
+        <!-- CARD 2 — JoVE -->
+        <!-- TO EDIT: update href to your server path -->
+        <a class="cs-card" href="case-study-jove.html" target="_blank">
+          <div class="cs-card-thumb">
+            <!-- TO EDIT: replace with <img src="assets/cs-jove-thumb.png" style="width:100%;height:100%;object-fit:cover"/> -->
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M9 3H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2V9l-6-6z"/><path d="M9 3v6h6"/></svg>
+          </div>
+          <div class="cs-card-body">
+            <div class="cs-company-row">
+              <!-- TO EDIT: swap for logo — <img src="assets/logos/jove.png" alt="JoVE"/> -->
+              <div class="cs-logo-wrap"><span class="cs-logo-initials">JV</span></div>
+              <div>
+                <p class="cs-company-name">JoVE</p>
+                <p class="cs-company-meta">BioPharma · SaaS · 2024</p>
+              </div>
+            </div>
+            <p class="cs-card-title">Bringing JoVE's platform to BioPharma scientists in emerging markets</p>
+            <div class="cs-tags">
+              <span class="cs-tag">Platform Strategy</span>
+              <span class="cs-tag">BioPharma</span>
+              <span class="cs-tag">Emerging Markets</span>
+              <span class="cs-tag">ML Pipeline</span>
+            </div>
+            <div class="cs-mini-metrics">
+              <div><p class="cs-mini-metric-val">2</p><p class="cs-mini-metric-label">Products proposed</p></div>
+              <div><p class="cs-mini-metric-val">3</p><p class="cs-mini-metric-label">User personas</p></div>
+            </div>
+            <div class="cs-card-footer">
+              <span class="cs-read-time">12 min read</span>
+              <span class="cs-cta">Read <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+            </div>
+          </div>
+        </a>
+
+        <!-- CARD 3 — TO EDIT -->
+        <a class="cs-card" href="case-study-3.html" target="_blank">
+          <div class="cs-card-thumb">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M9 3H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2V9l-6-6z"/><path d="M9 3v6h6"/></svg>
+          </div>
+          <div class="cs-card-body">
+            <div class="cs-company-row">
+              <div class="cs-logo-wrap"><span class="cs-logo-initials">CO</span></div>
+              <div>
+                <p class="cs-company-name">Company Name</p>
+                <p class="cs-company-meta">Domain · Year</p>
+              </div>
+            </div>
+            <p class="cs-card-title">Case study title — update when ready</p>
+            <div class="cs-tags">
+              <span class="cs-tag">Tag 1</span>
+              <span class="cs-tag">Tag 2</span>
+            </div>
+            <div class="cs-mini-metrics">
+              <div><p class="cs-mini-metric-val">—</p><p class="cs-mini-metric-label">Key metric</p></div>
+            </div>
+            <div class="cs-card-footer">
+              <span class="cs-read-time">— min read</span>
+              <span class="cs-cta">Read <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+            </div>
+          </div>
+        </a>
+
+        <!-- CARD 4 — TO EDIT -->
+        <a class="cs-card" href="case-study-4.html" target="_blank">
+          <div class="cs-card-thumb">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M9 3H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2V9l-6-6z"/><path d="M9 3v6h6"/></svg>
+          </div>
+          <div class="cs-card-body">
+            <div class="cs-company-row">
+              <div class="cs-logo-wrap"><span class="cs-logo-initials">CO</span></div>
+              <div>
+                <p class="cs-company-name">Company Name</p>
+                <p class="cs-company-meta">Domain · Year</p>
+              </div>
+            </div>
+            <p class="cs-card-title">Case study title — update when ready</p>
+            <div class="cs-tags">
+              <span class="cs-tag">Tag 1</span>
+              <span class="cs-tag">Tag 2</span>
+            </div>
+            <div class="cs-mini-metrics">
+              <div><p class="cs-mini-metric-val">—</p><p class="cs-mini-metric-label">Key metric</p></div>
+            </div>
+            <div class="cs-card-footer">
+              <span class="cs-read-time">— min read</span>
+              <span class="cs-cta">Read <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+            </div>
+          </div>
+        </a>
+
+        <!-- CARD 5 — TO EDIT -->
+        <a class="cs-card" href="case-study-5.html" target="_blank">
+          <div class="cs-card-thumb">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M9 3H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2V9l-6-6z"/><path d="M9 3v6h6"/></svg>
+          </div>
+          <div class="cs-card-body">
+            <div class="cs-company-row">
+              <div class="cs-logo-wrap"><span class="cs-logo-initials">CO</span></div>
+              <div>
+                <p class="cs-company-name">Company Name</p>
+                <p class="cs-company-meta">Domain · Year</p>
+              </div>
+            </div>
+            <p class="cs-card-title">Case study title — update when ready</p>
+            <div class="cs-tags">
+              <span class="cs-tag">Tag 1</span>
+              <span class="cs-tag">Tag 2</span>
+            </div>
+            <div class="cs-mini-metrics">
+              <div><p class="cs-mini-metric-val">—</p><p class="cs-mini-metric-label">Key metric</p></div>
+            </div>
+            <div class="cs-card-footer">
+              <span class="cs-read-time">— min read</span>
+              <span class="cs-cta">Read <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+            </div>
+          </div>
+        </a>
+
+        <!-- CARD 6 — TO EDIT -->
+        <a class="cs-card" href="case-study-6.html" target="_blank">
+          <div class="cs-card-thumb">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M9 3H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2V9l-6-6z"/><path d="M9 3v6h6"/></svg>
+          </div>
+          <div class="cs-card-body">
+            <div class="cs-company-row">
+              <div class="cs-logo-wrap"><span class="cs-logo-initials">CO</span></div>
+              <div>
+                <p class="cs-company-name">Company Name</p>
+                <p class="cs-company-meta">Domain · Year</p>
+              </div>
+            </div>
+            <p class="cs-card-title">Case study title — update when ready</p>
+            <div class="cs-tags">
+              <span class="cs-tag">Tag 1</span>
+              <span class="cs-tag">Tag 2</span>
+            </div>
+            <div class="cs-mini-metrics">
+              <div><p class="cs-mini-metric-val">—</p><p class="cs-mini-metric-label">Key metric</p></div>
+            </div>
+            <div class="cs-card-footer">
+              <span class="cs-read-time">— min read</span>
+              <span class="cs-cta">Read <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+            </div>
+          </div>
+        </a>
+
+      </div><!-- /cs-grid -->
+
+      <!-- MOBILE CAROUSEL — visible below 900px -->
+      <div class="cs-carousel-wrap reveal">
+        <div class="cs-carousel" id="csCarousel">
+
+          <a class="cs-card" href="case-study-unacademy.html" target="_blank">
+            <div class="cs-card-thumb">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9" stroke-linecap="round"/></svg>
+            </div>
+            <div class="cs-card-body">
+              <div class="cs-company-row">
+                <div class="cs-logo-wrap"><span class="cs-logo-initials">UN</span></div>
+                <div><p class="cs-company-name">Unacademy</p><p class="cs-company-meta">EdTech · Dec 2021</p></div>
+              </div>
+              <p class="cs-card-title">Designing the data architecture for a Content Management System</p>
+              <div class="cs-tags"><span class="cs-tag">Data Architecture</span><span class="cs-tag">Learning Analytics</span></div>
+              <div class="cs-card-footer">
+                <span class="cs-read-time">10 min read</span>
+                <span class="cs-cta">Read <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+              </div>
+            </div>
+          </a>
+
+          <a class="cs-card" href="case-study-jove.html" target="_blank">
+            <div class="cs-card-thumb">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M9 3H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2V9l-6-6z"/><path d="M9 3v6h6"/></svg>
+            </div>
+            <div class="cs-card-body">
+              <div class="cs-company-row">
+                <div class="cs-logo-wrap"><span class="cs-logo-initials">JV</span></div>
+                <div><p class="cs-company-name">JoVE</p><p class="cs-company-meta">BioPharma · 2024</p></div>
+              </div>
+              <p class="cs-card-title">Bringing JoVE's platform to BioPharma scientists in emerging markets</p>
+              <div class="cs-tags"><span class="cs-tag">Platform Strategy</span><span class="cs-tag">BioPharma</span></div>
+              <div class="cs-card-footer">
+                <span class="cs-read-time">12 min read</span>
+                <span class="cs-cta">Read <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+              </div>
+            </div>
+          </a>
+
+          <!-- TO EDIT: add more mobile cards here as you add case studies -->
+
+        </div>
+        <div class="carousel-dots" id="csDots">
+          <div class="carousel-dot active"></div>
+          <div class="carousel-dot"></div>
+        </div>
+      </div><!-- /cs-carousel-wrap -->
+
     </div>
   </section>
 
@@ -733,6 +993,19 @@
         mobileMenu.classList.remove('open');
       });
     });
+    const csCarousel = document.getElementById('csCarousel');
+    const csDots = document.querySelectorAll('#csDots .carousel-dot');
+    if (csCarousel) {
+      csCarousel.addEventListener('scroll', () => {
+        const idx = Math.round(csCarousel.scrollLeft / csCarousel.offsetWidth);
+        csDots.forEach((d, i) => d.classList.toggle('active', i === idx));
+      }, { passive: true });
+      csDots.forEach((dot, i) => {
+        dot.addEventListener('click', () => {
+          csCarousel.scrollTo({ left: i * csCarousel.offsetWidth, behavior: 'smooth' });
+        });
+      });
+    }
     const carousel = document.getElementById('projCarousel');
     const dots = document.querySelectorAll('.carousel-dot');
     if (carousel) {
