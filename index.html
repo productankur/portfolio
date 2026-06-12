@@ -149,10 +149,18 @@
     .proj-link{font-size:11px;font-weight:500;padding:6px 14px;border-radius:40px;border:1px solid var(--border-mid);transition:background 0.2s,border-color 0.2s;display:inline-flex;align-items:center;gap:5px}
     .proj-link:hover{background:var(--surface);border-color:var(--text-3)}
     .proj-link svg{width:11px;height:11px}
+    /* TECH MOBILE CAROUSEL */
     .proj-carousel-wrap{display:none}
-    .proj-carousel{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding-bottom:4px}
+    .proj-carousel{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding-bottom:4px}
     .proj-carousel::-webkit-scrollbar{display:none}
-    .proj-carousel .proj-card{min-width:82vw;scroll-snap-align:start;flex-shrink:0}
+    /* Variant B card inside tech carousel */
+    .proj-carousel .proj-card{
+      min-width:88vw;scroll-snap-align:start;flex-shrink:0;
+      border-radius:var(--radius-lg);border:1px solid var(--border);
+      border-left:3px solid var(--tech-mid);
+      overflow:hidden;background:var(--white)
+    }
+    .proj-carousel .proj-thumb{height:64px}
     .carousel-dots{display:flex;justify-content:center;gap:7px;margin-top:16px}
     .carousel-dot{width:6px;height:6px;border-radius:50%;background:var(--border);cursor:pointer;transition:background 0.2s,transform 0.2s}
     .carousel-dot.active{background:var(--text-1);transform:scale(1.35)}
@@ -195,13 +203,42 @@
     .cs-cta{font-size:12px;font-weight:500;color:var(--prod-mid);display:inline-flex;align-items:center;gap:4px;transition:gap 0.2s}
     .cs-card:hover .cs-cta{gap:7px}
     .cs-cta svg{width:12px;height:12px;stroke:var(--prod-mid)}
+    /* CASE STUDY MOBILE CAROUSEL */
     .cs-carousel-wrap{display:none}
     .cs-carousel{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding-bottom:4px}
     .cs-carousel::-webkit-scrollbar{display:none}
-    .cs-carousel .cs-card{min-width:80vw;scroll-snap-align:start;flex-shrink:0}
+    /* Variant B card inside case study carousel */
+    .cs-carousel .cs-card{
+      min-width:88vw;scroll-snap-align:start;flex-shrink:0;
+      border-left:3px solid var(--prod-mid);
+      border-radius:var(--radius-lg)
+    }
+    .cs-carousel .cs-card-thumb{height:56px}
+
+    /* RESPONSIVE */
     @media(max-width:900px){
+      .hero-grid{grid-template-columns:1fr}
+      .hero-photo-wrap{display:none}
+      .hero-mobile-photo{display:block}
+      .identity-grid{grid-template-columns:1fr}
+      .proj-grid{display:none}
+      .proj-carousel-wrap{display:block}
       .cs-grid{display:none}
       .cs-carousel-wrap{display:block}
+      .nav-links,.nav-cta{display:none}
+      .nav-mobile-btn{display:flex}
+      .exp-timeline-h{display:none}
+      .exp-timeline-v{display:block}
+      .footer-top-grid{grid-template-columns:1fr 1fr;gap:32px}
+      .footer-top-grid>div:first-child{grid-column:1/-1}
+    }
+    @media(max-width:580px){
+      .footer-top-grid{grid-template-columns:1fr}
+      .footer-top-grid>div:first-child{grid-column:auto}
+      .hero-stats{gap:8px}
+      .hero-stat{padding:8px 12px}
+      .certs-row{flex-direction:column;align-items:stretch}
+      .cert-card{min-width:unset}
     }
 
     /* CERTS SECTION */
@@ -276,30 +313,6 @@
     .footer-bottom-links{display:flex;gap:20px}
     .footer-bottom-links a{font-size:11px;color:rgba(255,255,255,0.35);transition:color 0.2s}
     .footer-bottom-links a:hover{color:rgba(255,255,255,0.7)}
-
-    /* RESPONSIVE */
-    @media(max-width:900px){
-      .hero-grid{grid-template-columns:1fr}
-      .hero-photo-wrap{display:none}
-      .hero-mobile-photo{display:block}
-      .identity-grid{grid-template-columns:1fr}
-      .proj-grid{display:none}
-      .proj-carousel-wrap{display:block}
-      .nav-links,.nav-cta{display:none}
-      .nav-mobile-btn{display:flex}
-      .exp-timeline-h{display:none}
-      .exp-timeline-v{display:block}
-      .footer-top-grid{grid-template-columns:1fr 1fr;gap:32px}
-      .footer-top-grid>div:first-child{grid-column:1/-1}
-    }
-    @media(max-width:580px){
-      .footer-top-grid{grid-template-columns:1fr}
-      .footer-top-grid>div:first-child{grid-column:auto}
-      .hero-stats{gap:8px}
-      .hero-stat{padding:8px 12px}
-      .certs-row{flex-direction:column;align-items:stretch}
-      .cert-card{min-width:unset}
-    }
   </style>
 </head>
 <body>
@@ -482,14 +495,14 @@
           </div>
         </div>
       </div>
-      <!-- Mobile carousel -->
+      <!-- Mobile carousel — Variant B (green left accent) -->
       <div class="proj-carousel-wrap reveal">
         <div class="proj-carousel" id="projCarousel">
           <div class="proj-card"><div class="proj-thumb fraud">🛡️</div><div class="proj-body"><div class="proj-tag">ML · Finance</div><div class="proj-name">Detecting Financial Fraud with ML Precision</div><div class="proj-desc">Dual XGBoost models on 6.3M transactions with SHAP.</div><div class="proj-metrics"><span class="proj-metric">AUC 0.9923</span><span class="proj-metric">96% Recall</span></div><div class="proj-links"><a class="proj-link" href="project-fraud.html" target="_blank">View</a><a class="proj-link" href="https://github.com/productankur/fraud-detection-machine-learning" target="_blank">GitHub ↗</a><a class="proj-link" href="https://fraud-detection-machine-learning-fkbzgreypnrearys4nqsmg.streamlit.app/" target="_blank">Live ↗</a></div></div></div>
           <div class="proj-card"><div class="proj-thumb ai">🤖</div><div class="proj-body"><div class="proj-tag">AI Agents · LLM</div><div class="proj-name">AI-powered Job Search Automation System</div><div class="proj-desc">3 CrewAI agents automating job search via Groq + LLaMA 3.3.</div><div class="proj-metrics"><span class="proj-metric">3 AI Agents</span><span class="proj-metric">CrewAI</span></div><div class="proj-links"><a class="proj-link" href="project-jobsearch.html" target="_blank">View</a><a class="proj-link" href="https://github.com/productankur/Multi-AI-Agent-Job-Hunt-Assistant" target="_blank">GitHub ↗</a><a class="proj-link" href="https://multi-ai-agent-job-hunt-assistant-7hdhdktya2uvqftnkuwuzr.streamlit.app/" target="_blank">Live ↗</a></div></div></div>
           <div class="proj-card"><div class="proj-thumb health">⚕️</div><div class="proj-body"><div class="proj-tag">ML · Health</div><div class="proj-name">Health Insurance Cost Predictor</div><div class="proj-desc">End-to-end ML app deployed live on Streamlit Cloud.</div><div class="proj-metrics"><span class="proj-metric">XGBoost</span><span class="proj-metric">Live App</span></div><div class="proj-links"><a class="proj-link" href="project-insurance.html" target="_blank">View</a><a class="proj-link" href="https://github.com/productankur/ml-project-premium-prediction" target="_blank">GitHub ↗</a><a class="proj-link" href="https://ml-project-premium-prediction-by-ankur.streamlit.app/" target="_blank">Live ↗</a></div></div></div>
         </div>
-        <div class="carousel-dots" id="carouselDots">
+        <div class="carousel-dots" id="projDots">
           <div class="carousel-dot active"></div><div class="carousel-dot"></div><div class="carousel-dot"></div>
         </div>
       </div>
@@ -555,7 +568,7 @@
           <div class="cs-card-body">
             <div class="cs-company-row">
                <!-- <img src="assets/logos/unacademy_logo.png" alt="Unacademy"/> -->
-               <div class="cs-logo-wrap"><span class="cs-logo-initials">UN</span></div> 
+               <div class="cs-logo-wrap"><span class="cs-logo-initials">UN</span></div>
               <div>
                 <p class="cs-company-name">Unacademy</p>
                 <p class="cs-company-meta">EdTech · Assignment · Dec 2021</p>
@@ -728,11 +741,11 @@
 
       </div><!-- /cs-grid -->
 
-      <!-- MOBILE CAROUSEL — visible below 900px -->
+      <!-- MOBILE CAROUSEL — Variant B (blue left accent), visible below 900px -->
       <div class="cs-carousel-wrap reveal">
         <div class="cs-carousel" id="csCarousel">
 
-          <a class="cs-card" href="case-study-unacademy.html" target="_blank">
+          <a class="cs-card" href="final_unacademy-case-study.html" target="_blank">
             <div class="cs-card-thumb">
               <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9" stroke-linecap="round"/></svg>
             </div>
@@ -750,7 +763,7 @@
             </div>
           </a>
 
-          <a class="cs-card" href="case-study-jove.html" target="_blank">
+          <a class="cs-card" href="final-jove-case-study.html" target="_blank">
             <div class="cs-card-thumb">
               <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M9 3H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2V9l-6-6z"/><path d="M9 3v6h6"/></svg>
             </div>
@@ -969,6 +982,7 @@
   </footer>
 
   <script>
+    // Reveal on scroll
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((e, i) => {
         if (e.isIntersecting) {
@@ -978,9 +992,13 @@
       });
     }, { threshold: 0.08 });
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // Nav scroll
     window.addEventListener('scroll', () => {
       document.getElementById('mainNav').classList.toggle('scrolled', window.scrollY > 20);
     }, { passive: true });
+
+    // Mobile nav menu
     const mobileBtn = document.getElementById('mobileMenuBtn');
     const mobileMenu = document.getElementById('mobileMenu');
     mobileBtn.addEventListener('click', () => {
@@ -993,32 +1011,57 @@
         mobileMenu.classList.remove('open');
       });
     });
-    const csCarousel = document.getElementById('csCarousel');
-    const csDots = document.querySelectorAll('#csDots .carousel-dot');
-    if (csCarousel) {
-      csCarousel.addEventListener('scroll', () => {
-        const idx = Math.round(csCarousel.scrollLeft / csCarousel.offsetWidth);
-        csDots.forEach((d, i) => d.classList.toggle('active', i === idx));
+
+    // Auto-advance carousel helper
+    function initCarousel(carouselId, dotsId, interval) {
+      const car = document.getElementById(carouselId);
+      const dotEls = document.querySelectorAll('#' + dotsId + ' .carousel-dot');
+      if (!car || !dotEls.length) return;
+      const total = dotEls.length;
+      let current = 0;
+      let timer;
+      let paused = false;
+
+      function goTo(idx) {
+        current = (idx + total) % total;
+        car.scrollTo({ left: current * car.offsetWidth, behavior: 'smooth' });
+        dotEls.forEach((d, i) => d.classList.toggle('active', i === current));
+      }
+
+      function startAuto() {
+        clearInterval(timer);
+        timer = setInterval(() => { if (!paused) goTo(current + 1); }, interval);
+      }
+
+      // Dot clicks
+      dotEls.forEach((dot, i) => dot.addEventListener('click', () => goTo(i)));
+
+      // Sync dots on manual swipe
+      car.addEventListener('scroll', () => {
+        const idx = Math.round(car.scrollLeft / car.offsetWidth);
+        if (idx !== current) {
+          current = idx;
+          dotEls.forEach((d, i) => d.classList.toggle('active', i === current));
+        }
       }, { passive: true });
-      csDots.forEach((dot, i) => {
-        dot.addEventListener('click', () => {
-          csCarousel.scrollTo({ left: i * csCarousel.offsetWidth, behavior: 'smooth' });
-        });
-      });
-    }
-    const carousel = document.getElementById('projCarousel');
-    const dots = document.querySelectorAll('.carousel-dot');
-    if (carousel) {
-      carousel.addEventListener('scroll', () => {
-        const idx = Math.round(carousel.scrollLeft / carousel.offsetWidth);
-        dots.forEach((d, i) => d.classList.toggle('active', i === idx));
+
+      // Pause on touch
+      car.addEventListener('touchstart', () => { paused = true; }, { passive: true });
+      car.addEventListener('touchend', () => {
+        paused = false;
+        // Re-sync current after swipe settles
+        setTimeout(() => {
+          current = Math.round(car.scrollLeft / car.offsetWidth);
+          dotEls.forEach((d, i) => d.classList.toggle('active', i === current));
+        }, 400);
       }, { passive: true });
-      dots.forEach((dot, i) => {
-        dot.addEventListener('click', () => {
-          carousel.scrollTo({ left: i * carousel.offsetWidth, behavior: 'smooth' });
-        });
-      });
+
+      startAuto();
     }
+
+    // Init both carousels — 3500ms auto-advance
+    initCarousel('projCarousel', 'projDots', 3500);
+    initCarousel('csCarousel',  'csDots',   3500);
   </script>
 </body>
 </html>
