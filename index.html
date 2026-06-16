@@ -228,9 +228,14 @@
       .nav-links,.nav-cta{display:none}
       .nav-mobile-btn{display:flex}
       .exp-timeline-h{display:none}
-      .exp-timeline-v{display:block}
-      .footer-top-grid{grid-template-columns:1fr;gap:28px}
-      .footer-top-grid>div:first-child{grid-column:auto}
+      .exp-timeline-v{display:flex}
+      .footer-top-grid{grid-template-columns:1fr !important;gap:0 !important;width:100%}
+      .footer-top-grid>div{grid-column:1 !important;width:100% !important;padding:20px 0;min-width:0}
+      .footer-top-grid>div:first-child{padding-top:0}
+      .footer-top-grid>div:not(:first-child){border-top:1px solid rgba(255,255,255,0.08)}
+      .footer-contact-item{align-items:flex-start}
+      .footer-contact-item a,.footer-contact-item span{overflow-wrap:break-word;word-break:break-word;min-width:0;display:inline}
+      .footer-bottom-inner{flex-direction:column;align-items:flex-start;gap:10px}
     }
     @media(max-width:580px){
       .hero-stats{gap:8px}
@@ -271,22 +276,21 @@
     .exp-current-badge{display:inline-block;background:var(--tech-mid);color:#fff;font-size:9px;border-radius:20px;padding:3px 9px;margin-top:6px;font-weight:500}
     .exp-node-visit{font-size:10px;color:var(--text-3);margin-top:6px;opacity:0;transform:translateY(4px);transition:opacity 0.2s,transform 0.2s;display:flex;align-items:center;gap:3px}
     .exp-node:hover .exp-node-visit{opacity:1;transform:translateY(0)}
-    .exp-timeline-v{display:none;position:relative;padding-left:52px}
-    .exp-timeline-v::before{content:'';position:absolute;left:18px;top:0;bottom:0;width:2px;background:linear-gradient(to bottom,var(--text-1),var(--border-mid));border-radius:2px}
-    .exp-v-item{position:relative;margin-bottom:14px;cursor:pointer}
-    .exp-v-logo-wrap{position:absolute;left:-38px;top:10px;width:36px;height:36px;border-radius:50%;background:var(--white);border:2px solid var(--border);display:flex;align-items:center;justify-content:center;overflow:hidden;transition:border-color 0.2s;z-index:1}
-    .exp-v-item:hover .exp-v-logo-wrap{border-color:var(--tech-mid)}
-    .exp-v-item.current-role .exp-v-logo-wrap{border-color:var(--tech-mid)}
-    .exp-v-logo-img{width:22px;height:22px;object-fit:contain}
+    .exp-timeline-v{display:none;flex-direction:column;gap:12px}
+    .exp-v-item{cursor:pointer}
+    .exp-v-card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius-lg);padding:14px 16px;transition:box-shadow 0.2s,border-color 0.2s}
+    .exp-v-item:hover .exp-v-card{box-shadow:0 4px 18px rgba(0,0,0,0.06);border-color:var(--border-mid)}
+    .exp-v-item.current-role .exp-v-card{border-color:var(--tech-mid)}
+    .exp-v-top{display:flex;gap:12px;align-items:flex-start}
+    .exp-v-logo-wrap{width:36px;height:36px;border-radius:var(--radius-md);background:var(--off-white);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shrink:0}
+    .exp-v-logo-img{width:24px;height:24px;object-fit:contain}
     .exp-v-initials{font-family:var(--font-display);font-size:12px;font-weight:500;color:var(--text-2);display:none}
-    .exp-v-card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius-md);padding:12px 14px;display:flex;justify-content:space-between;align-items:center;transition:box-shadow 0.2s,border-color 0.2s;gap:8px;max-width:100%}
-    .exp-v-item:hover .exp-v-card{box-shadow:0 3px 14px rgba(0,0,0,0.06);border-color:var(--border-mid)}
-    .exp-v-card > div:first-child{min-width:0;flex:1}
-    .exp-v-company{font-size:13px;font-weight:500;color:var(--text-1);overflow-wrap:break-word}
-    .exp-v-role{font-size:11px;color:var(--text-2);margin-top:2px}
-    .exp-v-right{display:flex;flex-direction:column;align-items:flex-end;gap:3px;flex-shrink:0;margin-left:12px}
-    .exp-v-date{font-family:var(--font-mono);font-size:9px;color:var(--text-3)}
-    .exp-v-arrow{font-size:13px;color:var(--text-3)}
+    .exp-v-info{flex:1;min-width:0}
+    .exp-v-company{font-size:14px;font-weight:500;color:var(--text-1);overflow-wrap:break-word}
+    .exp-v-role{font-size:12px;color:var(--text-2);margin-top:2px;overflow-wrap:break-word}
+    .exp-v-bottom{display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--border);margin-top:12px;padding-top:10px;gap:8px}
+    .exp-v-date{font-family:var(--font-mono);font-size:10px;color:var(--text-3)}
+    .exp-v-arrow{font-size:14px;color:var(--text-3);flex-shrink:0}
 
     /* FOOTER SECTION */
     .footer-section{background:var(--text-1)}
@@ -951,20 +955,40 @@
       <!-- Mobile vertical timeline -->
       <div class="exp-timeline-v">
         <div class="exp-v-item current-role" onclick="window.open('company-swadhaar.html','_self')">
-          <div class="exp-v-logo-wrap"><img class="exp-v-logo-img" src="assets/logos/company-swadhaar.png" alt="SF" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/><span class="exp-v-initials">SF</span></div>
-          <div class="exp-v-card"><div><div class="exp-v-company">Swadhaar Finaccess</div><div class="exp-v-role">Product Lead</div></div><div class="exp-v-right"><div class="exp-v-date">Current</div><span class="exp-current-badge" style="font-size:8px;padding:2px 7px">● Now</span><span class="exp-v-arrow">→</span></div></div>
+          <div class="exp-v-card">
+            <div class="exp-v-top">
+              <div class="exp-v-logo-wrap"><img class="exp-v-logo-img" src="assets/logos/company-swadhaar.png" alt="SF" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/><span class="exp-v-initials">SF</span></div>
+              <div class="exp-v-info"><div class="exp-v-company">Swadhaar Finaccess</div><div class="exp-v-role">Product Lead</div></div>
+            </div>
+            <div class="exp-v-bottom"><span class="exp-current-badge" style="font-size:10px;padding:3px 9px">● Current</span><span class="exp-v-arrow">→</span></div>
+          </div>
         </div>
         <div class="exp-v-item" onclick="window.open('company-cambridge.html','_self')">
-          <div class="exp-v-logo-wrap"><img class="exp-v-logo-img" src="assets/logos/company-cambridge.png" alt="CU" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/><span class="exp-v-initials">CU</span></div>
-          <div class="exp-v-card"><div><div class="exp-v-company">Cambridge Univ. Press</div><div class="exp-v-role">Senior Product Manager</div></div><div class="exp-v-right"><div class="exp-v-date">Dec 22–Jul 24</div><span class="exp-v-arrow">→</span></div></div>
+          <div class="exp-v-card">
+            <div class="exp-v-top">
+              <div class="exp-v-logo-wrap"><img class="exp-v-logo-img" src="assets/logos/company-cambridge.png" alt="CU" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/><span class="exp-v-initials">CU</span></div>
+              <div class="exp-v-info"><div class="exp-v-company">Cambridge Univ. Press</div><div class="exp-v-role">Senior Product Manager</div></div>
+            </div>
+            <div class="exp-v-bottom"><span class="exp-v-date">Dec 2022 – Jul 2024</span><span class="exp-v-arrow">→</span></div>
+          </div>
         </div>
         <div class="exp-v-item" onclick="window.open('company-bada.html','_self')">
-          <div class="exp-v-logo-wrap"><img class="exp-v-logo-img" src="assets/logos/company-bada.png" alt="BB" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/><span class="exp-v-initials">BB</span></div>
-          <div class="exp-v-card"><div><div class="exp-v-company">Bada Business</div><div class="exp-v-role">Product Manager II</div></div><div class="exp-v-right"><div class="exp-v-date">Jul 21–Nov 22</div><span class="exp-v-arrow">→</span></div></div>
+          <div class="exp-v-card">
+            <div class="exp-v-top">
+              <div class="exp-v-logo-wrap"><img class="exp-v-logo-img" src="assets/logos/company-bada.png" alt="BB" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/><span class="exp-v-initials">BB</span></div>
+              <div class="exp-v-info"><div class="exp-v-company">Bada Business</div><div class="exp-v-role">Product Manager II</div></div>
+            </div>
+            <div class="exp-v-bottom"><span class="exp-v-date">Jul 2021 – Nov 2022</span><span class="exp-v-arrow">→</span></div>
+          </div>
         </div>
         <div class="exp-v-item" onclick="window.open('company-thinkvault.html','_self')">
-          <div class="exp-v-logo-wrap"><img class="exp-v-logo-img" src="assets/logos/company-thinkvault.png" alt="TV" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/><span class="exp-v-initials">TV</span></div>
-          <div class="exp-v-card"><div><div class="exp-v-company">ThinkVault</div><div class="exp-v-role">PM · Software Developer</div></div><div class="exp-v-right"><div class="exp-v-date">Oct 14–Jun 21</div><span class="exp-v-arrow">→</span></div></div>
+          <div class="exp-v-card">
+            <div class="exp-v-top">
+              <div class="exp-v-logo-wrap"><img class="exp-v-logo-img" src="assets/logos/company-thinkvault.png" alt="TV" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/><span class="exp-v-initials">TV</span></div>
+              <div class="exp-v-info"><div class="exp-v-company">ThinkVault</div><div class="exp-v-role">PM · Software Developer</div></div>
+            </div>
+            <div class="exp-v-bottom"><span class="exp-v-date">Oct 2014 – Jun 2021</span><span class="exp-v-arrow">→</span></div>
+          </div>
         </div>
       </div>
     </div>
@@ -1040,6 +1064,46 @@
   </footer>
 
   <script>
+    // Mobile layout JS fallback — forces layout if media query doesn't fire
+    function applyMobileLayout() {
+      const isMobile = window.innerWidth <= 900;
+      // Experience
+      const timelineH = document.querySelector('.exp-timeline-h');
+      const timelineV = document.querySelector('.exp-timeline-v');
+      if (timelineH) timelineH.style.display = isMobile ? 'none' : '';
+      if (timelineV) timelineV.style.display = isMobile ? 'flex' : '';
+      if (timelineV) timelineV.style.flexDirection = isMobile ? 'column' : '';
+      if (timelineV) timelineV.style.gap = isMobile ? '12px' : '';
+      // Footer grid
+      const footerGrid = document.querySelector('.footer-top-grid');
+      if (footerGrid) {
+        footerGrid.style.gridTemplateColumns = isMobile ? '1fr' : '';
+        footerGrid.style.gap = isMobile ? '0' : '';
+      }
+      footerGrid && footerGrid.querySelectorAll(':scope > div').forEach((div, i) => {
+        div.style.width = isMobile ? '100%' : '';
+        div.style.padding = isMobile ? (i === 0 ? '0 0 20px' : '20px 0') : '';
+        div.style.borderTop = isMobile && i > 0 ? '1px solid rgba(255,255,255,0.08)' : '';
+        div.style.minWidth = isMobile ? '0' : '';
+      });
+      // Footer bottom
+      const footerBottom = document.querySelector('.footer-bottom-inner');
+      if (footerBottom) {
+        footerBottom.style.flexDirection = isMobile ? 'column' : '';
+        footerBottom.style.alignItems = isMobile ? 'flex-start' : '';
+      }
+      // Contact items
+      document.querySelectorAll('.footer-contact-item').forEach(el => {
+        el.style.alignItems = isMobile ? 'flex-start' : '';
+      });
+      document.querySelectorAll('.footer-contact-item a').forEach(el => {
+        el.style.overflowWrap = isMobile ? 'break-word' : '';
+        el.style.wordBreak = isMobile ? 'break-word' : '';
+      });
+    }
+    applyMobileLayout();
+    window.addEventListener('resize', applyMobileLayout, { passive: true });
+
     // Reveal on scroll
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((e, i) => {
