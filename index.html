@@ -95,39 +95,52 @@
     /* IDENTITY SECTION */
     .identity-section{padding:72px 0;background:var(--off-white)}
     .identity-header{text-align:center;margin-bottom:40px}
-    .identity-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
-    .identity-col{border-radius:var(--radius-lg);overflow:hidden;border:1px solid var(--border);background:var(--white)}
-    .identity-head{padding:18px 22px;display:flex;justify-content:space-between;align-items:center}
-    .identity-head.product{background:var(--product)}
-    .identity-head.tech{background:var(--tech)}
-    .identity-head-title{font-family:var(--font-display);font-size:20px;font-weight:400;color:#fff}
-    .identity-head-sub{font-size:11px;color:rgba(255,255,255,0.4)}
-    .identity-skills{padding:16px;display:flex;flex-direction:column;gap:10px}
-    .skill-row{background:var(--off-white);border-radius:var(--radius-md);padding:12px 14px}
-    .skill-name{font-size:12px;font-weight:500;margin-bottom:7px}
-    .skill-bar{height:4px;border-radius:2px;background:var(--border);overflow:hidden}
-    .skill-fill-p{height:100%;border-radius:2px;background:var(--product)}
-    .skill-fill-t{height:100%;border-radius:2px;background:var(--tech-mid)}
-    .tech-journey{padding:14px 16px;border-top:1px solid var(--border)}
-    .tj-label{font-family:var(--font-mono);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--text-3);margin-bottom:12px}
-    .tj-row{display:flex;align-items:stretch}
-    .tj-node{flex:1}
-    .tj-card{border:1px solid var(--border);border-radius:var(--radius-md);padding:10px 12px;height:100%}
-    .tj-card.current{border-color:var(--tech-mid);background:var(--tech-light)}
-    .tj-card-title{font-size:12px;font-weight:500}
-    .tj-card.current .tj-card-title{color:var(--tech)}
-    .tj-card-years{font-size:10px;color:var(--text-3);margin-top:2px}
-    .tj-card-skills{font-size:10px;color:var(--text-2);margin-top:5px;line-height:1.5}
-    .tj-badge{display:inline-block;background:var(--tech-mid);color:#fff;font-size:9px;border-radius:20px;padding:2px 8px;margin-top:5px}
-    .tj-arrow{display:flex;align-items:center;padding:0 8px;color:var(--text-3);font-size:14px;flex-shrink:0}
-    .identity-tags{padding:12px 16px;display:flex;flex-wrap:wrap;gap:6px}
+    /* Tab wrapper */
+    .identity-panel{background:var(--white);border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;max-width:860px;margin:0 auto}
+    .identity-tabs{display:flex}
+    .identity-tab{flex:1;padding:14px 0;text-align:center;font-family:var(--font-display);font-size:16px;font-weight:400;cursor:pointer;transition:background 0.2s,color 0.2s;border-bottom:1px solid var(--border);user-select:none}
+    .identity-tab.product{background:var(--off-white);color:var(--text-3)}
+    .identity-tab.product.active{background:var(--product);color:#fff}
+    .identity-tab.tech{background:var(--off-white);color:var(--text-3);border-left:1px solid var(--border)}
+    .identity-tab.tech.active{background:var(--tech);color:#fff}
+    /* Tab content */
+    .identity-pane{display:none;opacity:0;transition:opacity 0.2s ease;padding:20px}
+    .identity-pane.active{display:block}
+    .identity-pane.fade-in{opacity:1}
+    /* Skill rows */
+    .skill-row{background:var(--off-white);border-radius:var(--radius-md);padding:11px 14px;display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+    .skill-name{font-size:13px;font-weight:500;color:var(--text-1)}
+    .skill-label{font-size:10px;color:var(--text-3);white-space:nowrap;margin-left:12px}
+    /* Journey block */
+    .journey-block{border:1px solid var(--border);border-radius:var(--radius-md);padding:14px;margin:16px 0}
+    .journey-label{font-family:var(--font-mono);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--text-3);margin-bottom:12px}
+    .journey-row{display:flex;align-items:stretch;gap:0}
+    .journey-node{flex:1;border:1px solid var(--border);border-radius:var(--radius-md);padding:10px 12px}
+    .journey-node.current-p{border-color:var(--product);background:var(--surface)}
+    .journey-node.current-t{border-color:var(--tech-mid);background:var(--tech-light)}
+    .journey-node-title{font-size:12px;font-weight:500;color:var(--text-1)}
+    .journey-node.current-t .journey-node-title{color:var(--tech)}
+    .journey-node.current-p .journey-node-title{color:var(--product)}
+    .journey-node-sub{font-size:10px;color:var(--text-3);margin-top:2px}
+    .journey-node-desc{font-size:10px;color:var(--text-2);margin-top:5px;line-height:1.5}
+    .journey-badge-p{display:inline-block;background:var(--product);color:#fff;font-size:9px;border-radius:20px;padding:2px 8px;margin-top:5px}
+    .journey-badge-t{display:inline-block;background:var(--tech-mid);color:#fff;font-size:9px;border-radius:20px;padding:2px 8px;margin-top:5px}
+    .journey-arrow{display:flex;align-items:center;padding:0 8px;color:var(--text-3);font-size:14px;flex-shrink:0}
+    /* Mobile journey vertical */
+    .journey-row-v{display:none;flex-direction:column;gap:0}
+    .journey-arrow-v{text-align:center;font-size:14px;color:var(--text-3);padding:4px 0}
+    /* Tags + CTA */
+    .identity-tags{display:flex;flex-wrap:wrap;gap:6px;padding-top:14px;border-top:1px solid var(--border);margin-top:4px}
     .tag{border-radius:20px;padding:4px 11px;font-size:10px;font-weight:500}
     .tag-p{background:var(--prod-light);color:var(--prod-mid)}
     .tag-t{background:var(--tech-light);color:var(--tech-mid)}
-    .identity-cta{padding:12px 16px;border-top:1px solid var(--border);text-align:center}
-    .identity-cta p{font-size:10px;color:var(--text-3);margin-bottom:3px}
-    .identity-cta a{font-size:12px;font-weight:500;color:var(--text-1)}
+    .identity-cta{padding-top:12px;margin-top:12px;border-top:1px solid var(--border);text-align:right}
+    .identity-cta a{font-size:12px;font-weight:500;color:var(--text-1);transition:color 0.2s}
     .identity-cta a:hover{color:var(--tech-mid)}
+    @media(max-width:900px){
+      .journey-row{display:none}
+      .journey-row-v{display:flex}
+    }
 
     /* TECH PROJECTS SECTION */
     .projects-section{padding:72px 0;background:var(--white);border-top:1px solid var(--border)}
@@ -406,42 +419,101 @@
         <p class="section-label">What I bring</p>
         <h2 class="section-title">Two superpowers. One professional.</h2>
       </div>
-      <div class="identity-grid reveal">
-        <div class="identity-col">
-          <div class="identity-head product"><span class="identity-head-title">Product</span><span class="identity-head-sub">10+ yrs</span></div>
-          <div class="identity-skills">
-            <div class="skill-row"><div class="skill-name">Strategy & Roadmapping</div><div class="skill-bar"><div class="skill-fill-p" style="width:92%"></div></div></div>
-            <div class="skill-row"><div class="skill-name">Growth & Monetisation</div><div class="skill-bar"><div class="skill-fill-p" style="width:85%"></div></div></div>
-            <div class="skill-row"><div class="skill-name">User Research & Design Thinking</div><div class="skill-bar"><div class="skill-fill-p" style="width:88%"></div></div></div>
-            <div class="skill-row"><div class="skill-name">GTM & Stakeholder Management</div><div class="skill-bar"><div class="skill-fill-p" style="width:80%"></div></div></div>
+      <div class="identity-panel reveal">
+        <!-- Tabs -->
+        <div class="identity-tabs">
+          <div class="identity-tab product active" onclick="switchTab('product')">Product</div>
+          <div class="identity-tab tech" onclick="switchTab('tech')">Technology</div>
+        </div>
+
+        <!-- PRODUCT PANE -->
+        <div class="identity-pane active fade-in" id="pane-product">
+          <div class="skill-row"><span class="skill-name">Strategy & Roadmapping</span><span class="skill-label">Expert</span></div>
+          <div class="skill-row"><span class="skill-name">Growth & Monetisation</span><span class="skill-label">Expert</span></div>
+          <div class="skill-row"><span class="skill-name">User Research & Design Thinking</span><span class="skill-label">Expert</span></div>
+          <div class="skill-row" style="margin-bottom:0"><span class="skill-name">GTM & Stakeholder Management</span><span class="skill-label">Expert</span></div>
+
+          <div class="journey-block">
+            <div class="journey-label">My Product Story</div>
+            <!-- Desktop horizontal -->
+            <div class="journey-row">
+              <div class="journey-node">
+                <div class="journey-node-title">Startup · EdTech</div>
+                <div class="journey-node-desc">PM &<br>Engineering</div>
+              </div>
+              <div class="journey-arrow">→</div>
+              <div class="journey-node">
+                <div class="journey-node-title">Media House</div>
+                <div class="journey-node-desc">Product<br>Manager II</div>
+              </div>
+              <div class="journey-arrow">→</div>
+              <div class="journey-node">
+                <div class="journey-node-title">Global Publisher</div>
+                <div class="journey-node-desc">Assessment &<br>Partnerships</div>
+              </div>
+              <div class="journey-arrow">→</div>
+              <div class="journey-node current-p">
+                <div class="journey-node-title">FinTech</div>
+                <div class="journey-node-desc">Product Lead</div>
+                <span class="journey-badge-p">● Current</span>
+              </div>
+            </div>
+            <!-- Mobile vertical -->
+            <div class="journey-row-v">
+              <div class="journey-node" style="display:flex;justify-content:space-between;align-items:center"><span class="journey-node-title">Startup · EdTech</span><span style="font-size:10px;color:var(--text-2)">PM & Engineering</span></div>
+              <div class="journey-arrow-v">↓</div>
+              <div class="journey-node" style="display:flex;justify-content:space-between;align-items:center"><span class="journey-node-title">Media House</span><span style="font-size:10px;color:var(--text-2)">Product Manager II</span></div>
+              <div class="journey-arrow-v">↓</div>
+              <div class="journey-node" style="display:flex;justify-content:space-between;align-items:center"><span class="journey-node-title">Global Publisher</span><span style="font-size:10px;color:var(--text-2)">Sr. PM</span></div>
+              <div class="journey-arrow-v">↓</div>
+              <div class="journey-node current-p" style="display:flex;justify-content:space-between;align-items:center"><span class="journey-node-title">FinTech</span><span class="journey-badge-p" style="font-size:8px">● Current</span></div>
+            </div>
           </div>
+
           <div class="identity-tags">
             <span class="tag tag-p">OKRs</span><span class="tag tag-p">Figma</span><span class="tag tag-p">A/B Testing</span>
             <span class="tag tag-p">Pendo</span><span class="tag tag-p">MoEngage</span><span class="tag tag-p">Jira</span><span class="tag tag-p">Scrum</span>
           </div>
-          <div class="identity-cta"><p>4× Product School · 2× Pendo certified</p><a href="#certs">See Certifications →</a></div>
+          <div class="identity-cta"><a href="#certs">See Certifications →</a></div>
         </div>
-        <div class="identity-col">
-          <div class="identity-head tech"><span class="identity-head-title">Technology</span><span class="identity-head-sub">8 yrs total</span></div>
-          <div class="identity-skills">
-            <div class="skill-row"><div class="skill-name">AI / ML Engineering</div><div class="skill-bar"><div class="skill-fill-t" style="width:78%"></div></div></div>
-            <div class="skill-row"><div class="skill-name">Data Science & Analytics</div><div class="skill-bar"><div class="skill-fill-t" style="width:82%"></div></div></div>
-            <div class="skill-row"><div class="skill-name">LLM Orchestration & Agents</div><div class="skill-bar"><div class="skill-fill-t" style="width:70%"></div></div></div>
-            <div class="skill-row"><div class="skill-name">Web Development (PHP · Laravel · AWS)</div><div class="skill-bar"><div class="skill-fill-t" style="width:75%"></div></div></div>
-          </div>
-          <div class="tech-journey">
-            <div class="tj-label">Tech journey</div>
-            <div class="tj-row">
-              <div class="tj-node"><div class="tj-card"><div class="tj-card-title">Web Dev</div><div class="tj-card-years">5 years</div><div class="tj-card-skills">PHP · Laravel<br>MySQL · AWS · JS</div></div></div>
-              <div class="tj-arrow">→</div>
-              <div class="tj-node"><div class="tj-card current"><div class="tj-card-title">AI / ML</div><div class="tj-card-years">3 years · now</div><div class="tj-card-skills">Python · Scikit-learn<br>CrewAI · LiteLLM</div><span class="tj-badge">Current focus</span></div></div>
+
+        <!-- TECHNOLOGY PANE -->
+        <div class="identity-pane" id="pane-tech">
+          <div class="skill-row"><span class="skill-name">AI / ML Engineering</span><span class="skill-label">Advanced</span></div>
+          <div class="skill-row"><span class="skill-name">Data Science & Analytics</span><span class="skill-label">Advanced</span></div>
+          <div class="skill-row"><span class="skill-name">LLM Orchestration & Agents</span><span class="skill-label">Advanced</span></div>
+          <div class="skill-row" style="margin-bottom:0"><span class="skill-name">Web Development (PHP · Laravel · AWS)</span><span class="skill-label">Expert</span></div>
+
+          <div class="journey-block">
+            <div class="journey-label">Tech Journey</div>
+            <!-- Desktop horizontal -->
+            <div class="journey-row">
+              <div class="journey-node">
+                <div class="journey-node-title">Web Dev</div>
+                <div class="journey-node-sub">5 years</div>
+                <div class="journey-node-desc">PHP · Laravel<br>MySQL · AWS · JS</div>
+              </div>
+              <div class="journey-arrow">→</div>
+              <div class="journey-node current-t">
+                <div class="journey-node-title">AI / ML</div>
+                <div class="journey-node-sub">3 years · now</div>
+                <div class="journey-node-desc">Python · Scikit-learn<br>CrewAI · LiteLLM</div>
+                <span class="journey-badge-t">Current focus</span>
+              </div>
+            </div>
+            <!-- Mobile vertical -->
+            <div class="journey-row-v">
+              <div class="journey-node" style="display:flex;justify-content:space-between;align-items:center"><span class="journey-node-title">Web Dev</span><span style="font-size:10px;color:var(--text-2)">PHP · Laravel · 5 yrs</span></div>
+              <div class="journey-arrow-v">↓</div>
+              <div class="journey-node current-t" style="display:flex;justify-content:space-between;align-items:center"><span class="journey-node-title">AI / ML</span><span class="journey-badge-t" style="font-size:8px">Current</span></div>
             </div>
           </div>
+
           <div class="identity-tags">
             <span class="tag tag-t">Python</span><span class="tag tag-t">Scikit-learn</span><span class="tag tag-t">XGBoost</span>
             <span class="tag tag-t">CrewAI</span><span class="tag tag-t">LiteLLM</span><span class="tag tag-t">Groq</span><span class="tag tag-t">Streamlit</span>
           </div>
-          <div class="identity-cta"><p>ML certified · 3 shipped AI/ML projects</p><a href="#tech-projects">See Tech Projects →</a></div>
+          <div class="identity-cta"><a href="#tech-projects">See Tech Projects →</a></div>
         </div>
       </div>
     </div>
@@ -1064,6 +1136,23 @@
   </footer>
 
   <script>
+    // Identity tab switcher
+    function switchTab(tab) {
+      ['product','tech'].forEach(t => {
+        const pane = document.getElementById('pane-' + t);
+        const btn = document.querySelector('.identity-tab.' + t);
+        if (t === tab) {
+          btn.classList.add('active');
+          pane.classList.add('active');
+          pane.classList.remove('fade-in');
+          requestAnimationFrame(() => requestAnimationFrame(() => pane.classList.add('fade-in')));
+        } else {
+          btn.classList.remove('active');
+          pane.classList.remove('active','fade-in');
+        }
+      });
+    }
+
     // Mobile layout JS fallback
     function applyMobileLayout() {
       const isMobile = window.innerWidth <= 900;
