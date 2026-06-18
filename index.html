@@ -57,9 +57,14 @@
     .nav-mobile-btn.open span:nth-child(2){opacity:0}
     .nav-mobile-btn.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
     .nav-mobile-icons{display:none;align-items:center;gap:8px}
-    .nav-mobile-icon-btn{width:32px;height:32px;border-radius:50%;border:1px solid var(--border-mid);background:transparent;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background 0.2s,border-color 0.2s;color:var(--text-2);text-decoration:none;flex-shrink:0}
+    .nav-mobile-icon-btn{width:26px;height:26px;border-radius:6px;border:1px solid var(--border-mid);background:transparent;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background 0.2s,border-color 0.2s;color:var(--text-2);text-decoration:none;flex-shrink:0}
     .nav-mobile-icon-btn:hover{background:var(--surface);border-color:var(--text-3);color:var(--text-1)}
-    .nav-mobile-icon-btn svg{width:15px;height:15px;stroke:currentColor;fill:none;flex-shrink:0}
+    .nav-mobile-icon-btn svg{width:13px;height:13px;stroke:currentColor;fill:none;flex-shrink:0}
+    .nav-desktop-contact{display:flex;align-items:center;gap:10px}
+    .nav-desktop-contact a{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--text-2);text-decoration:none;transition:color 0.2s}
+    .nav-desktop-contact a:hover{color:var(--text-1)}
+    .nav-desktop-contact svg{width:13px;height:13px;stroke:currentColor;fill:none;flex-shrink:0}
+    .nav-desktop-contact .nav-li-img{width:20px;height:20px;border-radius:4px;object-fit:cover;display:block}
     .nav-mobile-menu{display:none;flex-direction:column;padding:0 24px 0;border-top:1px solid var(--border);background:rgba(249,248,245,0.97)}
     .nav-mobile-menu.open{display:flex}
     .nav-mobile-menu a{padding:12px 0;font-size:15px;color:var(--text-2);border-bottom:1px solid var(--border)}
@@ -266,22 +271,33 @@
     @media(max-width:580px){
       .hero-stats{gap:8px}
       .hero-stat{padding:8px 12px}
-      .certs-row{flex-direction:column;align-items:stretch}
-      .cert-card{min-width:unset}
     }
 
     /* CERTS SECTION */
     .certs-section{padding:64px 0;background:var(--white);border-top:1px solid var(--border)}
     .certs-inner{background:var(--off-white);border:1px solid var(--border);border-radius:var(--radius-lg);padding:32px}
-    .certs-title{font-family:var(--font-display);font-size:22px;font-weight:400;text-align:center;margin-bottom:24px}
-    .certs-row{display:flex;flex-wrap:wrap;gap:12px;justify-content:center}
-    .cert-card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius-md);padding:12px 16px;display:flex;align-items:center;gap:12px;min-width:210px;transition:box-shadow 0.2s,transform 0.2s;cursor:pointer}
-    .cert-card:hover{box-shadow:0 4px 18px rgba(0,0,0,0.08);transform:translateY(-2px)}
+    .certs-header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:24px}
+    .certs-title{font-family:var(--font-display);font-size:22px;font-weight:400}
+    .certs-filters{display:flex;flex-wrap:wrap;gap:8px}
+    .cert-filter{font-size:11px;padding:5px 14px;border-radius:40px;border:1px solid var(--border-mid);background:transparent;color:var(--text-2);cursor:pointer;transition:background 0.2s,border-color 0.2s,color 0.2s;font-family:var(--font-body)}
+    .cert-filter:hover{background:var(--surface);border-color:var(--text-3)}
+    .cert-filter.active{background:var(--text-1);color:var(--white);border-color:var(--text-1)}
+    .certs-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+    .cert-card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius-md);padding:12px 14px;display:flex;align-items:center;gap:12px;transition:box-shadow 0.2s,transform 0.2s,border-color 0.2s;cursor:pointer;text-decoration:none;color:inherit}
+    .cert-card:hover{box-shadow:0 4px 18px rgba(0,0,0,0.08);transform:translateY(-2px);border-color:var(--border-mid)}
+    .cert-card.hidden{display:none}
     .cert-logo-img{width:36px;height:36px;border-radius:8px;object-fit:contain;flex-shrink:0;background:var(--off-white);padding:3px;border:1px solid var(--border)}
     .cert-info-org{font-size:10px;color:var(--text-3)}
     .cert-info-name{font-size:11px;font-weight:500;color:var(--text-1);transition:color 0.2s;line-height:1.4;margin-top:1px}
     .cert-card:hover .cert-info-name{color:var(--tech-mid)}
     .cert-badge{background:var(--tech-light);color:var(--tech-mid);font-size:9px;border-radius:20px;padding:2px 8px;margin-top:4px;display:inline-block;font-weight:500}
+    @media(max-width:900px){
+      .certs-grid{grid-template-columns:repeat(2,1fr)}
+      .certs-header{flex-direction:column;align-items:flex-start}
+    }
+    @media(max-width:480px){
+      .certs-grid{grid-template-columns:1fr}
+    }
 
     /* EXPERIENCE SECTION */
     .experience-section{padding:80px 0;background:var(--off-white);border-top:1px solid var(--border)}
@@ -357,11 +373,21 @@
         <li><a href="#experience">Experience</a></li>
       </ul>
       <a class="nav-cta" href="Gen_Ankur_Resume_2026.pdf" download>Download CV ↓</a>
+      <!-- Desktop: LinkedIn + Phone -->
+      <div class="nav-desktop-contact">
+        <a href="https://www.linkedin.com/in/ankurratwaya/" target="_blank" rel="noopener" aria-label="LinkedIn">
+          <img class="nav-li-img" src="assets/logos/linkedin.png" alt="LinkedIn"/>
+        </a>
+        <a href="tel:+917014839225" aria-label="Call Ankur">
+          <svg viewBox="0 0 24 24" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8 19.79 19.79 0 01.08 1.18 2 2 0 012 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 14.92z"/></svg>
+          +91 70148 39225
+        </a>
+      </div>
       <!-- Mobile: LinkedIn + Phone icons + hamburger — grouped right -->
       <div style="display:flex;align-items:center;gap:8px">
         <div class="nav-mobile-icons">
-          <a class="nav-mobile-icon-btn" style="border:none;padding:0;overflow:hidden;background:transparent;width:32px;height:32px;border-radius:8px" href="https://www.linkedin.com/in/ankurratwaya/" target="_blank" rel="noopener" aria-label="LinkedIn">
-            <img src="assets/logos/linkedin.png" alt="LinkedIn" style="width:100%;height:100%;object-fit:cover;display:block;border-radius:8px"/>
+          <a class="nav-mobile-icon-btn" style="border:none;padding:0;overflow:hidden;background:transparent;width:26px;height:26px;border-radius:6px" href="https://www.linkedin.com/in/ankurratwaya/" target="_blank" rel="noopener" aria-label="LinkedIn">
+            <img src="assets/logos/linkedin.png" alt="LinkedIn" style="width:100%;height:100%;object-fit:cover;display:block;border-radius:6px"/>
           </a>
           <a class="nav-mobile-icon-btn" href="tel:+917014839225" aria-label="Call Ankur">
             <svg viewBox="0 0 24 24" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8 19.79 19.79 0 01.08 1.18 2 2 0 012 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 14.92z"/></svg>
@@ -962,33 +988,42 @@
   <section class="certs-section" id="certs">
     <div class="container">
       <div class="certs-inner reveal">
-        <div class="certs-title">Certifications</div>
-        <div class="certs-row">
-          <!-- TO EDIT: replace YOUR_CERT_LINK_HERE with actual URLs -->
-          <a class="cert-card" href="https://drive.google.com/file/d/1U7ylupVH1j9ISzUREEnn2OF7a09dEDZl/view" target="_blank" rel="noopener">
+        <div class="certs-header">
+          <div class="certs-title">Certifications</div>
+          <div class="certs-filters">
+            <button class="cert-filter active" onclick="filterCerts('all')">All</button>
+            <button class="cert-filter" onclick="filterCerts('Product School')">Product School</button>
+            <button class="cert-filter" onclick="filterCerts('Pendo')">Pendo</button>
+            <button class="cert-filter" onclick="filterCerts('Coursera')">Coursera</button>
+          </div>
+        </div>
+        <div class="certs-grid">
+          <!-- TO EDIT: update href with actual cert URLs, data-org must match filter pill exactly -->
+          <a class="cert-card" href="https://drive.google.com/file/d/1U7ylupVH1j9ISzUREEnn2OF7a09dEDZl/view" target="_blank" rel="noopener" data-org="Product School">
             <img class="cert-logo-img" src="assets/logos/product-school.png" alt="Product School"/>
             <div><div class="cert-info-org">Product School</div><div class="cert-info-name">Product Roadmapping Micro-Certification (PRC)™️</div><span class="cert-badge">Verified ✓</span></div>
           </a>
-          <a class="cert-card" href="https://drive.google.com/file/d/1TSwsJ67VdJ53BtIma2As-I4bXkZv6Ltb/view" target="_blank" rel="noopener">
+          <a class="cert-card" href="https://drive.google.com/file/d/1TSwsJ67VdJ53BtIma2As-I4bXkZv6Ltb/view" target="_blank" rel="noopener" data-org="Product School">
             <img class="cert-logo-img" src="assets/logos/product-school.png" alt="Product School"/>
             <div><div class="cert-info-org">Product School</div><div class="cert-info-name">Product-Led Growth Micro-Certification (PLGC)™️</div><span class="cert-badge">Verified ✓</span></div>
           </a>
-          <a class="cert-card" href="YOUR_CERT_LINK_HERE" target="_blank" rel="noopener">
+          <a class="cert-card" href="YOUR_CERT_LINK_HERE" target="_blank" rel="noopener" data-org="Product School">
             <img class="cert-logo-img" src="assets/logos/product-school.png" alt="Product School"/>
             <div><div class="cert-info-org">Product School</div><div class="cert-info-name">Product Discovery Micro-Certification (PDC)™️</div><span class="cert-badge">Verified ✓</span></div>
           </a>
-          <a class="cert-card" href="https://drive.google.com/file/d/1XN_DmjrDjikqbkgW-fuVIUDUNc_DIVhj/view" target="_blank" rel="noopener">
+          <a class="cert-card" href="https://drive.google.com/file/d/1XN_DmjrDjikqbkgW-fuVIUDUNc_DIVhj/view" target="_blank" rel="noopener" data-org="Product School">
             <img class="cert-logo-img" src="assets/logos/product-school.png" alt="Product School"/>
             <div><div class="cert-info-org">Product School</div><div class="cert-info-name">Artificial Intelligence Micro-Certification (AIC)™️</div><span class="cert-badge">Verified ✓</span></div>
           </a>
-          <a class="cert-card" href="https://www.credly.com/badges/bd6d5b62-3fa2-4a0e-ac70-2d8ac1af7db8/public_url" target="_blank" rel="noopener">
+          <a class="cert-card" href="https://www.credly.com/badges/bd6d5b62-3fa2-4a0e-ac70-2d8ac1af7db8/public_url" target="_blank" rel="noopener" data-org="Pendo">
             <img class="cert-logo-img" src="assets/logos/pendo.png" alt="Pendo"/>
             <div><div class="cert-info-org">Pendo</div><div class="cert-info-name">Product-led Certified</div><span class="cert-badge">Verified ✓</span></div>
           </a>
-          <a class="cert-card" href="YOUR_CERT_LINK_HERE" target="_blank" rel="noopener">
+          <a class="cert-card" href="YOUR_CERT_LINK_HERE" target="_blank" rel="noopener" data-org="Pendo">
             <img class="cert-logo-img" src="assets/logos/pendo.png" alt="Pendo"/>
             <div><div class="cert-info-org">Pendo</div><div class="cert-info-name">Product Analytics Certification</div><span class="cert-badge">Verified ✓</span></div>
           </a>
+          <!-- TO EDIT: add new certs below — copy a cert-card block, update href, data-org, logo src, org name, cert name -->
         </div>
       </div>
     </div>
@@ -1167,6 +1202,17 @@
   </footer>
 
   <script>
+    // Cert filter
+    function filterCerts(org) {
+      document.querySelectorAll('.cert-filter').forEach(btn => {
+        btn.classList.toggle('active', btn.textContent.trim() === (org === 'all' ? 'All' : org));
+      });
+      document.querySelectorAll('.cert-card').forEach(card => {
+        const match = org === 'all' || card.dataset.org === org;
+        card.classList.toggle('hidden', !match);
+      });
+    }
+
     // Identity tab switcher
     function switchTab(tab) {
       ['product','tech'].forEach(t => {
