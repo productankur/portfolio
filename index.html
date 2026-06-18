@@ -56,10 +56,19 @@
     .nav-mobile-btn.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
     .nav-mobile-btn.open span:nth-child(2){opacity:0}
     .nav-mobile-btn.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
-    .nav-mobile-menu{display:none;flex-direction:column;padding:0 24px 16px;border-top:1px solid var(--border);background:rgba(249,248,245,0.97)}
+    .nav-mobile-icons{display:none;align-items:center;gap:8px}
+    .nav-mobile-icon-btn{width:32px;height:32px;border-radius:50%;border:1px solid var(--border-mid);background:transparent;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background 0.2s,border-color 0.2s;color:var(--text-2);text-decoration:none;flex-shrink:0}
+    .nav-mobile-icon-btn:hover{background:var(--surface);border-color:var(--text-3);color:var(--text-1)}
+    .nav-mobile-icon-btn svg{width:15px;height:15px;stroke:currentColor;fill:none;flex-shrink:0}
+    .nav-mobile-menu{display:none;flex-direction:column;padding:0 24px 0;border-top:1px solid var(--border);background:rgba(249,248,245,0.97)}
     .nav-mobile-menu.open{display:flex}
     .nav-mobile-menu a{padding:12px 0;font-size:15px;color:var(--text-2);border-bottom:1px solid var(--border)}
     .nav-mobile-menu a:last-child{border-bottom:none}
+    .nav-mobile-menu-footer{display:flex;gap:10px;padding:14px 0}
+    .nav-mobile-menu-footer .btn-cv{flex:1;display:flex;align-items:center;justify-content:center;gap:7px;background:var(--text-1);color:var(--white);padding:11px 0;border-radius:40px;font-size:13px;font-weight:500;text-decoration:none;transition:opacity 0.2s}
+    .nav-mobile-menu-footer .btn-cv:hover{opacity:0.85}
+    .nav-mobile-menu-footer .btn-gh{display:flex;align-items:center;justify-content:center;gap:7px;border:1px solid var(--border-mid);color:var(--text-2);padding:11px 18px;border-radius:40px;font-size:13px;text-decoration:none;transition:background 0.2s,border-color 0.2s}
+    .nav-mobile-menu-footer .btn-gh:hover{background:var(--surface);border-color:var(--text-3);color:var(--text-1)}
 
     /* HERO SECTION */
     .hero-section{padding:110px 0 72px;background:var(--white);border-bottom:1px solid var(--border)}
@@ -240,6 +249,7 @@
       .cs-carousel-wrap{display:block}
       .nav-links,.nav-cta{display:none}
       .nav-mobile-btn{display:flex}
+      .nav-mobile-icons{display:flex}
       .exp-timeline-h{display:none}
       .exp-timeline-v{display:flex}
       .footer-top-grid{grid-template-columns:1fr !important;gap:0 !important;width:100%}
@@ -347,9 +357,20 @@
         <li><a href="#experience">Experience</a></li>
       </ul>
       <a class="nav-cta" href="Gen_Ankur_Resume_2026.pdf" download>Download CV ↓</a>
-      <button class="nav-mobile-btn" id="mobileMenuBtn" aria-label="Toggle menu">
-        <span></span><span></span><span></span>
-      </button>
+      <!-- Mobile: LinkedIn + Phone icons + hamburger — grouped right -->
+      <div style="display:flex;align-items:center;gap:8px">
+        <div class="nav-mobile-icons">
+          <a class="nav-mobile-icon-btn" style="border:none;padding:0;overflow:hidden;background:transparent;width:32px;height:32px;border-radius:8px" href="https://www.linkedin.com/in/ankurratwaya/" target="_blank" rel="noopener" aria-label="LinkedIn">
+            <img src="assets/logos/linkedin.png" alt="LinkedIn" style="width:100%;height:100%;object-fit:cover;display:block;border-radius:8px"/>
+          </a>
+          <a class="nav-mobile-icon-btn" href="tel:+917014839225" aria-label="Call Ankur">
+            <svg viewBox="0 0 24 24" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8 19.79 19.79 0 01.08 1.18 2 2 0 012 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 14.92z"/></svg>
+          </a>
+        </div>
+        <button class="nav-mobile-btn" id="mobileMenuBtn" aria-label="Toggle menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
     </div>
     <div class="nav-mobile-menu" id="mobileMenu">
       <a href="#identity">Skills</a>
@@ -357,6 +378,16 @@
       <a href="#prod-projects">Product Projects</a>
       <a href="#certs">Certifications</a>
       <a href="#experience">Experience</a>
+      <div class="nav-mobile-menu-footer">
+        <a class="btn-cv" href="Gen_Ankur_Resume_2026.pdf" download>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Download CV
+        </a>
+        <a class="btn-gh" href="https://github.com/productankur" target="_blank" rel="noopener">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+          GitHub
+        </a>
+      </div>
     </div>
   </nav>
 
