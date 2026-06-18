@@ -68,7 +68,6 @@
     .nav-mobile-menu{display:none;flex-direction:column;padding:0 24px 0;border-top:1px solid var(--border);background:rgba(249,248,245,0.97)}
     .nav-mobile-menu.open{display:flex}
     .nav-mobile-menu a{padding:12px 0;font-size:15px;color:var(--text-2);border-bottom:1px solid var(--border)}
-    .nav-mobile-menu a:last-child{border-bottom:none}
     .nav-mobile-menu-footer{display:flex;gap:10px;padding:14px 0}
     .nav-mobile-menu-footer .btn-cv{flex:1;display:flex;align-items:center;justify-content:center;gap:7px;background:var(--text-1);color:var(--white);padding:11px 0;border-radius:40px;font-size:13px;font-weight:500;text-decoration:none;transition:opacity 0.2s}
     .nav-mobile-menu-footer .btn-cv:hover{opacity:0.85}
@@ -109,52 +108,39 @@
     /* IDENTITY SECTION */
     .identity-section{padding:72px 0;background:var(--off-white)}
     .identity-header{text-align:center;margin-bottom:40px}
-    /* Tab wrapper */
-    .identity-panel{background:var(--white);border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;max-width:860px;margin:0 auto}
-    .identity-tabs{display:flex}
-    .identity-tab{flex:1;padding:14px 0;text-align:center;font-family:var(--font-display);font-size:16px;font-weight:400;cursor:pointer;transition:background 0.2s,color 0.2s;border-bottom:1px solid var(--border);user-select:none}
-    .identity-tab.product{background:var(--off-white);color:var(--text-3)}
-    .identity-tab.product.active{background:var(--product);color:#fff}
-    .identity-tab.tech{background:var(--off-white);color:var(--text-3);border-left:1px solid var(--border)}
-    .identity-tab.tech.active{background:var(--tech);color:#fff}
-    /* Tab content */
-    .identity-pane{display:none;opacity:0;transition:opacity 0.2s ease;padding:20px}
-    .identity-pane.active{display:block}
-    .identity-pane.fade-in{opacity:1}
-    /* Skill rows */
-    .skill-row{background:var(--off-white);border-radius:var(--radius-md);padding:11px 14px;display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
-    .skill-name{font-size:13px;font-weight:500;color:var(--text-1)}
-    .skill-label{font-size:10px;color:var(--text-3);white-space:nowrap;margin-left:12px}
-    /* Journey block */
-    .journey-block{border:1px solid var(--border);border-radius:var(--radius-md);padding:14px;margin:16px 0}
-    .journey-label{font-family:var(--font-mono);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--text-3);margin-bottom:12px}
-    .journey-row{display:flex;align-items:stretch;gap:0}
-    .journey-node{flex:1;border:1px solid var(--border);border-radius:var(--radius-md);padding:10px 12px}
-    .journey-node.current-p{border-color:var(--product);background:var(--surface)}
-    .journey-node.current-t{border-color:var(--tech-mid);background:var(--tech-light)}
-    .journey-node-title{font-size:12px;font-weight:500;color:var(--text-1)}
-    .journey-node.current-t .journey-node-title{color:var(--tech)}
-    .journey-node.current-p .journey-node-title{color:var(--product)}
-    .journey-node-sub{font-size:10px;color:var(--text-3);margin-top:2px}
-    .journey-node-desc{font-size:10px;color:var(--text-2);margin-top:5px;line-height:1.5}
-    .journey-badge-p{display:inline-block;background:var(--product);color:#fff;font-size:9px;border-radius:20px;padding:2px 8px;margin-top:5px}
-    .journey-badge-t{display:inline-block;background:var(--tech-mid);color:#fff;font-size:9px;border-radius:20px;padding:2px 8px;margin-top:5px}
-    .journey-arrow{display:flex;align-items:center;padding:0 8px;color:var(--text-3);font-size:14px;flex-shrink:0}
-    /* Mobile journey vertical */
-    .journey-row-v{display:none;flex-direction:column;gap:0}
-    .journey-arrow-v{text-align:center;font-size:14px;color:var(--text-3);padding:4px 0}
-    /* Tags + CTA */
-    .identity-tags{display:flex;flex-wrap:wrap;gap:6px;padding-top:14px;border-top:1px solid var(--border);margin-top:4px}
+    .identity-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+    .identity-col{border-radius:var(--radius-lg);overflow:hidden;border:1px solid var(--border);background:var(--white)}
+    .identity-head{padding:18px 22px;display:flex;justify-content:space-between;align-items:center}
+    .identity-head.product{background:var(--product)}
+    .identity-head.tech{background:var(--tech)}
+    .identity-head-title{font-family:var(--font-display);font-size:20px;font-weight:400;color:#fff}
+    .identity-head-sub{font-size:11px;color:rgba(255,255,255,0.4)}
+    .identity-skills{padding:16px;display:flex;flex-direction:column;gap:10px}
+    .skill-row{background:var(--off-white);border-radius:var(--radius-md);padding:12px 14px}
+    .skill-name{font-size:12px;font-weight:500;margin-bottom:7px}
+    .skill-bar{height:4px;border-radius:2px;background:var(--border);overflow:hidden}
+    .skill-fill-p{height:100%;border-radius:2px;background:var(--product)}
+    .skill-fill-t{height:100%;border-radius:2px;background:var(--tech-mid)}
+    .tech-journey{padding:14px 16px;border-top:1px solid var(--border)}
+    .tj-label{font-family:var(--font-mono);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--text-3);margin-bottom:12px}
+    .tj-row{display:flex;align-items:stretch}
+    .tj-node{flex:1}
+    .tj-card{border:1px solid var(--border);border-radius:var(--radius-md);padding:10px 12px;height:100%}
+    .tj-card.current{border-color:var(--tech-mid);background:var(--tech-light)}
+    .tj-card-title{font-size:12px;font-weight:500}
+    .tj-card.current .tj-card-title{color:var(--tech)}
+    .tj-card-years{font-size:10px;color:var(--text-3);margin-top:2px}
+    .tj-card-skills{font-size:10px;color:var(--text-2);margin-top:5px;line-height:1.5}
+    .tj-badge{display:inline-block;background:var(--tech-mid);color:#fff;font-size:9px;border-radius:20px;padding:2px 8px;margin-top:5px}
+    .tj-arrow{display:flex;align-items:center;padding:0 8px;color:var(--text-3);font-size:14px;flex-shrink:0}
+    .identity-tags{padding:12px 16px;display:flex;flex-wrap:wrap;gap:6px}
     .tag{border-radius:20px;padding:4px 11px;font-size:10px;font-weight:500}
     .tag-p{background:var(--prod-light);color:var(--prod-mid)}
     .tag-t{background:var(--tech-light);color:var(--tech-mid)}
-    .identity-cta{padding-top:12px;margin-top:12px;border-top:1px solid var(--border);text-align:right}
-    .identity-cta a{font-size:12px;font-weight:500;color:var(--text-1);transition:color 0.2s}
+    .identity-cta{padding:12px 16px;border-top:1px solid var(--border);text-align:center}
+    .identity-cta p{font-size:10px;color:var(--text-3);margin-bottom:3px}
+    .identity-cta a{font-size:12px;font-weight:500;color:var(--text-1)}
     .identity-cta a:hover{color:var(--tech-mid)}
-    @media(max-width:900px){
-      .journey-row{display:none}
-      .journey-row-v{display:flex}
-    }
 
     /* TECH PROJECTS SECTION */
     .projects-section{padding:72px 0;background:var(--white);border-top:1px solid var(--border)}
@@ -213,8 +199,8 @@
     .cs-card-thumb svg{width:24px;height:24px;stroke:var(--border-mid)}
     .cs-card-body{padding:16px 16px 14px;display:flex;flex-direction:column;flex:1}
     .cs-company-row{display:flex;align-items:center;gap:8px;margin-bottom:10px}
-    .cs-logo-wrap{width:28px;height:28px;border-radius:6px;background:var(--off-white);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shrink:0;padding:2px}
-    .cs-logo-wrap img{width:100%;height:100%;object-fit:contain;display:block}
+    .cs-logo-wrap{width:28px;height:28px;border-radius:6px;background:var(--off-white);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shrink:0}
+    .cs-logo-wrap img{width:22px;height:22px;object-fit:contain}
     .cs-logo-initials{font-family:var(--font-display);font-size:11px;font-weight:500;color:var(--text-2)}
     .cs-company-name{font-size:12px;font-weight:500;color:var(--text-1)}
     .cs-company-meta{font-size:10px;color:var(--text-3);margin-top:1px}
@@ -252,18 +238,16 @@
       .proj-carousel-wrap{display:block}
       .cs-grid{display:none}
       .cs-carousel-wrap{display:block}
-      .nav-links,.nav-cta{display:none}
+      .nav-links,.nav-cta,.nav-desktop-contact{display:none}
       .nav-mobile-btn{display:flex}
       .nav-mobile-icons{display:flex}
       .exp-timeline-h{display:none}
       .exp-timeline-v{display:flex}
-      .footer-top-grid{grid-template-columns:1fr !important;gap:0 !important;width:100%}
-      .footer-top-grid>div{grid-column:1 !important;width:100% !important;padding:20px 0;min-width:0}
+      .footer-top-grid{grid-template-columns:1fr;gap:0}
+      .footer-top-grid>div:first-child{grid-column:auto}
+      .footer-top-grid>div{padding:20px 0}
       .footer-top-grid>div:first-child{padding-top:0}
       .footer-top-grid>div:not(:first-child){border-top:1px solid rgba(255,255,255,0.08)}
-      .footer-contact-item{align-items:flex-start}
-      .footer-contact-item a,.footer-contact-item span{overflow-wrap:break-word;word-break:break-word;min-width:0;display:inline}
-      .footer-bottom-inner{flex-direction:column;align-items:flex-start;gap:10px}
       .footer-contact-item{align-items:flex-start}
       .footer-contact-item a, .footer-contact-item span{overflow-wrap:break-word;word-break:break-word;min-width:0}
       .footer-bottom-inner{flex-direction:column;align-items:flex-start;gap:10px}
@@ -271,33 +255,22 @@
     @media(max-width:580px){
       .hero-stats{gap:8px}
       .hero-stat{padding:8px 12px}
+      .certs-row{flex-direction:column;align-items:stretch}
+      .cert-card{min-width:unset}
     }
 
     /* CERTS SECTION */
     .certs-section{padding:64px 0;background:var(--white);border-top:1px solid var(--border)}
     .certs-inner{background:var(--off-white);border:1px solid var(--border);border-radius:var(--radius-lg);padding:32px}
-    .certs-header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:24px}
-    .certs-title{font-family:var(--font-display);font-size:22px;font-weight:400}
-    .certs-filters{display:flex;flex-wrap:wrap;gap:8px}
-    .cert-filter{font-size:11px;padding:5px 14px;border-radius:40px;border:1px solid var(--border-mid);background:transparent;color:var(--text-2);cursor:pointer;transition:background 0.2s,border-color 0.2s,color 0.2s;font-family:var(--font-body)}
-    .cert-filter:hover{background:var(--surface);border-color:var(--text-3)}
-    .cert-filter.active{background:var(--text-1);color:var(--white);border-color:var(--text-1)}
-    .certs-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-    .cert-card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius-md);padding:12px 14px;display:flex;align-items:center;gap:12px;transition:box-shadow 0.2s,transform 0.2s,border-color 0.2s;cursor:pointer;text-decoration:none;color:inherit}
-    .cert-card:hover{box-shadow:0 4px 18px rgba(0,0,0,0.08);transform:translateY(-2px);border-color:var(--border-mid)}
-    .cert-card.hidden{display:none}
+    .certs-title{font-family:var(--font-display);font-size:22px;font-weight:400;text-align:center;margin-bottom:24px}
+    .certs-row{display:flex;flex-wrap:wrap;gap:12px;justify-content:center}
+    .cert-card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius-md);padding:12px 16px;display:flex;align-items:center;gap:12px;min-width:210px;transition:box-shadow 0.2s,transform 0.2s;cursor:pointer}
+    .cert-card:hover{box-shadow:0 4px 18px rgba(0,0,0,0.08);transform:translateY(-2px)}
     .cert-logo-img{width:36px;height:36px;border-radius:8px;object-fit:contain;flex-shrink:0;background:var(--off-white);padding:3px;border:1px solid var(--border)}
     .cert-info-org{font-size:10px;color:var(--text-3)}
     .cert-info-name{font-size:11px;font-weight:500;color:var(--text-1);transition:color 0.2s;line-height:1.4;margin-top:1px}
     .cert-card:hover .cert-info-name{color:var(--tech-mid)}
     .cert-badge{background:var(--tech-light);color:var(--tech-mid);font-size:9px;border-radius:20px;padding:2px 8px;margin-top:4px;display:inline-block;font-weight:500}
-    @media(max-width:900px){
-      .certs-grid{grid-template-columns:repeat(2,1fr)}
-      .certs-header{flex-direction:column;align-items:flex-start}
-    }
-    @media(max-width:480px){
-      .certs-grid{grid-template-columns:1fr}
-    }
 
     /* EXPERIENCE SECTION */
     .experience-section{padding:80px 0;background:var(--off-white);border-top:1px solid var(--border)}
@@ -324,8 +297,9 @@
     .exp-v-item:hover .exp-v-card{box-shadow:0 4px 18px rgba(0,0,0,0.06);border-color:var(--border-mid)}
     .exp-v-item.current-role .exp-v-card{border-color:var(--tech-mid)}
     .exp-v-top{display:flex;gap:12px;align-items:flex-start}
-    .exp-v-logo-wrap{width:36px;height:36px;border-radius:8px;background:var(--off-white);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shrink:0;padding:3px}
-    .exp-v-logo-img{width:100%;height:100%;object-fit:contain;display:block}
+    .exp-v-logo-wrap{width:36px;height:36px;border-radius:var(--radius-md);background:var(--off-white);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shrink:0}
+    .exp-v-logo-img{width:24px;height:24px;object-fit:contain}
+    .exp-v-initials{font-family:var(--font-display);font-size:12px;font-weight:500;color:var(--text-2);display:none}
     .exp-v-info{flex:1;min-width:0}
     .exp-v-company{font-size:14px;font-weight:500;color:var(--text-1);overflow-wrap:break-word}
     .exp-v-role{font-size:12px;color:var(--text-2);margin-top:2px;overflow-wrap:break-word}
@@ -372,8 +346,7 @@
         <li><a href="#certs">Certifications</a></li>
         <li><a href="#experience">Experience</a></li>
       </ul>
-      <a class="nav-cta" href="Gen_Ankur_Resume_2026.pdf" download>Download CV ↓</a>
-      <!-- Desktop: LinkedIn + Phone -->
+      <!-- Desktop: LinkedIn + Phone + Resume -->
       <div class="nav-desktop-contact">
         <a href="https://www.linkedin.com/in/ankurratwaya/" target="_blank" rel="noopener" aria-label="LinkedIn">
           <img class="nav-li-img" src="assets/logos/linkedin.png" alt="LinkedIn"/>
@@ -382,8 +355,12 @@
           <svg viewBox="0 0 24 24" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8 19.79 19.79 0 01.08 1.18 2 2 0 012 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 14.92z"/></svg>
           +91 70148 39225
         </a>
+        <a class="nav-cta" href="Gen_Ankur_Resume_2026.pdf" download style="display:inline-flex;align-items:center;gap:6px">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Resume
+      </a>
       </div>
-      <!-- Mobile: LinkedIn + Phone icons + hamburger — grouped right -->
+      <!-- Mobile: LinkedIn + Phone + Hamburger -->
       <div style="display:flex;align-items:center;gap:8px">
         <div class="nav-mobile-icons">
           <a class="nav-mobile-icon-btn" style="border:none;padding:0;overflow:hidden;background:transparent;width:26px;height:26px;border-radius:6px" href="https://www.linkedin.com/in/ankurratwaya/" target="_blank" rel="noopener" aria-label="LinkedIn">
@@ -407,7 +384,7 @@
       <div class="nav-mobile-menu-footer">
         <a class="btn-cv" href="Gen_Ankur_Resume_2026.pdf" download>
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-          Download CV
+          Resume
         </a>
         <a class="btn-gh" href="https://github.com/productankur" target="_blank" rel="noopener">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
@@ -476,101 +453,42 @@
         <p class="section-label">What I bring</p>
         <h2 class="section-title">Two superpowers. One professional.</h2>
       </div>
-      <div class="identity-panel reveal">
-        <!-- Tabs -->
-        <div class="identity-tabs">
-          <div class="identity-tab product active" onclick="switchTab('product')">Product</div>
-          <div class="identity-tab tech" onclick="switchTab('tech')">Technology</div>
-        </div>
-
-        <!-- PRODUCT PANE -->
-        <div class="identity-pane active fade-in" id="pane-product">
-          <div class="skill-row"><span class="skill-name">Strategy & Roadmapping</span><span class="skill-label">Expert</span></div>
-          <div class="skill-row"><span class="skill-name">Growth & Monetisation</span><span class="skill-label">Expert</span></div>
-          <div class="skill-row"><span class="skill-name">User Research & Design Thinking</span><span class="skill-label">Expert</span></div>
-          <div class="skill-row" style="margin-bottom:0"><span class="skill-name">GTM & Stakeholder Management</span><span class="skill-label">Expert</span></div>
-
-          <div class="journey-block">
-            <div class="journey-label">My Product Story</div>
-            <!-- Desktop horizontal -->
-            <div class="journey-row">
-              <div class="journey-node">
-                <div class="journey-node-title">Startup · EdTech</div>
-                <div class="journey-node-desc">PM &<br>Engineering</div>
-              </div>
-              <div class="journey-arrow">→</div>
-              <div class="journey-node">
-                <div class="journey-node-title">Media House</div>
-                <div class="journey-node-desc">Product<br>Manager II</div>
-              </div>
-              <div class="journey-arrow">→</div>
-              <div class="journey-node">
-                <div class="journey-node-title">Global Publisher</div>
-                <div class="journey-node-desc">Assessment &<br>Partnerships</div>
-              </div>
-              <div class="journey-arrow">→</div>
-              <div class="journey-node current-p">
-                <div class="journey-node-title">FinTech</div>
-                <div class="journey-node-desc">Product Lead</div>
-                <span class="journey-badge-p">● Current</span>
-              </div>
-            </div>
-            <!-- Mobile vertical -->
-            <div class="journey-row-v">
-              <div class="journey-node" style="display:flex;justify-content:space-between;align-items:center"><span class="journey-node-title">Startup · EdTech</span><span style="font-size:10px;color:var(--text-2)">PM & Engineering</span></div>
-              <div class="journey-arrow-v">↓</div>
-              <div class="journey-node" style="display:flex;justify-content:space-between;align-items:center"><span class="journey-node-title">Media House</span><span style="font-size:10px;color:var(--text-2)">Product Manager II</span></div>
-              <div class="journey-arrow-v">↓</div>
-              <div class="journey-node" style="display:flex;justify-content:space-between;align-items:center"><span class="journey-node-title">Global Publisher</span><span style="font-size:10px;color:var(--text-2)">Sr. PM</span></div>
-              <div class="journey-arrow-v">↓</div>
-              <div class="journey-node current-p" style="display:flex;justify-content:space-between;align-items:center"><span class="journey-node-title">FinTech</span><span class="journey-badge-p" style="font-size:8px">● Current</span></div>
-            </div>
+      <div class="identity-grid reveal">
+        <div class="identity-col">
+          <div class="identity-head product"><span class="identity-head-title">Product</span><span class="identity-head-sub">10+ yrs</span></div>
+          <div class="identity-skills">
+            <div class="skill-row"><div class="skill-name">Strategy & Roadmapping</div><div class="skill-bar"><div class="skill-fill-p" style="width:92%"></div></div></div>
+            <div class="skill-row"><div class="skill-name">Growth & Monetisation</div><div class="skill-bar"><div class="skill-fill-p" style="width:85%"></div></div></div>
+            <div class="skill-row"><div class="skill-name">User Research & Design Thinking</div><div class="skill-bar"><div class="skill-fill-p" style="width:88%"></div></div></div>
+            <div class="skill-row"><div class="skill-name">GTM & Stakeholder Management</div><div class="skill-bar"><div class="skill-fill-p" style="width:80%"></div></div></div>
           </div>
-
           <div class="identity-tags">
             <span class="tag tag-p">OKRs</span><span class="tag tag-p">Figma</span><span class="tag tag-p">A/B Testing</span>
             <span class="tag tag-p">Pendo</span><span class="tag tag-p">MoEngage</span><span class="tag tag-p">Jira</span><span class="tag tag-p">Scrum</span>
           </div>
-          <div class="identity-cta"><a href="#certs">See Certifications →</a></div>
+          <div class="identity-cta"><p>4× Product School · 2× Pendo certified</p><a href="#certs">See Certifications →</a></div>
         </div>
-
-        <!-- TECHNOLOGY PANE -->
-        <div class="identity-pane" id="pane-tech">
-          <div class="skill-row"><span class="skill-name">AI / ML Engineering</span><span class="skill-label">Advanced</span></div>
-          <div class="skill-row"><span class="skill-name">Data Science & Analytics</span><span class="skill-label">Advanced</span></div>
-          <div class="skill-row"><span class="skill-name">LLM Orchestration & Agents</span><span class="skill-label">Advanced</span></div>
-          <div class="skill-row" style="margin-bottom:0"><span class="skill-name">Web Development (PHP · Laravel · AWS)</span><span class="skill-label">Expert</span></div>
-
-          <div class="journey-block">
-            <div class="journey-label">Tech Journey</div>
-            <!-- Desktop horizontal -->
-            <div class="journey-row">
-              <div class="journey-node">
-                <div class="journey-node-title">Web Dev</div>
-                <div class="journey-node-sub">5 years</div>
-                <div class="journey-node-desc">PHP · Laravel<br>MySQL · AWS · JS</div>
-              </div>
-              <div class="journey-arrow">→</div>
-              <div class="journey-node current-t">
-                <div class="journey-node-title">AI / ML</div>
-                <div class="journey-node-sub">3 years · now</div>
-                <div class="journey-node-desc">Python · Scikit-learn<br>CrewAI · LiteLLM</div>
-                <span class="journey-badge-t">Current focus</span>
-              </div>
-            </div>
-            <!-- Mobile vertical -->
-            <div class="journey-row-v">
-              <div class="journey-node" style="display:flex;justify-content:space-between;align-items:center"><span class="journey-node-title">Web Dev</span><span style="font-size:10px;color:var(--text-2)">PHP · Laravel · 5 yrs</span></div>
-              <div class="journey-arrow-v">↓</div>
-              <div class="journey-node current-t" style="display:flex;justify-content:space-between;align-items:center"><span class="journey-node-title">AI / ML</span><span class="journey-badge-t" style="font-size:8px">Current</span></div>
+        <div class="identity-col">
+          <div class="identity-head tech"><span class="identity-head-title">Technology</span><span class="identity-head-sub">8 yrs total</span></div>
+          <div class="identity-skills">
+            <div class="skill-row"><div class="skill-name">AI / ML Engineering</div><div class="skill-bar"><div class="skill-fill-t" style="width:78%"></div></div></div>
+            <div class="skill-row"><div class="skill-name">Data Science & Analytics</div><div class="skill-bar"><div class="skill-fill-t" style="width:82%"></div></div></div>
+            <div class="skill-row"><div class="skill-name">LLM Orchestration & Agents</div><div class="skill-bar"><div class="skill-fill-t" style="width:70%"></div></div></div>
+            <div class="skill-row"><div class="skill-name">Web Development (PHP · Laravel · AWS)</div><div class="skill-bar"><div class="skill-fill-t" style="width:75%"></div></div></div>
+          </div>
+          <div class="tech-journey">
+            <div class="tj-label">Tech journey</div>
+            <div class="tj-row">
+              <div class="tj-node"><div class="tj-card"><div class="tj-card-title">Web Dev</div><div class="tj-card-years">5 years</div><div class="tj-card-skills">PHP · Laravel<br>MySQL · AWS · JS</div></div></div>
+              <div class="tj-arrow">→</div>
+              <div class="tj-node"><div class="tj-card current"><div class="tj-card-title">AI / ML</div><div class="tj-card-years">3 years · now</div><div class="tj-card-skills">Python · Scikit-learn<br>CrewAI · LiteLLM</div><span class="tj-badge">Current focus</span></div></div>
             </div>
           </div>
-
           <div class="identity-tags">
             <span class="tag tag-t">Python</span><span class="tag tag-t">Scikit-learn</span><span class="tag tag-t">XGBoost</span>
             <span class="tag tag-t">CrewAI</span><span class="tag tag-t">LiteLLM</span><span class="tag tag-t">Groq</span><span class="tag tag-t">Streamlit</span>
           </div>
-          <div class="identity-cta"><a href="#tech-projects">See Tech Projects →</a></div>
+          <div class="identity-cta"><p>ML certified · 3 shipped AI/ML projects</p><a href="#tech-projects">See Tech Projects →</a></div>
         </div>
       </div>
     </div>
@@ -756,7 +674,8 @@
           </div>
           <div class="cs-card-body">
             <div class="cs-company-row">
-               <div class="cs-logo-wrap"><img src="assets/logos/unacademy_logo.png" alt="Unacademy" style="width:100%;height:100%;object-fit:contain;display:block"/></div>
+               <!-- <img src="assets/logos/unacademy_logo.png" alt="Unacademy"/> -->
+               <div class="cs-logo-wrap"><span class="cs-logo-initials">UN</span></div>
               <div>
                 <p class="cs-company-name">Unacademy</p>
                 <p class="cs-company-meta">EdTech · Assignment · Dec 2021</p>
@@ -790,7 +709,8 @@
           </div>
           <div class="cs-card-body">
             <div class="cs-company-row">
-              <div class="cs-logo-wrap"><img src="assets/logos/jove_logo.png" alt="JoVE" style="width:100%;height:100%;object-fit:contain;display:block"/></div>
+              <!-- <img src="assets/logos/jove_logo.png" alt="JoVE"/> -->
+              <div class="cs-logo-wrap"><span class="cs-logo-initials">JV</span></div>
               <div>
                 <p class="cs-company-name">JoVE</p>
                 <p class="cs-company-meta">BioPharma · SaaS · 2024</p>
@@ -935,8 +855,8 @@
           <a class="cs-card" href="final_unacademy-case-study.html" target="_blank">
             <div class="cs-card-body">
               <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
-                <div class="cs-logo-wrap" style="width:36px;height:36px;border-radius:8px;flex-shrink:0;padding:3px">
-                  <img src="assets/logos/unacademy_logo.png" alt="Unacademy" style="width:100%;height:100%;object-fit:contain;display:block"/>
+                <div class="cs-logo-wrap" style="width:40px;height:40px;border-radius:var(--radius-md);flex-shrink:0">
+                  <span class="cs-logo-initials">UN</span>
                 </div>
                 <div>
                   <p class="cs-company-meta">Unacademy · EdTech · 2021</p>
@@ -955,8 +875,8 @@
           <a class="cs-card" href="final-jove-case-study.html" target="_blank">
             <div class="cs-card-body">
               <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
-                <div class="cs-logo-wrap" style="width:36px;height:36px;border-radius:8px;flex-shrink:0;padding:3px">
-                  <img src="assets/logos/jove_logo.png" alt="JoVE" style="width:100%;height:100%;object-fit:contain;display:block"/>
+                <div class="cs-logo-wrap" style="width:40px;height:40px;border-radius:var(--radius-md);flex-shrink:0">
+                  <span class="cs-logo-initials">JV</span>
                 </div>
                 <div>
                   <p class="cs-company-meta">JoVE · BioPharma · 2024</p>
@@ -988,42 +908,33 @@
   <section class="certs-section" id="certs">
     <div class="container">
       <div class="certs-inner reveal">
-        <div class="certs-header">
-          <div class="certs-title">Certifications</div>
-          <div class="certs-filters">
-            <button class="cert-filter active" onclick="filterCerts('all')">All</button>
-            <button class="cert-filter" onclick="filterCerts('Product School')">Product School</button>
-            <button class="cert-filter" onclick="filterCerts('Pendo')">Pendo</button>
-            <button class="cert-filter" onclick="filterCerts('Coursera')">Coursera</button>
-          </div>
-        </div>
-        <div class="certs-grid">
-          <!-- TO EDIT: update href with actual cert URLs, data-org must match filter pill exactly -->
-          <a class="cert-card" href="https://drive.google.com/file/d/1U7ylupVH1j9ISzUREEnn2OF7a09dEDZl/view" target="_blank" rel="noopener" data-org="Product School">
+        <div class="certs-title">Certifications</div>
+        <div class="certs-row">
+          <!-- TO EDIT: replace YOUR_CERT_LINK_HERE with actual URLs -->
+          <a class="cert-card" href="https://drive.google.com/file/d/1U7ylupVH1j9ISzUREEnn2OF7a09dEDZl/view" target="_blank" rel="noopener">
             <img class="cert-logo-img" src="assets/logos/product-school.png" alt="Product School"/>
             <div><div class="cert-info-org">Product School</div><div class="cert-info-name">Product Roadmapping Micro-Certification (PRC)™️</div><span class="cert-badge">Verified ✓</span></div>
           </a>
-          <a class="cert-card" href="https://drive.google.com/file/d/1TSwsJ67VdJ53BtIma2As-I4bXkZv6Ltb/view" target="_blank" rel="noopener" data-org="Product School">
+          <a class="cert-card" href="https://drive.google.com/file/d/1TSwsJ67VdJ53BtIma2As-I4bXkZv6Ltb/view" target="_blank" rel="noopener">
             <img class="cert-logo-img" src="assets/logos/product-school.png" alt="Product School"/>
             <div><div class="cert-info-org">Product School</div><div class="cert-info-name">Product-Led Growth Micro-Certification (PLGC)™️</div><span class="cert-badge">Verified ✓</span></div>
           </a>
-          <a class="cert-card" href="YOUR_CERT_LINK_HERE" target="_blank" rel="noopener" data-org="Product School">
+          <a class="cert-card" href="YOUR_CERT_LINK_HERE" target="_blank" rel="noopener">
             <img class="cert-logo-img" src="assets/logos/product-school.png" alt="Product School"/>
             <div><div class="cert-info-org">Product School</div><div class="cert-info-name">Product Discovery Micro-Certification (PDC)™️</div><span class="cert-badge">Verified ✓</span></div>
           </a>
-          <a class="cert-card" href="https://drive.google.com/file/d/1XN_DmjrDjikqbkgW-fuVIUDUNc_DIVhj/view" target="_blank" rel="noopener" data-org="Product School">
+          <a class="cert-card" href="https://drive.google.com/file/d/1XN_DmjrDjikqbkgW-fuVIUDUNc_DIVhj/view" target="_blank" rel="noopener">
             <img class="cert-logo-img" src="assets/logos/product-school.png" alt="Product School"/>
             <div><div class="cert-info-org">Product School</div><div class="cert-info-name">Artificial Intelligence Micro-Certification (AIC)™️</div><span class="cert-badge">Verified ✓</span></div>
           </a>
-          <a class="cert-card" href="https://www.credly.com/badges/bd6d5b62-3fa2-4a0e-ac70-2d8ac1af7db8/public_url" target="_blank" rel="noopener" data-org="Pendo">
+          <a class="cert-card" href="https://www.credly.com/badges/bd6d5b62-3fa2-4a0e-ac70-2d8ac1af7db8/public_url" target="_blank" rel="noopener">
             <img class="cert-logo-img" src="assets/logos/pendo.png" alt="Pendo"/>
             <div><div class="cert-info-org">Pendo</div><div class="cert-info-name">Product-led Certified</div><span class="cert-badge">Verified ✓</span></div>
           </a>
-          <a class="cert-card" href="YOUR_CERT_LINK_HERE" target="_blank" rel="noopener" data-org="Pendo">
+          <a class="cert-card" href="YOUR_CERT_LINK_HERE" target="_blank" rel="noopener">
             <img class="cert-logo-img" src="assets/logos/pendo.png" alt="Pendo"/>
             <div><div class="cert-info-org">Pendo</div><div class="cert-info-name">Product Analytics Certification</div><span class="cert-badge">Verified ✓</span></div>
           </a>
-          <!-- TO EDIT: add new certs below — copy a cert-card block, update href, data-org, logo src, org name, cert name -->
         </div>
       </div>
     </div>
@@ -1095,7 +1006,7 @@
         <div class="exp-v-item current-role" onclick="window.open('company-swadhaar.html','_self')">
           <div class="exp-v-card">
             <div class="exp-v-top">
-              <div class="exp-v-logo-wrap"><img class="exp-v-logo-img" src="assets/logos/company-swadhaar.jpg" alt="Swadhaar Finaccess"/></div>
+              <div class="exp-v-logo-wrap"><img class="exp-v-logo-img" src="assets/logos/company-swadhaar.png" alt="SF" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/><span class="exp-v-initials">SF</span></div>
               <div class="exp-v-info"><div class="exp-v-company">Swadhaar Finaccess</div><div class="exp-v-role">Product Lead</div></div>
             </div>
             <div class="exp-v-bottom"><span class="exp-current-badge" style="font-size:10px;padding:3px 9px">● Current</span><span class="exp-v-arrow">→</span></div>
@@ -1104,7 +1015,7 @@
         <div class="exp-v-item" onclick="window.open('company-cambridge.html','_self')">
           <div class="exp-v-card">
             <div class="exp-v-top">
-              <div class="exp-v-logo-wrap"><img class="exp-v-logo-img" src="assets/logos/company-cambridge.jpg" alt="Cambridge University Press"/></div>
+              <div class="exp-v-logo-wrap"><img class="exp-v-logo-img" src="assets/logos/company-cambridge.png" alt="CU" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/><span class="exp-v-initials">CU</span></div>
               <div class="exp-v-info"><div class="exp-v-company">Cambridge Univ. Press</div><div class="exp-v-role">Senior Product Manager</div></div>
             </div>
             <div class="exp-v-bottom"><span class="exp-v-date">Dec 2022 – Jul 2024</span><span class="exp-v-arrow">→</span></div>
@@ -1113,7 +1024,7 @@
         <div class="exp-v-item" onclick="window.open('company-bada.html','_self')">
           <div class="exp-v-card">
             <div class="exp-v-top">
-              <div class="exp-v-logo-wrap"><img class="exp-v-logo-img" src="assets/logos/company-bada.jpg" alt="Bada Business"/></div>
+              <div class="exp-v-logo-wrap"><img class="exp-v-logo-img" src="assets/logos/company-bada.png" alt="BB" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/><span class="exp-v-initials">BB</span></div>
               <div class="exp-v-info"><div class="exp-v-company">Bada Business</div><div class="exp-v-role">Product Manager II</div></div>
             </div>
             <div class="exp-v-bottom"><span class="exp-v-date">Jul 2021 – Nov 2022</span><span class="exp-v-arrow">→</span></div>
@@ -1122,7 +1033,7 @@
         <div class="exp-v-item" onclick="window.open('company-thinkvault.html','_self')">
           <div class="exp-v-card">
             <div class="exp-v-top">
-              <div class="exp-v-logo-wrap"><img class="exp-v-logo-img" src="assets/logos/company-thinkvault.jpg" alt="ThinkVault"/></div>
+              <div class="exp-v-logo-wrap"><img class="exp-v-logo-img" src="assets/logos/company-thinkvault.png" alt="TV" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/><span class="exp-v-initials">TV</span></div>
               <div class="exp-v-info"><div class="exp-v-company">ThinkVault</div><div class="exp-v-role">PM · Software Developer</div></div>
             </div>
             <div class="exp-v-bottom"><span class="exp-v-date">Oct 2014 – Jun 2021</span><span class="exp-v-arrow">→</span></div>
@@ -1202,57 +1113,6 @@
   </footer>
 
   <script>
-    // Cert filter
-    function filterCerts(org) {
-      document.querySelectorAll('.cert-filter').forEach(btn => {
-        btn.classList.toggle('active', btn.textContent.trim() === (org === 'all' ? 'All' : org));
-      });
-      document.querySelectorAll('.cert-card').forEach(card => {
-        const match = org === 'all' || card.dataset.org === org;
-        card.classList.toggle('hidden', !match);
-      });
-    }
-
-    // Identity tab switcher
-    function switchTab(tab) {
-      ['product','tech'].forEach(t => {
-        const pane = document.getElementById('pane-' + t);
-        const btn = document.querySelector('.identity-tab.' + t);
-        if (t === tab) {
-          btn.classList.add('active');
-          pane.classList.add('active');
-          pane.classList.remove('fade-in');
-          requestAnimationFrame(() => requestAnimationFrame(() => pane.classList.add('fade-in')));
-        } else {
-          btn.classList.remove('active');
-          pane.classList.remove('active','fade-in');
-        }
-      });
-    }
-
-    // Mobile layout JS fallback
-    function applyMobileLayout() {
-      const isMobile = window.innerWidth <= 900;
-      const timelineH = document.querySelector('.exp-timeline-h');
-      const timelineV = document.querySelector('.exp-timeline-v');
-      if (timelineH) timelineH.style.display = isMobile ? 'none' : '';
-      if (timelineV) { timelineV.style.display = isMobile ? 'flex' : ''; timelineV.style.flexDirection = isMobile ? 'column' : ''; timelineV.style.gap = isMobile ? '12px' : ''; }
-      const footerGrid = document.querySelector('.footer-top-grid');
-      if (footerGrid) { footerGrid.style.gridTemplateColumns = isMobile ? '1fr' : ''; footerGrid.style.gap = isMobile ? '0' : ''; }
-      footerGrid && footerGrid.querySelectorAll(':scope > div').forEach((div, i) => {
-        div.style.width = isMobile ? '100%' : '';
-        div.style.padding = isMobile ? (i === 0 ? '0 0 20px' : '20px 0') : '';
-        div.style.borderTop = isMobile && i > 0 ? '1px solid rgba(255,255,255,0.08)' : '';
-        div.style.minWidth = isMobile ? '0' : '';
-      });
-      const footerBottom = document.querySelector('.footer-bottom-inner');
-      if (footerBottom) { footerBottom.style.flexDirection = isMobile ? 'column' : ''; footerBottom.style.alignItems = isMobile ? 'flex-start' : ''; }
-      document.querySelectorAll('.footer-contact-item').forEach(el => { el.style.alignItems = isMobile ? 'flex-start' : ''; });
-      document.querySelectorAll('.footer-contact-item a').forEach(el => { el.style.overflowWrap = isMobile ? 'break-word' : ''; el.style.wordBreak = isMobile ? 'break-word' : ''; });
-    }
-    applyMobileLayout();
-    window.addEventListener('resize', applyMobileLayout, { passive: true });
-
     // Reveal on scroll
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((e, i) => {
